@@ -21,7 +21,7 @@ import threading
 import time
 import zlib
 
-VERSION = "2.8"   # höj vid varje ny version så att man ser vilken man kör
+VERSION = "2.9"   # höj vid varje ny version så att man ser vilken man kör
 UPPDATERA_URL = "https://raw.githubusercontent.com/quranzy2011-byte/cluade/main/fisch_app.py"
 GITHUB_API = "https://api.github.com"
 DIAG_REPO = "quranzy2011-byte/cluade-2"   # privat repo dit diagnostiken laddas upp
@@ -446,6 +446,7 @@ def läs_progress(bild, rb, bandhöjd, x0, x1, geo=None, väntad=None):
         return None
     if geo is not None:
         geo["ram"] = (int(topp + ya), int(vä + x0), int(hö + x0))
+        geo["botten"] = int(botten + ya)
     # Fyllningen: ljus körning från vänsterkanten, på raderna innanför ramen.
     fyllning = []
     for rad in lo[topp + 1:botten]:
@@ -456,6 +457,34 @@ def läs_progress(bild, rb, bandhöjd, x0, x1, geo=None, väntad=None):
             n = int(_körningar(xs, 8)[0][-1])
             if n >= total - 3 and len(xs) < 0.9 * total:
                 n = 0   # bara ramens högerkant, ingen fyllning
+        fyllning.append(n)
+    return min(1.0, float(np.median(fyllning)) / total)
+
+
+def läs_fyllning(bild, ram):
+    """Progress (0-1) i en känd ram (topp, botten, vänster, höger), eller None
+    om ramen inte syns där längre. Robust mot annat ljust bredvid ramen."""
+    import numpy as np
+    topp, botten, vä, hö = ram
+    H, W = bild.shape[:2]
+    if not (0 <= topp < botten < H and 0 <= vä < hö < W) or botten - topp < 3:
+        return None
+    lo = _lo_hi(bild[topp:botten + 1, vä:hö + 1])[0]
+    total = hö - vä
+    # Ramen ska finnas kvar: övre och nedre kanten mest ljusa, sidorna ljusa.
+    kant = (lo[0:2] >= 100).mean(axis=1).max() >= 0.45 and \
+        (lo[-2:] >= 100).mean(axis=1).max() >= 0.45
+    sidor = min((lo[1:-1, :3] >= 100).any(axis=1).mean(), (lo[1:-1, -3:] >= 100).any(axis=1).mean())
+    if not kant or sidor < 0.7:
+        return None
+    fyllning = []
+    for rad in lo[1:-1]:
+        xs = np.flatnonzero(rad >= 140)
+        n = 0
+        if len(xs) and xs[0] <= 3:
+            n = int(_körningar(xs, 8)[0][-1])
+            if n >= total - 3 and len(xs) < 0.9 * total:
+                n = 0
         fyllning.append(n)
     return min(1.0, float(np.median(fyllning)) / total)
 
@@ -589,6 +618,7 @@ class Utfall:
         self.låga = 0
         self.mörk_start = None
         self.hög_i_mörkt = False
+        self.fall_från = None   # progress precis före ett plötsligt fall till ~0
 
     def bild(self, nu, läge, prog):
         """Anropas för varje bild. Returnerar 'fångad' när kampen är vunnen."""
@@ -598,6 +628,14 @@ class Utfall:
             del self.prog[:-60]
             if prog >= 0.97 and förra is not None and förra >= 0.9:
                 self.nära = nu
+            # Från en bit upp till ~0 på en bild: nollställning (fångst), inte tömning.
+            if prog <= 0.03:
+                # Högsta värdet strax innan (en mellanbild kan fångas mitt i fallet).
+                strax = [p for t, p in self.prog[:-1] if nu - t <= 0.3]
+                if strax and max(strax) >= 0.3 and self.fall_från is None:
+                    self.fall_från = max(strax)
+            elif prog > 0.1:
+                self.fall_från = None
             nyss = self.nära is not None and nu - self.nära < 1.0
             self.låga = self.låga + 1 if nyss and prog <= 0.1 else 0
             if self.låga >= 2:
@@ -623,6 +661,8 @@ class Utfall:
             return "fångad"
         if orsak == "timeout":
             return "fångad" if self.efter_full() and not self.hög_i_mörkt else "tappad"
+        if self.fall_från is not None:
+            return "fångad"     # Piercing m.m.: progressen nollställdes på en gång
         senaste = [p for t, p in self.prog if nu - t < 2.0][-5:]
         if len(senaste) >= 3:
             return "tappad" if sorted(senaste)[len(senaste) // 2] <= 0.06 else "fångad"
@@ -642,6 +682,8 @@ class Syn:
         self.bar_mitt = None    # senaste barens mitt
         self.full_prog = 0      # längsta progress som setts (= full bar)
         self.ram = None         # progressbarens ram (y, vänster, höger), lärs in
+        self.ram4 = None        # (topp, botten, vänster, höger) när den setts två gånger lika
+        self.ram_kand = None
 
     def ny_reel(self):
         self.spann = None
@@ -679,10 +721,17 @@ class Syn:
                 self.spann = hitta_spann(remsa, b0 - x0, b1 - x0, self.gräns or 60)
             if fisk is not None:
                 self.fisk = fisk
-            geo = {}
-            prog = läs_progress(bild, rb, rb - ra, x0, x1, geo=geo)
-            if "ram" in geo:
-                self.ram = geo["ram"]
+            prog = läs_fyllning(bild, self.ram4) if self.ram4 else None
+            if prog is None:
+                geo = {}
+                prog = läs_progress(bild, rb, rb - ra, x0, x1, geo=geo)
+                if "ram" in geo:
+                    self.ram = geo["ram"]
+                    kand = (geo["ram"][0], geo["botten"], geo["ram"][1], geo["ram"][2])
+                    # Samma ram två gånger i rad = den riktiga (inte en tillfällig felträff).
+                    if self.ram_kand and all(abs(a - b) <= 3 for a, b in zip(kand, self.ram_kand)):
+                        self.ram4 = kand
+                    self.ram_kand = kand
             return ("vit", b0, b1, fisk, prog)
 
         if not (self.aktiv and self.band):
@@ -723,7 +772,8 @@ class Syn:
 
         # Finns minispelet kvar? Spåret (utom baren) ska vara mörkt, eller
         # progressbarens ram synas. Annars har det försvunnit (fångad/tappad).
-        prog = läs_progress(bild, rb, rb - ra, x0, x1, väntad=self.ram)
+        prog = läs_fyllning(bild, self.ram4) if self.ram4 else \
+            läs_progress(bild, rb, rb - ra, x0, x1, väntad=self.ram)
         if self.spann:
             a, b = self.spann
             mörk = spårmask(remsa, self.gräns or 60)[a:b + 1]
@@ -859,6 +909,42 @@ def hitta_shake(bild, med_radie=False):
     if bäst is None:
         return None
     return (bäst[1], bäst[2], bäst[3]) if med_radie else (bäst[1], bäst[2])
+
+
+def snabb_blå_ring(bild):
+    """Snabb sökning (några ms) efter en blå, markerad shake-ring.
+
+    Blå pixlar i shake-området (glest urval) ska bilda en ring: ungefär lika
+    bred som hög, tom i mitten och med rimlig storlek. Returnerar (x, y, R)."""
+    import numpy as np
+    H, W = bild.shape[:2]
+    s = 3
+    x0, y0 = int(SHAKE_OMRÅDE[0] * W), int(SHAKE_OMRÅDE[1] * H)
+    x1, y1 = int(SHAKE_OMRÅDE[2] * W), int(SHAKE_OMRÅDE[3] * H)
+    reg = bild[y0:y1:s, x0:x1:s]
+    b, g, r = reg[..., 0], reg[..., 1], reg[..., 2]
+    blå = (b >= 200) & (g >= 100) & (b.astype(np.int16) - r >= 90)
+    ys, xs = np.nonzero(blå)
+    if len(ys) < 40:
+        return None
+    # Den största klumpen: pixlar nära medianen (en ring åt gången syns).
+    my, mx = np.median(ys), np.median(xs)
+    gräns = 0.12 * min(H, W) / s
+    nära = (np.abs(ys - my) < gräns) & (np.abs(xs - mx) < gräns)
+    ys, xs = ys[nära], xs[nära]
+    if len(ys) < 40:
+        return None
+    ya, yb = np.percentile(ys, [2, 98])
+    xa, xb = np.percentile(xs, [2, 98])
+    bh, bw = yb - ya, xb - xa
+    R = (bh + bw) / 4 * s
+    if not (0.02 * H <= R <= 0.14 * H) or not 0.75 <= bw / max(1, bh) <= 1.33:
+        return None
+    cy, cx = (ya + yb) / 2, (xa + xb) / 2
+    d = np.sqrt((ys - cy) ** 2 + (xs - cx) ** 2) * s
+    if (d < 0.6 * R).mean() > 0.05 or (np.abs(d - R) < 0.2 * R).mean() < 0.7:
+        return None     # inte ihålig / inte rund
+    return (int(x0 + cx * s), int(y0 + cy * s), float(R))
 
 
 def ring_är_blå(bild, x, y, R):
@@ -1146,6 +1232,13 @@ class Diagnostik:
             self.rapport.setdefault("shake", [])
             self.rapport["shake"] = (self.rapport["shake"] + [dict(stat, tid=tid)])[-300:]
 
+    def kastfilm(self, rutor):
+        """Kort film (full upplösning) runt gubben under kastet, när kastmätaren
+        inte hittades, så att mätarens utseende och fyllning syns (högst 3 per pass)."""
+        if self.på() and len(rutor) >= 3 and getattr(self, "n_kastfilmer", 0) < 3:
+            self.n_kastfilmer = getattr(self, "n_kastfilmer", 0) + 1
+            self.skrivkö.put(("kastfilm", f"kastfilm_{time.strftime('%H%M%S')}", rutor))
+
     def kastbild(self, bild):
         """En bild mitt i kastet när kastmätaren inte hittades (högst 3 per pass)."""
         if self.på() and bild is not None and getattr(self, "n_kastbilder", 0) < 3:
@@ -1200,6 +1293,13 @@ class Diagnostik:
                         json.dump(self.rapport, fil, indent=1, ensure_ascii=False)
                     os.replace(sökväg + ".tmp", sökväg)
                     self.uppkö.put(sökväg)
+                elif jobb[0] == "kastfilm":
+                    _, namn, rutor = jobb
+                    t0 = rutor[0][0]
+                    sökväg = os.path.join(self.mapp, namn + ".png")
+                    spara_apng(sökväg, [(round((t - t0) * 1000), b) for t, b in rutor])
+                    self.uppkö.put(sökväg)
+                    self._städa()
                 elif jobb[0] == "film":
                     for sökväg in self._spara_film(*jobb[1:]):
                         self.uppkö.put(sökväg)
@@ -1424,13 +1524,22 @@ class Makro:
         prover = []
         sett = False
         kastbild = False
+        filmrutor = []       # (tid, utsnitt runt gubben) för diagnostiken
+        förra = None
         while True:
             nu = time.time()
             if nu - start > 3.0 or (not sett and nu - start > max(1.2, self.inst["cast_tid"])):
+                if not sett:
+                    self.diag.kastfilm(filmrutor)
                 return sett and self.släpp("maxtid")
             self.vänta(0)
             bild = self.skärm.hämta()
             m = hitta_kastmätare(bild) if bild is not None else None
+            if bild is not None and bild is not förra and len(filmrutor) < 40 and self.diag.på():
+                H, W = bild.shape[:2]
+                filmrutor.append((nu, bild[int(0.45 * H):int(0.80 * H),
+                                            int(0.35 * W):int(0.60 * W)].copy()))
+            förra = bild
             if m is None:
                 if not sett and not kastbild and nu - start > 0.5:
                     kastbild = True
@@ -1470,6 +1579,8 @@ class Makro:
         kandidat = None
         träffar = 0
         stat = {"enter": 0, "klick": 0, "ringar": 0, "blå": 0}
+        tryckt_på = None     # (x, y) för ringen som Enter senast trycktes på
+        varv = 0
         try:
             while True:
                 bild = self.skärm.hämta()
@@ -1485,14 +1596,27 @@ class Makro:
                     self.diag.shake(None, stat)
                     return False
                 if läge in ("navigation", "klick") and bild is not None:
-                    ring = hitta_shake(bild, med_radie=True)
+                    varv += 1
                     H, W = bild.shape[:2]
+                    ring = snabb_blå_ring(bild) if läge == "navigation" else None
+                    blå = ring is not None
+                    full_sökning = ring is None and (läge == "klick" or varv % 4 == 0)
+                    if full_sökning:
+                        ring = hitta_shake(bild, med_radie=True)   # långsam: vita ringar
+                        blå = ring is not None and läge == "navigation" and ring_är_blå(bild, *ring)
                     if ring:
                         stat["ringar"] += 1
-                        blå = läge == "navigation" and ring_är_blå(bild, *ring)
                         stat["blå"] += blå
+                        # Samma ring som nyss trycktes (den tonar bort)? Då kan markeringen
+                        # redan ha flyttat till något annat - vänta på nästa ring.
+                        samma = tryckt_på is not None and nu - senast_klick < 0.6 and \
+                            abs(ring[0] - tryckt_på[0]) < 30 and abs(ring[1] - tryckt_på[1]) < 30
+                        if blå and samma:
+                            time.sleep(0.01)
+                            continue
                         if blå:
-                            if nu - senast_klick > self.slump(0.12, 0.3):
+                            if nu - senast_klick > self.slump(0.1, 0.3):
+                                tryckt_på = ring[:2]
                                 self.status("Skakar")
                                 self.inp.tap(KEY_ENTER)
                                 senast_klick = nu
@@ -1520,7 +1644,8 @@ class Makro:
                                 kandidat = None
                                 self.vänta(0.05)
                                 continue
-                    kandidat = ring
+                    if full_sökning or blå:
+                        kandidat = ring
                 self.vänta(0.03)
         finally:
             if läge == "navigation":
