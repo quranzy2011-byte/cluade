@@ -21,7 +21,7 @@ import threading
 import time
 import zlib
 
-VERSION = "2.5"   # höj vid varje ny version så att man ser vilken man kör
+VERSION = "2.6"   # höj vid varje ny version så att man ser vilken man kör
 UPPDATERA_URL = "https://raw.githubusercontent.com/quranzy2011-byte/cluade/main/fisch_app.py"
 GITHUB_API = "https://api.github.com"
 DIAG_REPO = "quranzy2011-byte/cluade-2"   # privat repo dit diagnostiken laddas upp
@@ -49,7 +49,7 @@ STANDARD = {
     "stopp_minuter": 0,     # stoppa efter så många minuter (0 = aldrig)
     "överst": True,         # fönstret alltid överst
 }
-REEL_OMRÅDE = (0.20, 0.60, 0.80, 0.97)   # x0, y0, x1, y1 som andel av skärmen
+REEL_OMRÅDE = (0.20, 0.74, 0.80, 0.97)   # x0, y0, x1, y1 som andel av skärmen
 SHAKE_OMRÅDE = (0.08, 0.08, 0.92, 0.80)  # där shake-knapparna kan dyka upp
 
 KEY_ENTER, BTN_LEFT = 28, 272
@@ -346,7 +346,8 @@ def hitta_reel(bild, rader=None):
     if len(rader) == 0:
         return None
     band = max(_körningar(rader, 2), key=len)
-    if len(band) < max(6, H * 0.012):
+    # Baren är ~40 px hög i 1080p; progressbaren och textrader är lägre.
+    if len(band) < max(6, H * 0.025):
         return None
     ra, rb = band[0], band[-1] + 1
 
@@ -357,6 +358,10 @@ def hitta_reel(bild, rader=None):
     del_ = max(_körningar(xs, rw * 0.03), key=lambda d: d[-1] - d[0])
     b0, b1 = int(del_[0]), int(del_[-1])
     if not (rw * 0.05 <= b1 - b0 <= rw * 0.8):
+        return None
+    # Baren är nästan helt ljus (bara pilar och fisken är mörka). Menyer och
+    # verktygsfältet har mest mörka rutor med lite ljus text.
+    if andel[b0:b1 + 1].mean() < 0.55:
         return None
 
     fisk = None
@@ -398,11 +403,13 @@ def hitta_streck(remsa, W):
     return ut
 
 
-def läs_progress(bild, rb, bandhöjd, x0, x1):
+def läs_progress(bild, rb, bandhöjd, x0, x1, geo=None, väntad=None):
     """Hur full progressbaren under spåret är (0-1), eller None om den inte syns.
 
     Progressbaren har en vit ram; ramens längd = full bar, den vita
-    fyllningen från vänster = hur långt fångsten har kommit."""
+    fyllningen från vänster = hur långt fångsten har kommit.
+    geo (dict) får ramens läge (y, vänster, höger); väntad = ett sådant läge
+    som ramen måste stämma med (annars är det något annat, t.ex. verktygsfältet)."""
     import numpy as np
     H = bild.shape[0]
     ya, yb = min(H, rb + max(2, int(bandhöjd * 0.2))), min(H, rb + int(bandhöjd * 3))
@@ -425,6 +432,9 @@ def läs_progress(bild, rb, bandhöjd, x0, x1):
     if ram is None:
         return None
     topp, botten, vä, hö = ram
+    if väntad is not None and (abs(topp + ya - väntad[0]) > 4 or abs(vä + x0 - väntad[1]) > 8
+                               or abs(hö + x0 - väntad[2]) > 8):
+        return None
     total = hö - vä
     if total < max(40, bandhöjd * 2, bild.shape[1] * 0.1):
         return None
@@ -434,6 +444,8 @@ def läs_progress(bild, rb, bandhöjd, x0, x1):
              (inne[:, max(0, hö - 1):hö + 2] >= 100).any(axis=1).mean())
     if min(sidor) < 0.7:
         return None
+    if geo is not None:
+        geo["ram"] = (int(topp + ya), int(vä + x0), int(hö + x0))
     # Fyllningen: ljus körning från vänsterkanten, på raderna innanför ramen.
     fyllning = []
     for rad in lo[topp + 1:botten]:
@@ -562,6 +574,61 @@ def hitta_ute_bar(remsa, bredd, förra_mitt, spann, fisk_x=None, gräns=60):
     return (bäst[1], bäst[2]) if bäst else None
 
 
+class Utfall:
+    """Avgör från progressbaren när och hur kampen tog slut.
+
+    Fångst: progressen når fullt och nollställs direkt efteråt (0 på en gång;
+    en riktig tömning tar sekunder), eller så försvinner minispelet och
+    verktygsfältet syns där det var. Piercing kan även fånga fisken mitt i,
+    då försvinner minispelet med progressen halvvägs.
+    Tappad: progressen rinner ut till noll."""
+
+    def __init__(self):
+        self.prog = []          # (tid, andel)
+        self.nära = None        # senaste gången progressen var full
+        self.låga = 0
+        self.mörk_start = None
+        self.hög_i_mörkt = False
+
+    def bild(self, nu, läge, prog):
+        """Anropas för varje bild. Returnerar 'fångad' när kampen är vunnen."""
+        if prog is not None:
+            förra = self.prog[-1][1] if self.prog else None
+            self.prog.append((nu, prog))
+            del self.prog[:-60]
+            if prog >= 0.97 and förra is not None and förra >= 0.9:
+                self.nära = nu
+            nyss = self.nära is not None and nu - self.nära < 1.0
+            self.låga = self.låga + 1 if nyss and prog <= 0.1 else 0
+            if self.låga >= 2:
+                return "fångad"
+        if läge == "mörk":
+            if self.mörk_start is None:
+                self.mörk_start, self.hög_i_mörkt = nu, False
+            if prog is not None and prog >= 0.5:
+                self.hög_i_mörkt = True   # progressen syns kvar: kampen pågår
+            if self.efter_full() and nu - self.mörk_start >= 0.4 and not self.hög_i_mörkt:
+                return "fångad"
+        elif läge is not None:
+            self.mörk_start = None
+        return None
+
+    def efter_full(self):
+        """Blev det mörkt precis efter att progressen var full?"""
+        return (self.nära is not None and self.mörk_start is not None
+                and self.mörk_start - self.nära < 1.0)
+
+    def slut(self, nu, orsak, sista_läge):
+        if self.nära is not None and nu - self.nära < 2.0:
+            return "fångad"
+        if orsak == "timeout":
+            return "fångad" if self.efter_full() and not self.hög_i_mörkt else "tappad"
+        senaste = [p for t, p in self.prog if nu - t < 2.0][-5:]
+        if len(senaste) >= 3:
+            return "tappad" if sorted(senaste)[len(senaste) // 2] <= 0.06 else "fångad"
+        return "tappad" if sista_läge == "mörk" else "fångad"
+
+
 class Syn:
     """Följer reel-minispelet mellan bilderna, även när baren blir mörk."""
 
@@ -574,6 +641,7 @@ class Syn:
         self.fisk = None        # senaste fisk-x
         self.bar_mitt = None    # senaste barens mitt
         self.full_prog = 0      # längsta progress som setts (= full bar)
+        self.ram = None         # progressbarens ram (y, vänster, höger), lärs in
 
     def ny_reel(self):
         self.spann = None
@@ -611,7 +679,10 @@ class Syn:
                 self.spann = hitta_spann(remsa, b0 - x0, b1 - x0, self.gräns or 60)
             if fisk is not None:
                 self.fisk = fisk
-            prog = läs_progress(bild, rb, rb - ra, x0, x1)
+            geo = {}
+            prog = läs_progress(bild, rb, rb - ra, x0, x1, geo=geo)
+            if "ram" in geo:
+                self.ram = geo["ram"]
             return ("vit", b0, b1, fisk, prog)
 
         if not (self.aktiv and self.band):
@@ -652,7 +723,7 @@ class Syn:
 
         # Finns minispelet kvar? Spåret (utom baren) ska vara mörkt, eller
         # progressbarens ram synas. Annars har det försvunnit (fångad/tappad).
-        prog = läs_progress(bild, rb, rb - ra, x0, x1)
+        prog = läs_progress(bild, rb, rb - ra, x0, x1, väntad=self.ram)
         if self.spann:
             a, b = self.spann
             mörk = spårmask(remsa, self.gräns or 60)[a:b + 1]
@@ -988,9 +1059,8 @@ class Diagnostik:
         import numpy as np
         H, W = bild.shape[:2]
         if self.utsnitt is None:
-            ra, rb = band
-            bh = rb - ra
-            y0, y1 = max(0, ra - bh // 2), min(H, rb + int(bh * 2.5))
+            # Hela nedre delen (bar, progress, verktygsfält) så att allt syns.
+            y0, y1 = int(REEL_OMRÅDE[1] * H), int(0.99 * H)
             x0, x1 = int(REEL_OMRÅDE[0] * W), int(REEL_OMRÅDE[2] * W)
             self.utsnitt = tuple(int(v) for v in (y0, y0 + (y1 - y0) // 2 * 2,
                                                    x0, x0 + (x1 - x0) // 2 * 2))
@@ -1038,6 +1108,12 @@ class Diagnostik:
         if self.på() and bild is not None and self.n_fångstbilder < 40:
             self.n_fångstbilder += 1
             self.bild(f"fangst_{time.strftime('%H%M%S')}", bild, halv=True)
+
+    def kastbild(self, bild):
+        """En bild mitt i kastet när kastmätaren inte hittades (högst 3 per pass)."""
+        if self.på() and bild is not None and getattr(self, "n_kastbilder", 0) < 3:
+            self.n_kastbilder = getattr(self, "n_kastbilder", 0) + 1
+            self.bild(f"kast_{time.strftime('%H%M%S')}", bild, halv=True)
 
     def inget_napp(self, bild):
         if self.på() and bild is not None:
@@ -1305,6 +1381,7 @@ class Makro:
         """Släpper när kastmätaren (förutsagt) når toppen. False = mätaren syntes inte."""
         prover = []
         sett = False
+        kastbild = False
         while True:
             nu = time.time()
             if nu - start > 3.0 or (not sett and nu - start > max(1.2, self.inst["cast_tid"])):
@@ -1313,6 +1390,9 @@ class Makro:
             bild = self.skärm.hämta()
             m = hitta_kastmätare(bild) if bild is not None else None
             if m is None:
+                if not sett and not kastbild and nu - start > 0.5:
+                    kastbild = True
+                    self.diag.kastbild(bild)
                 time.sleep(0.005)
                 continue
             sett = True
@@ -1342,10 +1422,15 @@ class Makro:
         senast_klick = 0.0
         kandidat = None
         try:
+            träffar = 0
             while True:
                 bild = self.skärm.hämta()
-                if bild is not None and hitta_reel(bild):
+                # Två bilder i rad, så att en meny som blinkar förbi inte räknas.
+                träffar = träffar + 1 if bild is not None and hitta_reel(bild) else 0
+                if träffar >= 2:
                     return True
+                if träffar:
+                    continue        # minispelet syns nog redan: tryck inget, kolla nästa bild
                 nu = time.time()
                 if nu - start > self.inst["napp_timeout"]:
                     return False
@@ -1415,28 +1500,12 @@ class Makro:
         senast_mitt = None
         borta_sedan = None
         mörk_sedan = None
-        progress = []        # (tid, px)
-        max_prog = 0
+        utfall = Utfall()
         sista_läge = None
         start = time.time()
 
         def resultat_av(orsak):
-            """Fångad eller tappad? Avgörs av progressbaren i slutet av kampen."""
-            if orsak == "timeout":
-                return "tappad"
-            nu = time.time()
-            senaste = [(t, p) for t, p in progress if nu - t < 1.5]
-            if len(senaste) >= 3:
-                slut = sorted(p for _, p in senaste[-3:])[1]
-                if slut <= 0.06:
-                    return "tappad"
-                if slut >= 0.85:
-                    return "fångad"
-                # Annars: steg eller sjönk progressbaren på slutet?
-                mitt = len(senaste) // 2
-                före = sorted(p for _, p in senaste[:mitt])[mitt // 2] if mitt else slut
-                return "fångad" if slut >= före else "tappad"
-            return "tappad" if sista_läge == "mörk" else "fångad"
+            return utfall.slut(time.time(), orsak, sista_läge)
 
         try:
             while True:
@@ -1450,6 +1519,8 @@ class Makro:
                 läge, b0, b1, fisk, prog = syn.läs(bild)
                 W = bild.shape[1]
                 self.diag.kamp_bild(bild, läge, b0, b1, fisk, prog, syn.band)
+                if utfall.bild(nu, läge, prog):
+                    return "fångad"
 
                 if läge is None:
                     self.inp.up(BTN_LEFT)
@@ -1460,8 +1531,6 @@ class Makro:
                     continue
                 borta_sedan = None
                 sista_läge = läge
-                if prog is not None:
-                    progress.append((nu, prog))
 
                 if läge == "mörk":
                     mörk_sedan = mörk_sedan or nu
