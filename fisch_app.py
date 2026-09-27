@@ -21,7 +21,7 @@ import threading
 import time
 import zlib
 
-VERSION = "2.4"   # höj vid varje ny version så att man ser vilken man kör
+VERSION = "2.5"   # höj vid varje ny version så att man ser vilken man kör
 UPPDATERA_URL = "https://raw.githubusercontent.com/quranzy2011-byte/cluade/main/fisch_app.py"
 GITHUB_API = "https://api.github.com"
 DIAG_REPO = "quranzy2011-byte/cluade-2"   # privat repo dit diagnostiken laddas upp
@@ -802,6 +802,44 @@ def spara_png(sökväg, bgr):
         f.write(chunk(b"IEND", b""))
 
 
+def spara_apng(sökväg, rutor):
+    """Animerad PNG. rutor = [(tid_ms, bgr-bild), ...], alla lika stora."""
+    import numpy as np
+    h, w = rutor[0][1].shape[:2]
+
+    def chunk(typ, data):
+        c = typ + data
+        return struct.pack(">I", len(data)) + c + struct.pack(">I", zlib.crc32(c) & 0xFFFFFFFF)
+
+    def komprimera(bgr):
+        rgb = np.ascontiguousarray(bgr[:, :, ::-1]).reshape(h, w * 3)
+        upp = np.vstack([rgb[:1], rgb[1:] - rgb[:-1]])          # PNG-filter "Up"
+        typ = np.full((h, 1), 2, np.uint8)
+        typ[0] = 0
+        upp[0] = rgb[0]
+        return zlib.compress(np.concatenate([typ, upp], axis=1).tobytes(), 6)
+
+    with open(sökväg + ".tmp", "wb") as f:
+        f.write(b"\x89PNG\r\n\x1a\n")
+        f.write(chunk(b"IHDR", struct.pack(">IIBBBBB", w, h, 8, 2, 0, 0, 0)))
+        f.write(chunk(b"acTL", struct.pack(">II", len(rutor), 0)))
+        nr = 0
+        for i, (t, bild) in enumerate(rutor):
+            fördröjning = (rutor[i + 1][0] - t) if i + 1 < len(rutor) else 1500
+            fördröjning = max(10, min(5000, int(fördröjning)))
+            f.write(chunk(b"fcTL", struct.pack(">IIIIIHHBB", nr, w, h, 0, 0,
+                                               fördröjning, 1000, 0, 0)))
+            nr += 1
+            data = komprimera(bild)
+            if i == 0:
+                f.write(chunk(b"IDAT", data))
+            else:
+                f.write(chunk(b"fdAT", struct.pack(">I", nr) + data))
+                nr += 1
+        f.write(chunk(b"IEND", b""))
+    os.replace(sökväg + ".tmp", sökväg)
+
+
 def tangentnamn(kod):
     """Läsbart namn på en tangentkod (fysisk tangent, oberoende av layout)."""
     kända = {43: "' eller \\ (vid Enter)", 41: "§ (vänster om 1)", 12: "+", 13: "´",
@@ -863,10 +901,16 @@ class Diagnostik:
     Sparar i autoclicker/diagnostik/<pass>/:
       rapport.json  - fångade/tappade, kast, hur kamperna gick, fel
       *.png         - bilder när en fisk tappas, vid fångst, inget napp och fel
+      film_*.png    - animerad PNG av sista sekunderna i kampen (öppna i Firefox)
+      film_*.json   - vad makrot såg och gjorde i varje bild av kampen
     Med en GitHub-token laddas allt upp automatiskt till ett privat repo.
     """
 
     MAX_BILDER = 300
+    MAX_MB = 400          # mappen hålls under så här många MB
+    FILM_FPS = 15
+    FILM_SEK = 6
+    MAX_FILMER = {"tappad": 20, "fångad": 3}   # per pass
 
     def __init__(self, inst, logg):
         import collections
@@ -885,6 +929,13 @@ class Diagnostik:
         self.senast_uppladdat = None
         self.senast_rapport = 0
         self.n_fångstbilder = 0
+        self.film = collections.deque(maxlen=self.FILM_FPS * self.FILM_SEK)  # (tid, radnr, bild)
+        self.rader = []       # en rad per bild i kampen: [tid, läge, b0, b1, fisk, prog, tryck]
+        self.utsnitt = None   # (y0, y1, x0, x1) för filmen
+        self.kamp_t0 = 0
+        self.förra_bild = None
+        self.n_filmer = {"tappad": 0, "fångad": 0}
+        self.senaste_film = None
         threading.Thread(target=self._skrivare, daemon=True).start()
         threading.Thread(target=self._uppladdare, daemon=True).start()
 
@@ -901,8 +952,12 @@ class Diagnostik:
             self.kamp = {"start": round(time.time(), 1), "bilder": 0, "vit": 0, "mörk": 0,
                          "borta": 0, "fisk_i_bar": 0, "fisk_sedd": 0, "prog_max": 0.0}
             self.buffert.clear()
+            self.film.clear()
+            self.rader = []
+            self.utsnitt = None
+            self.kamp_t0 = time.time()
 
-    def kamp_bild(self, bild, läge, b0, b1, fisk, prog):
+    def kamp_bild(self, bild, läge, b0, b1, fisk, prog, band=None):
         k = self.kamp
         if not (self.på() and k):
             return
@@ -916,8 +971,41 @@ class Diagnostik:
             k["prog_max"] = max(k["prog_max"], round(float(prog), 3))
             k["prog_slut"] = round(float(prog), 3)
         nu = time.time()
-        if bild is not None and (not self.buffert or nu - self.buffert[-1][0] > 0.25):
+        if len(self.rader) < 20000:
+            self.rader.append([round(nu - self.kamp_t0, 3), läge,
+                               None if b0 is None else int(b0), None if b1 is None else int(b1),
+                               None if fisk is None else int(fisk),
+                               None if prog is None else round(float(prog), 3), 0])
+        ny = bild is not None and bild is not self.förra_bild
+        self.förra_bild = bild
+        if ny and (not self.buffert or nu - self.buffert[-1][0] > 0.25):
             self.buffert.append((nu, bild))
+        if ny and band and (not self.film or nu - self.film[-1][0] >= 1 / self.FILM_FPS - 0.005):
+            self._filmbild(nu, bild, band)
+
+    def _filmbild(self, nu, bild, band):
+        """Sparar reel-området i halv upplösning (medel av 2x2, så tunna streck syns kvar)."""
+        import numpy as np
+        H, W = bild.shape[:2]
+        if self.utsnitt is None:
+            ra, rb = band
+            bh = rb - ra
+            y0, y1 = max(0, ra - bh // 2), min(H, rb + int(bh * 2.5))
+            x0, x1 = int(REEL_OMRÅDE[0] * W), int(REEL_OMRÅDE[2] * W)
+            self.utsnitt = tuple(int(v) for v in (y0, y0 + (y1 - y0) // 2 * 2,
+                                                   x0, x0 + (x1 - x0) // 2 * 2))
+        y0, y1, x0, x1 = self.utsnitt
+        u = bild[y0:y1, x0:x1, :3]
+        if u.shape[0] != y1 - y0 or u.shape[1] != x1 - x0:
+            return
+        u = u.astype(np.uint16)
+        halv = ((u[0::2, 0::2] + u[1::2, 0::2] + u[0::2, 1::2] + u[1::2, 1::2]) >> 2).astype(np.uint8)
+        self.film.append((nu, len(self.rader) - 1, halv))
+
+    def kamp_tryck(self, håll):
+        """Vad makrot bestämde sig för på senaste bilden (håll inne eller släpp)."""
+        if self.kamp and self.rader:
+            self.rader[-1][6] = 1 if håll else 0
 
     def kamp_slut(self, resultat, kamptid):
         k, self.kamp = self.kamp, None
@@ -926,6 +1014,15 @@ class Diagnostik:
         k["resultat"] = resultat
         k["tid"] = round(kamptid, 1)
         self.rapport["kamper"] = (self.rapport["kamper"] + [k])[-500:]
+        if resultat in self.n_filmer and len(self.film) >= 5 \
+                and self.n_filmer[resultat] < self.MAX_FILMER[resultat]:
+            self.n_filmer[resultat] += 1
+            namn = f"film_{'fangad' if resultat == 'fångad' else 'tappad'}_{time.strftime('%H%M%S')}"
+            self.skrivkö.put(("film", namn, list(self.film), self.rader, self.utsnitt, k,
+                             self.kamp_t0))
+        self.film.clear()
+        self.rader = []
+        self.förra_bild = None
         if resultat == "tappad":
             # Bilderna precis innan fisken tappades visar vad som gick fel.
             for i, (t, b) in enumerate(list(self.buffert)[-4:]):
@@ -990,6 +1087,10 @@ class Diagnostik:
                         json.dump(self.rapport, fil, indent=1, ensure_ascii=False)
                     os.replace(sökväg + ".tmp", sökväg)
                     self.uppkö.put(sökväg)
+                elif jobb[0] == "film":
+                    for sökväg in self._spara_film(*jobb[1:]):
+                        self.uppkö.put(sökväg)
+                    self._städa()
                 else:
                     _, namn, bild, beskär, halv = jobb
                     H, W = bild.shape[:2]
@@ -1004,17 +1105,67 @@ class Diagnostik:
             except Exception as fel:
                 self.logg(f"Diagnostik: kunde inte spara ({fel})")
 
+    def _spara_film(self, namn, bilder, rader, utsnitt, kamp, kamp_t0):
+        """Skriver filmen som animerad PNG (spelas i webbläsare) plus data för varje bild.
+
+        Överst i varje filmbild finns en remsa med vad makrot såg:
+        vit/orange linje = baren (vit/mörk), röd = fisken, cyan = progress,
+        grön ruta vänster = håller inne musknappen, grå = släppt."""
+        import numpy as np
+        y0, y1, x0, x1 = utsnitt
+        t0 = bilder[0][0]
+        rutor = []
+        for t, i, halv in bilder:
+            r = rader[i] if 0 <= i < len(rader) else [0, None, None, None, None, None, 0]
+            _, läge, b0, b1, fisk, prog, tryck = r
+            h, w = halv.shape[:2]
+            remsa = np.zeros((12, w, 3), np.uint8)
+            if b0 is not None and b1 is not None:
+                a, b = max(0, (b0 - x0) // 2), min(w, (b1 - x0) // 2 + 1)
+                remsa[2:6, a:b] = (255, 255, 255) if läge == "vit" else (0, 140, 255)
+            if fisk is not None and 0 <= (fisk - x0) // 2 < w:
+                fx = (fisk - x0) // 2
+                remsa[0:10, max(0, fx - 1):fx + 2] = (0, 0, 255)
+            if prog is not None:
+                remsa[8:10, :int(w * min(1.0, max(0.0, prog)))] = (255, 255, 0)
+            remsa[0:12, 0:12] = (0, 200, 0) if tryck else (90, 90, 90)
+            rutor.append((round((t - t0) * 1000), np.concatenate([remsa, halv])))
+        mapp = self.mapp
+        png = os.path.join(mapp, namn + ".png")
+        spara_apng(png, rutor)
+        data = os.path.join(mapp, namn + ".json")
+        with open(data, "w", encoding="utf-8") as fil:
+            json.dump({"version": VERSION, "kamp": kamp,
+                       "utsnitt_y0_y1_x0_x1": list(utsnitt), "skala": 0.5, "remsa_px": 12,
+                       "kolumner": ["tid", "läge", "bar0", "bar1", "fisk", "progress", "tryck"],
+                       "rader": rader,
+                       "filmbilder_tid_rad": [[round(t - kamp_t0, 3), i] for t, i, _ in bilder]},
+                      fil, ensure_ascii=False, separators=(",", ":"))
+        self.senaste_film = png
+        return [data, png]
+
     def _städa(self):
+        """Tar bort de äldsta filerna när mappen blir för stor (rapporterna sparas)."""
         bas = os.path.join(MAPP, "diagnostik")
-        bilder = []
-        for rot, _, filer in os.walk(bas):
-            bilder += [os.path.join(rot, f) for f in filer if f.endswith(".png")]
-        if len(bilder) > self.MAX_BILDER:
-            for f in sorted(bilder, key=os.path.getmtime)[:len(bilder) - self.MAX_BILDER]:
-                try:
-                    os.remove(f)
-                except OSError:
-                    pass
+        filer = []
+        for rot, _, namn in os.walk(bas):
+            filer += [os.path.join(rot, f) for f in namn if f.endswith((".png", ".json"))
+                      and f != "rapport.json"]
+        try:
+            filer = sorted(((os.path.getmtime(f), os.path.getsize(f), f) for f in filer))
+        except OSError:
+            return
+        storlek = sum(s for _, s, _ in filer)
+        antal = len(filer)
+        for _, s, f in filer:
+            if antal <= self.MAX_BILDER and storlek <= self.MAX_MB * 1e6:
+                break
+            try:
+                os.remove(f)
+            except OSError:
+                pass
+            antal -= 1
+            storlek -= s
 
     def _uppladdare(self):
         väntande = {}
@@ -1064,7 +1215,7 @@ class Diagnostik:
             data["sha"] = sha
         req = urllib.request.Request(url, data=json.dumps(data).encode(), method="PUT",
                                      headers=dict(huvud, **{"Content-Type": "application/json"}))
-        urllib.request.urlopen(req, timeout=60).close()
+        urllib.request.urlopen(req, timeout=180).close()
 
 
 # ---------------------------------------------------------------- Makrot
@@ -1298,7 +1449,7 @@ class Makro:
                     continue
                 läge, b0, b1, fisk, prog = syn.läs(bild)
                 W = bild.shape[1]
-                self.diag.kamp_bild(bild, läge, b0, b1, fisk, prog)
+                self.diag.kamp_bild(bild, läge, b0, b1, fisk, prog, syn.band)
 
                 if läge is None:
                     self.inp.up(BTN_LEFT)
@@ -1336,6 +1487,7 @@ class Makro:
                     håll = fisk > senast_mitt      # ser fisken men inte baren
                 else:
                     håll = fisk_rel > 0.5          # ser inte fisken: jaga åt senaste hållet
+                self.diag.kamp_tryck(håll)
                 if håll:
                     self.inp.down(BTN_LEFT)
                 else:
@@ -1788,6 +1940,8 @@ class App:
         self.diag_text.pack(anchor="w", pady=(6, 0))
         ttk.Button(dg, text="Öppna diagnostikmappen", command=self.öppna_diagnostik
                    ).pack(fill="x", pady=(6, 0))
+        ttk.Button(dg, text="Visa senaste film", command=self.visa_film
+                   ).pack(fill="x", pady=(6, 0))
 
         ttk.Label(f, text="DISCORD (VALFRITT)", style="Rubrik.TLabel").pack(anchor="w", pady=(12, 4))
         dp = ttk.Frame(f, style="Panel.TFrame", padding=10)
@@ -1957,6 +2111,24 @@ class App:
             subprocess.Popen(["xdg-open", mapp])
         except OSError:
             self.skriv(f"Diagnostiken ligger i {mapp}")
+
+    def visa_film(self):
+        """Öppnar senaste filmen i webbläsaren (bildvisare spelar inte alltid animerad PNG)."""
+        import glob
+        import shutil
+        filmer = glob.glob(os.path.join(MAPP, "diagnostik", "*", "film_*.png"))
+        if not filmer:
+            self.skriv("Inga filmer än. En film sparas när en fisk tappas.")
+            return
+        film = max(filmer, key=os.path.getmtime)
+        for prog in ("firefox", "google-chrome", "chromium", "chromium-browser", "xdg-open"):
+            if shutil.which(prog):
+                try:
+                    subprocess.Popen([prog, film])
+                    return
+                except OSError:
+                    pass
+        self.skriv(f"Filmen ligger i {film}")
 
     def rita_diagnostik(self):
         d = self.makro.diag
