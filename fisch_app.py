@@ -21,7 +21,7 @@ import threading
 import time
 import zlib
 
-VERSION = "2.2"   # höj vid varje ny version så att man ser vilken man kör
+VERSION = "2.3"   # höj vid varje ny version så att man ser vilken man kör
 UPPDATERA_URL = "https://raw.githubusercontent.com/quranzy2011-byte/cluade/main/fisch_app.py"
 
 MAPP = os.path.dirname(os.path.abspath(__file__))
@@ -38,6 +38,7 @@ STANDARD = {
     "nav_kod": 43,          # tangentkoden för UI Navigation i Roblox (43 = \\-tangenten)
     "slumpa": True,         # små slumpade variationer i tider och klick
     "notiser": True,        # notis + ljud när makrot stoppar
+    "anti_afk": True,       # rör musen lite då och då när makrot är pausat (inget idle-kick)
     "discord": "",          # Discord-webhook för notiser (tomt = av)
     "stopp_fiskar": 0,      # stoppa efter så många fångade fiskar (0 = aldrig)
     "stopp_minuter": 0,     # stoppa efter så många minuter (0 = aldrig)
@@ -89,6 +90,10 @@ try:
                     del_ = line.decode().split()
                     if del_[0] == "lär":
                         lär = True
+                    elif del_[0] == "rör":
+                        ui.write(e.EV_REL, e.REL_X, int(del_[1]))
+                        ui.write(e.EV_REL, e.REL_Y, int(del_[2]))
+                        ui.syn()
                     elif del_[0] == "flytta":
                         fx, fy = float(del_[1]), float(del_[2])
                         pek.write(e.EV_ABS, e.ABS_X, int(min(max(fx, 0), 1) * MAX))
@@ -163,6 +168,10 @@ class Input:
         time.sleep(0.03)
         for c in reversed(codes):
             self._send(f"upp {c}")
+
+    def rör(self, dx, dy):
+        """Flytta muspekaren relativt (dx, dy) pixlar."""
+        self._send(f"rör {int(dx)} {int(dy)}")
 
     def lär(self):
         """Nästa tangent du trycker rapporteras som 'TANGENT <kod>'."""
@@ -1126,14 +1135,33 @@ class Makro:
         ledning = max(-0.8 * bredd, min(0.8 * bredd, fv * self.inst["förutsägelse"]))
         return mitt + broms < fisk + ledning
 
+    def anti_afk(self):
+        """Roblox kastar ut efter 20 min utan aktivitet. När makrot är pausat
+        rörs musen en pixel fram och tillbaka var ~8:e minut."""
+        nu = time.time()
+        if not self.inst.get("anti_afk") or self.inp is None:
+            self.senast_aktiv = nu
+            return
+        if nu - getattr(self, "senast_aktiv", nu) >= getattr(self, "afk_intervall", 480):
+            self.inp.rör(1, 0)
+            time.sleep(0.05)
+            self.inp.rör(-1, 0)
+            self.senast_aktiv = nu
+            self.afk_intervall = random.uniform(420, 540)
+            self.logg("Anti-AFK: rörde musen (så att Roblox inte kastar ut dig)")
+        elif not hasattr(self, "senast_aktiv"):
+            self.senast_aktiv = nu
+
     def loop(self):
         while True:
             if not self.kör.wait(0.1):
                 try:
                     self.debug()
+                    self.anti_afk()
                 except Exception as fel:  # tråden får aldrig dö
                     self.logg(f"Fel: {fel!r}")
                 continue
+            self.senast_aktiv = time.time()
             try:
                 resultat = self.cykel()
                 self.q.put(("resultat", (resultat, self.kamptid, self.shakes)))
@@ -1498,6 +1526,7 @@ class App:
             rad += 1
         for nyckel, namn in [("perfekt_kast", "Perfekt kast (följer kastmätaren)"),
                              ("slumpa", "Slumpa tider lite (ser mänskligt ut)"),
+                             ("anti_afk", "Anti-AFK när pausad (inget idle-kick)"),
                              ("notiser", "Notis + ljud när den stoppar"),
                              ("överst", "Fönstret alltid överst")]:
             var = tk.BooleanVar(value=self.inst[nyckel])
