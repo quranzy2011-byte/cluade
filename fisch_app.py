@@ -21,7 +21,7 @@ import threading
 import time
 import zlib
 
-VERSION = "3.3"   # höj vid varje ny version så att man ser vilken man kör
+VERSION = "3.4"   # höj vid varje ny version så att man ser vilken man kör
 UPPDATERA_URL = "https://raw.githubusercontent.com/quranzy2011-byte/cluade/main/fisch_app.py"
 GITHUB_API = "https://api.github.com"
 DIAG_REPO = "quranzy2011-byte/cluade-2"   # privat repo dit diagnostiken laddas upp
@@ -553,7 +553,7 @@ def hitta_kastmätare(bild):
     hi = bild[y0:y1, x0:x1].max(axis=2).astype(np.int16)
     # Kantlinje = tunn mörk "dal": tydligt mörkare än 2 px till vänster och höger.
     dal = np.zeros(hi.shape, bool)
-    dal[:, 2:-2] = (hi[:, 2:-2] < hi[:, :-4] - 20) & (hi[:, 2:-2] < hi[:, 4:] - 20) & \
+    dal[:, 2:-2] = (hi[:, 2:-2] < hi[:, :-4] - 15) & (hi[:, 2:-2] < hi[:, 4:] - 15) & \
         (hi[:, 2:-2] < 120)
     dal[:, 1:] |= dal[:, :-1]          # tillåt att linjen vickar en pixel
     minst = int(0.08 * H)
@@ -565,7 +565,7 @@ def hitta_kastmätare(bild):
         rader = np.flatnonzero(dal[:, x])
         if len(rader) == 0:
             return None
-        run = max(_körningar(rader, 4), key=len)
+        run = max(_körningar(rader, 10), key=len)   # tål glapp (randig bakgrund)
         return (int(run[0]), int(run[-1])) if run[-1] - run[0] >= minst else None
 
     sträckor = {int(x): sträcka(x) for x in kol}
@@ -588,7 +588,7 @@ def hitta_kastmätare(bild):
             # Jämför med rörets mörkaste del (tom), men högst 140: en helt full
             # mätare har ingen mörk del.
             tom = min(140, int(np.percentile(inne, 10)))
-            ljus = inne >= max(160, tom + 30)
+            ljus = inne >= max(160, tom + 30, _fyllgräns(inne))
             # Räkna från botten; de nedersta raderna (rörets kant) får vara mörka.
             nerifrån = ljus[::-1]
             start = next((k for k in range(min(8, len(nerifrån))) if nerifrån[k]), None)
@@ -604,10 +604,57 @@ def hitta_kastmätare(bild):
             grön = bool(((ovan[:, 1] > ovan[:, 2] + 30) & (ovan[:, 1] > ovan[:, 0] + 20)).any())
             poäng = längd + (1000 if grön else 0)
             if bäst is None or poäng > bäst[0]:
-                bäst = (poäng, min(1.0, n / längd), x0 + mitt, grön)
+                bäst = (poäng, min(1.0, n / längd), x0 + mitt, grön, y0 + topp, y0 + botten)
     if bäst is None or not bäst[3]:
         return None
-    return (bäst[1], bäst[2])
+    return (bäst[1], bäst[2], bäst[4], bäst[5])
+
+
+def _fyllgräns(kol):
+    """Fyllningen är nästan vit (~245). Röret är genomskinligt, så något ljust
+    bakom det kan se ljust ut, men dämpat - räkna bara det som är nästan lika
+    ljust som fyllningen."""
+    import numpy as np
+    ref = int(np.percentile(kol, 98)) if len(kol) else 0
+    return ref - 40 if ref >= 200 else 0
+
+
+def följ_kastmätare(bild, x, topp, botten):
+    """Läser fyllningen i en mätare vars läge redan är känt (från en tidigare bild
+    i samma kast). Söker några pixlar åt sidorna (gubben rör sig lite)."""
+    import numpy as np
+    H, W = bild.shape[:2]
+    if not (0 <= topp < botten < H):
+        return None
+    längd = botten - topp
+    bäst = None
+    for dx in range(-8, 9):
+        xx = x + dx
+        if not 0 <= xx < W:
+            continue
+        kol = bild[topp:botten + 1, xx, :3].astype(np.int16)
+        ljus = (kol.min(axis=1) >= max(160, _fyllgräns(kol.max(axis=1)))) & \
+            (kol.max(axis=1) - kol.min(axis=1) <= 70)
+        nerifrån = ljus[::-1]
+        start = next((k for k in range(min(8, len(nerifrån))) if nerifrån[k]), None)
+        n = 0
+        if start is not None:
+            n = start
+            for v in nerifrån[start:]:
+                if not v:
+                    break
+                n += 1
+        if bäst is None or n > bäst[0]:
+            bäst = (n, xx)
+    if bäst is None:
+        return None
+    # Rimlighet: fyllningen är ett smalt ljust streck, inte en ljus yta.
+    n, xx = bäst
+    if n > 0:
+        sida = bild[botten - max(1, n // 2), max(0, xx - 14), :3].min()
+        if sida >= 160 and n > 0.5 * längd:
+            return None
+    return (min(1.0, n / längd), xx)
 
 
 def spårmask(remsa, gräns=60):
@@ -1269,8 +1316,12 @@ def ocr_rader(utsnitt, skärmhöjd, max_rader=3, metod=0):
             sökväg = fil.name
         try:
             spara_png(sökväg, np.stack([svv] * 3, axis=2))
-            ut = subprocess.run(["tesseract", sökväg, "-", "--psm", "7"], capture_output=True,
-                                text=True, timeout=10).stdout.strip()
+            # Lägsta prioritet och en tråd: spelet och makrot går före.
+            kommando = ["tesseract", sökväg, "-", "--psm", "7"]
+            if shutil.which("nice"):
+                kommando = ["nice", "-n", "19"] + kommando
+            ut = subprocess.run(kommando, capture_output=True, text=True, timeout=10,
+                                env=dict(os.environ, OMP_THREAD_LIMIT="1")).stdout.strip()
             if ut:
                 texter.append(ut)
         except (OSError, subprocess.SubprocessError):
@@ -1348,7 +1399,10 @@ def läs_fångst(utsnitt_lista, skärmhöjd, kända=()):
     import collections
     import difflib
     svar, rå = [], []
-    for u in utsnitt_lista:
+    for nr, u in enumerate(utsnitt_lista):
+        if nr == 1 and not svar and not any(
+                "ou" in t.lower() or "aug" in t.lower() or "kg" in t.lower() for t in rå):
+            break       # ingen fångsttext alls i första bilden: inget att läsa
         for metod in (0, 3, 1, 2):
             hittat = False
             for rad in ocr_rader(u, skärmhöjd, metod=metod):
@@ -1505,6 +1559,14 @@ class Diagnostik:
     def kast(self, andel):
         if self.på():
             self.rapport["kast"] = (self.rapport["kast"] + [andel])[-500:]
+
+    def kast_mätning(self, fördröjning, spår, t_släpp):
+        """Uppmätt tid från släpp tills kastmätaren stannade, med mätarens värden."""
+        if self.på():
+            rad = {"fördröjning": fördröjning,
+                   "spår": [[round(t - t_släpp, 3), None if v is None else round(v, 2)]
+                            for t, v in spår]}
+            self.rapport["kastfördröjning"] = (self.rapport.get("kastfördröjning", []) + [rad])[-100:]
 
     def kamp_start(self):
         if self.på():
@@ -1924,6 +1986,11 @@ class Makro:
             self.styrning = Styrning(*[float(x) for x in sparad][:2], L=float(sparad[2]))
         except (TypeError, ValueError, IndexError):
             self.styrning = Styrning(L=0.3)
+        # Tiden från släpp tills kastmätaren stannar på skärmen (mäts vid varje kast).
+        try:
+            self.kast_ledtid = min(0.45, max(0.05, float(inst["kast_ledtid"])))
+        except (KeyError, TypeError, ValueError):
+            self.kast_ledtid = None
         self.diag = Diagnostik(inst, self.logg)
 
     def logg(self, text):
@@ -2100,6 +2167,7 @@ class Makro:
         förra = None
         först_sett = None
         högst = 0.0
+        känd = None
         while True:
             nu = time.time()
             if nu - start > 3.0 or (not sett and nu - start > max(1.2, self.inst["cast_tid"])):
@@ -2113,6 +2181,10 @@ class Makro:
             bild = self.skärm.hämta()
             self.vakt(bild)
             m = hitta_kastmätare(bild) if bild is not None else None
+            if m is not None:
+                känd = (m[1], m[2], m[3])
+            elif sett and bild is not None:
+                m = följ_kastmätare(bild, *känd)   # samma mätare, sökningen missade
             if bild is not None and bild is not förra and len(filmrutor) < 40 and self.diag.på():
                 H, W = bild.shape[:2]
                 filmrutor.append((nu, bild[int(0.45 * H):int(0.80 * H),
@@ -2132,12 +2204,72 @@ class Makro:
             prover.append((time.time(), andel))
             prover = prover[-5:]
             fart = hastighet(prover)
-            # Släpp strax innan toppen (släppet når spelet ~0,05 s senare), eller
-            # direkt om mätaren står still/vänder högt upp.
-            if andel + max(0.0, fart) * 0.05 >= 0.99 or (andel >= 0.95 and fart <= 0.05):
+            # Mätaren pendlar (upp ~1/s, ner igen) och det tar en stund innan
+            # släppet märks i spelet. Släpp därför INNAN toppen, så att spelet
+            # får släppet precis när mätaren är högst. Fördröjningen mäts efter
+            # varje kast (se mät_kastfördröjning); tills dess gissas den utifrån
+            # styrningens inlärda fördröjning. Missas toppen får man vänta ett
+            # helt varv (~2 s), så släpp också om den redan har vänt högt upp.
+            ledtid = self.kast_ledtid if self.kast_ledtid is not None else \
+                min(0.35, max(0.08, self.styrning.L)) + 0.05
+            fart = min(fart, 1.6)      # det första hoppet ger ofta en för hög fart
+            säker = len(prover) >= 3 and andel >= 0.5 and fart > 0.3
+            kvar = (1.0 - andel) / fart - ledtid if säker else 9.9   # s tills släpp
+            mellan = (prover[-1][0] - prover[0][0]) / (len(prover) - 1) if len(prover) > 1 else 0.1
+            if (säker and kvar <= min(0.12, mellan)) or \
+                    (andel >= 0.85 and fart <= 0.0) or andel >= 0.99:
+                if säker and kvar > 0:
+                    time.sleep(kvar)    # nästa bild kommer för sent: vänta ut exakt tid
+                andel_släpp = andel + max(0.0, kvar) * fart if säker else andel
+                self.släpp(f"{andel_släpp:.0%}")
+                if känd is not None:
+                    self.mät_kastfördröjning(känd, filmrutor)
                 self.diag.kastfilm(filmrutor)   # de första kasten per pass, för kontroll
-                return self.släpp(f"{andel:.0%}")
+                return True
             time.sleep(0.003)
+
+    def mät_kastfördröjning(self, känd, filmrutor):
+        """Tittar på mätaren en kort stund efter släppet: den rör sig tills spelet
+        har fått släppet och stannar eller försvinner sedan. Tiden dit är hela
+        fördröjningen (skärmbild + tangent), vilken styr hur tidigt nästa kast
+        ska släppas."""
+        t_släpp = time.time()
+        förra = None
+        spår = []          # (tid, andel eller None)
+        while time.time() - t_släpp < 0.6:
+            bild = self.skärm.hämta()
+            if bild is None or bild is förra:
+                time.sleep(0.004)
+                continue
+            förra = bild
+            nu = time.time()
+            m = följ_kastmätare(bild, *känd)
+            spår.append((nu, None if m is None else m[0]))
+            if self.diag.på() and len(filmrutor) < 48:
+                H, W = bild.shape[:2]
+                filmrutor.append((nu, bild[int(0.45 * H):int(0.80 * H),
+                                            int(0.35 * W):int(0.60 * W)].copy()))
+            if len(spår) >= 2 and all(v is None or v < 0.1 for _, v in spår[-2:]):
+                break          # borta två bilder i rad
+            if len(spår) >= 3 and _kastplatå(spår) is not None and nu - spår[_kastplatå(spår)][0] >= 0.08:
+                break          # stilla en stund
+        # Första bilden där mätaren har försvunnit eller stannat. (Släpps kastet
+        # bara >= 50 %, så en mätare nära 0 är en mätare som har försvunnit.)
+        mätt = None
+        förr_t = t_släpp
+        platå = _kastplatå(spår)
+        for i, (t, v) in enumerate(spår):
+            if v is None or v < 0.1 or i == platå:
+                mätt = (förr_t + t) / 2 - t_släpp
+                break
+            förr_t = t
+        if mätt is None or not spår or not (0.03 <= mätt <= 0.55):
+            self.diag.kast_mätning(None, spår, t_släpp)
+            return
+        gammal = self.kast_ledtid
+        self.kast_ledtid = mätt if gammal is None else 0.6 * gammal + 0.4 * mätt
+        self.kast_ledtid = min(0.45, max(0.05, self.kast_ledtid))
+        self.diag.kast_mätning(round(mätt, 3), spår, t_släpp)
 
     def släpp(self, orsak):
         self.inp.up(BTN_LEFT)
@@ -2163,6 +2295,7 @@ class Makro:
         stat = {"enter": 0, "klick": 0, "ringar": 0, "blå": 0}
         tryckt_på = None     # (x, y) för ringen som Enter senast trycktes på
         varv = 0
+        senast_blå = senast_full = 0.0
         try:
             while True:
                 bild = self.skärm.hämta()
@@ -2183,7 +2316,14 @@ class Makro:
                     H, W = bild.shape[:2]
                     ring = snabb_blå_ring(bild) if läge == "navigation" else None
                     blå = ring is not None
-                    full_sökning = ring is None and (läge == "klick" or varv % 4 == 0)
+                    if ring is not None:
+                        senast_blå = nu
+                    # Den långsamma sökningen (vita ringar) bara i klickläge, eller när
+                    # ingen blå ring har synts på en stund - och högst en gång per sekund.
+                    full_sökning = ring is None and (
+                        läge == "klick" or (nu - senast_blå > 1.5 and nu - senast_full > 1.0))
+                    if full_sökning:
+                        senast_full = nu
                     if full_sökning:
                         ring = hitta_shake(bild, med_radie=True)   # långsam: vita ringar
                         if ring and ring[2] < 0.035 * H:
@@ -2575,6 +2715,19 @@ class Styrning:
                 fel += (p - hist[j][1]) ** 2
                 n += 1
         return fel / max(1, n)
+
+
+def _kastplatå(spår):
+    """Index för första bilden varefter kastmätaren står still (±0,02) i minst
+    0,06 s, eller None. Enstaka bilder ligger för tätt för att jämföras två och två."""
+    for i, (t, v) in enumerate(spår):
+        if v is None or v < 0.1:
+            return None
+        senare = [(u, w) for u, w in spår[i + 1:] if u - t <= 0.12]
+        if senare and senare[-1][0] - t >= 0.06 and \
+                all(w is not None and abs(w - v) < 0.02 for _, w in senare):
+            return i
+    return None
 
 
 def hastighet(prover):
@@ -3481,6 +3634,8 @@ class App:
                     self.registrera(data, kamptid, shakes)
                     st = self.makro.styrning
                     self.inst["styrning"] = [round(st.upp), round(st.ner), round(st.L, 3)]
+                    if self.makro.kast_ledtid is not None:
+                        self.inst["kast_ledtid"] = round(self.makro.kast_ledtid, 3)
                     if sum(self.stat.values()) % 5 == 0:
                         self.spara_konfig()
                     self.stat[data] += 1
