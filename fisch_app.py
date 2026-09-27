@@ -21,8 +21,11 @@ import threading
 import time
 import zlib
 
-VERSION = "2.3"   # höj vid varje ny version så att man ser vilken man kör
+VERSION = "2.4"   # höj vid varje ny version så att man ser vilken man kör
 UPPDATERA_URL = "https://raw.githubusercontent.com/quranzy2011-byte/cluade/main/fisch_app.py"
+GITHUB_API = "https://api.github.com"
+DIAG_REPO = "quranzy2011-byte/cluade-2"   # privat repo dit diagnostiken laddas upp
+DIAG_GREN = "diagnostik"
 
 MAPP = os.path.dirname(os.path.abspath(__file__))
 KONFIG = os.path.expanduser("~/.config/fisch-makro/installningar.json")
@@ -39,6 +42,8 @@ STANDARD = {
     "slumpa": True,         # små slumpade variationer i tider och klick
     "notiser": True,        # notis + ljud när makrot stoppar
     "anti_afk": True,       # rör musen lite då och då när makrot är pausat (inget idle-kick)
+    "diagnostik": True,     # spara bilder + rapport i autoclicker/diagnostik (för förbättringar)
+    "gh_token": "",         # GitHub-token: laddar upp diagnostiken automatiskt (tomt = av)
     "discord": "",          # Discord-webhook för notiser (tomt = av)
     "stopp_fiskar": 0,      # stoppa efter så många fångade fiskar (0 = aldrig)
     "stopp_minuter": 0,     # stoppa efter så många minuter (0 = aldrig)
@@ -850,6 +855,218 @@ def notis(text):
         pass
 
 
+# ---------------------------------------------------------------- Diagnostik
+
+class Diagnostik:
+    """Samlar det makrot ser och gör, så att det kan förbättras.
+
+    Sparar i autoclicker/diagnostik/<pass>/:
+      rapport.json  - fångade/tappade, kast, hur kamperna gick, fel
+      *.png         - bilder när en fisk tappas, vid fångst, inget napp och fel
+    Med en GitHub-token laddas allt upp automatiskt till ett privat repo.
+    """
+
+    MAX_BILDER = 300
+
+    def __init__(self, inst, logg):
+        import collections
+        self.inst = inst
+        self.logg = logg
+        self.pass_id = time.strftime("%Y%m%d_%H%M%S")
+        self.mapp = os.path.join(MAPP, "diagnostik", self.pass_id)
+        self.rapport = {"version": VERSION, "pass": self.pass_id, "start": time.time(),
+                        "resultat": {"fångad": 0, "tappad": 0, "inget napp": 0},
+                        "kast": [], "kamper": [], "fel": [], "bilder_per_s": []}
+        self.kamp = None
+        self.buffert = collections.deque(maxlen=8)   # (tid, bild) sista ~2 s i kampen
+        self.skrivkö = queue.Queue()
+        self.uppkö = queue.Queue()
+        self.uppladdat = 0
+        self.senast_uppladdat = None
+        self.senast_rapport = 0
+        self.n_fångstbilder = 0
+        threading.Thread(target=self._skrivare, daemon=True).start()
+        threading.Thread(target=self._uppladdare, daemon=True).start()
+
+    # ---- insamling (anropas från makrotråden, måste vara snabbt)
+    def på(self):
+        return bool(self.inst.get("diagnostik"))
+
+    def kast(self, andel):
+        if self.på():
+            self.rapport["kast"] = (self.rapport["kast"] + [andel])[-500:]
+
+    def kamp_start(self):
+        if self.på():
+            self.kamp = {"start": round(time.time(), 1), "bilder": 0, "vit": 0, "mörk": 0,
+                         "borta": 0, "fisk_i_bar": 0, "fisk_sedd": 0, "prog_max": 0.0}
+            self.buffert.clear()
+
+    def kamp_bild(self, bild, läge, b0, b1, fisk, prog):
+        k = self.kamp
+        if not (self.på() and k):
+            return
+        k["bilder"] += 1
+        k[läge or "borta"] += 1
+        if fisk is not None:
+            k["fisk_sedd"] += 1
+            if b0 is not None and b0 <= fisk <= b1:
+                k["fisk_i_bar"] += 1
+        if prog is not None:
+            k["prog_max"] = max(k["prog_max"], round(float(prog), 3))
+            k["prog_slut"] = round(float(prog), 3)
+        nu = time.time()
+        if bild is not None and (not self.buffert or nu - self.buffert[-1][0] > 0.25):
+            self.buffert.append((nu, bild))
+
+    def kamp_slut(self, resultat, kamptid):
+        k, self.kamp = self.kamp, None
+        if not (self.på() and k):
+            return
+        k["resultat"] = resultat
+        k["tid"] = round(kamptid, 1)
+        self.rapport["kamper"] = (self.rapport["kamper"] + [k])[-500:]
+        if resultat == "tappad":
+            # Bilderna precis innan fisken tappades visar vad som gick fel.
+            for i, (t, b) in enumerate(list(self.buffert)[-4:]):
+                self.bild(f"tappad_{time.strftime('%H%M%S')}_{i}", b, beskär=True)
+
+    def resultat(self, resultat):
+        if self.på():
+            self.rapport["resultat"][resultat] = self.rapport["resultat"].get(resultat, 0) + 1
+            self.spara_rapport()
+
+    def fångstbild(self, bild):
+        """Bilden strax efter en fångst ("I caught a ...!") - för fångstloggen."""
+        if self.på() and bild is not None and self.n_fångstbilder < 40:
+            self.n_fångstbilder += 1
+            self.bild(f"fangst_{time.strftime('%H%M%S')}", bild, halv=True)
+
+    def inget_napp(self, bild):
+        if self.på() and bild is not None:
+            self.bild(f"inget_napp_{time.strftime('%H%M%S')}", bild, halv=True)
+
+    def fel(self, text, bild=None):
+        if self.på():
+            self.rapport["fel"] = (self.rapport["fel"] + [[time.strftime("%H:%M:%S"), text]])[-100:]
+            if bild is not None:
+                self.bild(f"fel_{time.strftime('%H%M%S')}", bild, halv=True)
+            self.spara_rapport(nu=True)
+
+    def bild(self, namn, bild, beskär=False, halv=False):
+        if bild is not None:
+            self.skrivkö.put(("bild", namn, bild, beskär, halv))
+
+    def spara_rapport(self, nu=False, bps=None):
+        if bps is not None:
+            self.rapport["bilder_per_s"] = (self.rapport["bilder_per_s"] + [round(bps, 1)])[-200:]
+        if nu or time.time() - self.senast_rapport > 30:
+            self.senast_rapport = time.time()
+            self.skrivkö.put(("rapport",))
+
+    def sammanfattning(self):
+        r = self.rapport["resultat"]
+        f, t = r.get("fångad", 0), r.get("tappad", 0)
+        kamper = [k for k in self.rapport["kamper"] if k.get("fisk_sedd")]
+        i_bar = (sum(k["fisk_i_bar"] for k in kamper) / max(1, sum(k["fisk_sedd"] for k in kamper)))
+        kast = [k for k in self.rapport["kast"] if isinstance(k, (int, float))]
+        return {"fångad": f, "tappad": t, "inget_napp": r.get("inget napp", 0),
+                "fångstrat": round(f / (f + t), 3) if f + t else None,
+                "fisk_i_baren": round(i_bar, 3) if kamper else None,
+                "snitt_kast": round(sum(kast) / len(kast), 3) if kast else None,
+                "kamper": len(self.rapport["kamper"]), "fel": len(self.rapport["fel"])}
+
+    # ---- bakgrundstrådar (sparar och laddar upp utan att störa fisket)
+    def _skrivare(self):
+        while True:
+            jobb = self.skrivkö.get()
+            try:
+                os.makedirs(self.mapp, exist_ok=True)
+                if jobb[0] == "rapport":
+                    self.rapport["sammanfattning"] = self.sammanfattning()
+                    self.rapport["uppdaterad"] = time.strftime("%Y-%m-%d %H:%M:%S")
+                    sökväg = os.path.join(self.mapp, "rapport.json")
+                    with open(sökväg + ".tmp", "w", encoding="utf-8") as fil:
+                        json.dump(self.rapport, fil, indent=1, ensure_ascii=False)
+                    os.replace(sökväg + ".tmp", sökväg)
+                    self.uppkö.put(sökväg)
+                else:
+                    _, namn, bild, beskär, halv = jobb
+                    H, W = bild.shape[:2]
+                    if beskär:   # bara reel-området, i full upplösning
+                        bild = bild[int(0.55 * H):int(0.97 * H), int(0.15 * W):int(0.85 * W)]
+                    elif halv:
+                        bild = bild[::2, ::2]
+                    sökväg = os.path.join(self.mapp, namn + ".png")
+                    spara_png(sökväg, bild)
+                    self.uppkö.put(sökväg)
+                    self._städa()
+            except Exception as fel:
+                self.logg(f"Diagnostik: kunde inte spara ({fel})")
+
+    def _städa(self):
+        bas = os.path.join(MAPP, "diagnostik")
+        bilder = []
+        for rot, _, filer in os.walk(bas):
+            bilder += [os.path.join(rot, f) for f in filer if f.endswith(".png")]
+        if len(bilder) > self.MAX_BILDER:
+            for f in sorted(bilder, key=os.path.getmtime)[:len(bilder) - self.MAX_BILDER]:
+                try:
+                    os.remove(f)
+                except OSError:
+                    pass
+
+    def _uppladdare(self):
+        väntande = {}
+        while True:
+            try:
+                sökväg = self.uppkö.get(timeout=5)
+                väntande[sökväg] = True
+            except queue.Empty:
+                pass
+            token = self.inst.get("gh_token", "").strip()
+            if not token or not väntande:
+                continue
+            # Bilder först i tur och ordning, rapporten sist (den skrivs ofta över).
+            sökväg = sorted(väntande, key=lambda p: p.endswith(".json"))[0]
+            del väntande[sökväg]
+            if not os.path.exists(sökväg):
+                continue
+            try:
+                self._ladda_upp(token, sökväg)
+                self.uppladdat += 1
+                self.senast_uppladdat = time.strftime("%H:%M")
+            except Exception as fel:
+                self.logg(f"Diagnostik: uppladdning misslyckades ({fel})")
+                time.sleep(30)
+            time.sleep(2)
+
+    def _ladda_upp(self, token, sökväg):
+        import base64
+        import urllib.error
+        import urllib.request
+        rel = os.path.relpath(sökväg, MAPP).replace(os.sep, "/")
+        url = f"{GITHUB_API}/repos/{DIAG_REPO}/contents/{rel}"
+        huvud = {"Authorization": f"Bearer {token}", "Accept": "application/vnd.github+json",
+                 "User-Agent": "FischMakro"}
+        sha = None
+        try:   # finns filen redan (rapport.json skrivs över) behövs dess sha
+            req = urllib.request.Request(f"{url}?ref={DIAG_GREN}", headers=huvud)
+            with urllib.request.urlopen(req, timeout=20) as svar:
+                sha = json.loads(svar.read()).get("sha")
+        except urllib.error.HTTPError as fel:
+            if fel.code != 404:
+                raise
+        with open(sökväg, "rb") as fil:
+            data = {"message": f"diagnostik {rel}", "branch": DIAG_GREN,
+                    "content": base64.b64encode(fil.read()).decode()}
+        if sha:
+            data["sha"] = sha
+        req = urllib.request.Request(url, data=json.dumps(data).encode(), method="PUT",
+                                     headers=dict(huvud, **{"Content-Type": "application/json"}))
+        urllib.request.urlopen(req, timeout=60).close()
+
+
 # ---------------------------------------------------------------- Makrot
 
 class Makro:
@@ -866,6 +1083,7 @@ class Makro:
         self.vy = None          # (bar0, bar1, fisk, bredd, läge) för live-vyn
         self.pekare_flyttad = False
         self.acc = None         # barens acceleration (px/s²), lärs in under spelet
+        self.diag = Diagnostik(inst, self.logg)
 
     def logg(self, text):
         self.q.put(("logg", text))
@@ -930,6 +1148,7 @@ class Makro:
                 return
         self.vänta(max(0.0, self.slump(self.inst["cast_tid"]) - (time.time() - start)))
         self.inp.up(BTN_LEFT)
+        self.diag.kast("tid (mätaren syntes inte)" if self.inst["perfekt_kast"] else "tid")
 
     def perfekt_kast(self, start):
         """Släpper när kastmätaren (förutsagt) når toppen. False = mätaren syntes inte."""
@@ -959,6 +1178,7 @@ class Makro:
     def släpp(self, orsak):
         self.inp.up(BTN_LEFT)
         self.kast_andel = orsak
+        self.diag.kast(float(orsak.rstrip("%")) / 100 if orsak.endswith("%") else orsak)
         return True
 
     def vänta_på_napp(self):
@@ -1016,13 +1236,21 @@ class Makro:
         self.kasta()
         self.vänta(self.slump(0.6))
         if not self.vänta_på_napp():
+            self.diag.inget_napp(self.skärm.hämta())
             return "inget napp"
         self.status("Drar in")
         kampstart = time.time()
+        self.diag.kamp_start()
         resultat = self.reel()
         self.kamptid = time.time() - kampstart
+        self.diag.kamp_slut(resultat, self.kamptid)
         self.vy = None
-        self.vänta(self.slump(1.5, 0.2))
+        if resultat == "fångad":
+            self.vänta(0.4)
+            self.diag.fångstbild(self.skärm.hämta())
+            self.vänta(self.slump(1.1, 0.2))
+        else:
+            self.vänta(self.slump(1.5, 0.2))
         return resultat
 
     def reel(self):
@@ -1070,6 +1298,7 @@ class Makro:
                     continue
                 läge, b0, b1, fisk, prog = syn.läs(bild)
                 W = bild.shape[1]
+                self.diag.kamp_bild(bild, läge, b0, b1, fisk, prog)
 
                 if läge is None:
                     self.inp.up(BTN_LEFT)
@@ -1164,6 +1393,7 @@ class Makro:
             self.senast_aktiv = time.time()
             try:
                 resultat = self.cykel()
+                self.diag.resultat(resultat)
                 self.q.put(("resultat", (resultat, self.kamptid, self.shakes)))
             except InterruptedError:
                 pass
@@ -1172,6 +1402,11 @@ class Makro:
                 self.logg(f"Fel: {fel!r}")
                 ram = traceback.extract_tb(fel.__traceback__)[-1]
                 self.logg(f"  (rad {ram.lineno} i {ram.name}: {ram.line})")
+                try:
+                    self.diag.fel(f"{fel!r} på rad {ram.lineno} i {ram.name}",
+                                  self.skärm.hämta() if self.skärm else None)
+                except Exception:
+                    pass
                 self.q.put(("stoppa", f"Fel: {fel}"))
                 self.kör.clear()
             finally:
@@ -1537,6 +1772,23 @@ class App:
             rad += 1
         ip.columnconfigure(0, weight=1)
 
+        ttk.Label(f, text="DIAGNOSTIK", style="Rubrik.TLabel").pack(anchor="w", pady=(12, 4))
+        dg = ttk.Frame(f, style="Panel.TFrame", padding=10)
+        dg.pack(fill="x")
+        dvar = tk.BooleanVar(value=self.inst["diagnostik"])
+        ttk.Checkbutton(dg, text="Spara bilder + rapport (för förbättringar)", variable=dvar,
+                        command=lambda: self.sätt("diagnostik", dvar.get())).pack(anchor="w")
+        self.vars["diagnostik"] = dvar
+        ttk.Label(dg, text="GitHub-token (laddar upp automatiskt)", style="Dämpad.TLabel").pack(
+            anchor="w", pady=(6, 0))
+        tvar = tk.StringVar(value=self.inst["gh_token"])
+        ttk.Entry(dg, textvariable=tvar, show="•").pack(fill="x", pady=(4, 0))
+        tvar.trace_add("write", lambda *_a: self.sätt("gh_token", tvar.get().strip()))
+        self.diag_text = ttk.Label(dg, text="", style="Dämpad.TLabel")
+        self.diag_text.pack(anchor="w", pady=(6, 0))
+        ttk.Button(dg, text="Öppna diagnostikmappen", command=self.öppna_diagnostik
+                   ).pack(fill="x", pady=(6, 0))
+
         ttk.Label(f, text="DISCORD (VALFRITT)", style="Rubrik.TLabel").pack(anchor="w", pady=(12, 4))
         dp = ttk.Frame(f, style="Panel.TFrame", padding=10)
         dp.pack(fill="x")
@@ -1562,7 +1814,7 @@ class App:
 
     # ---- inställningar och profiler
     def sätt(self, nyckel, värde):
-        if isinstance(värde, str) and nyckel not in ("shake", "discord"):
+        if isinstance(värde, str) and nyckel not in ("shake", "discord", "gh_token"):
             try:
                 värde = float(värde.replace(",", "."))
             except ValueError:
@@ -1697,6 +1949,25 @@ class App:
     def starta_om(self):
         self.stäng()
         os.execv(sys.executable, [sys.executable, os.path.abspath(__file__)])
+
+    def öppna_diagnostik(self):
+        mapp = os.path.join(MAPP, "diagnostik")
+        os.makedirs(mapp, exist_ok=True)
+        try:
+            subprocess.Popen(["xdg-open", mapp])
+        except OSError:
+            self.skriv(f"Diagnostiken ligger i {mapp}")
+
+    def rita_diagnostik(self):
+        d = self.makro.diag
+        sam = d.sammanfattning()
+        text = f"Pass {d.pass_id[9:11]}:{d.pass_id[11:13]}: {sam['fångad']} fångade, {sam['tappad']} tappade"
+        if sam["fisk_i_baren"] is not None:
+            text += f", fisk i baren {sam['fisk_i_baren']:.0%}"
+        if self.inst.get("gh_token"):
+            text += f"\nUppladdat: {d.uppladdat} filer" + (f" (senast {d.senast_uppladdat})"
+                                                          if d.senast_uppladdat else "")
+        self.diag_text.config(text=text)
 
     def lär_nav(self):
         if not self.makro.inp:
@@ -1876,6 +2147,10 @@ class App:
         self.tick = getattr(self, "tick", 0) + 1
         if self.tick % 20 == 0:
             self.rita_tavla()
+            self.rita_diagnostik()
+            sk = self.makro.skärm
+            if self.makro.kör.is_set() and sk is not None and hasattr(sk, "bilder_per_s"):
+                self.makro.diag.spara_rapport(bps=sk.bilder_per_s())
         self.root.after(50, self.uppdatera)
 
     def stäng(self):
