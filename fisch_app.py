@@ -21,7 +21,7 @@ import threading
 import time
 import zlib
 
-VERSION = "2.6"   # höj vid varje ny version så att man ser vilken man kör
+VERSION = "2.7"   # höj vid varje ny version så att man ser vilken man kör
 UPPDATERA_URL = "https://raw.githubusercontent.com/quranzy2011-byte/cluade/main/fisch_app.py"
 GITHUB_API = "https://api.github.com"
 DIAG_REPO = "quranzy2011-byte/cluade-2"   # privat repo dit diagnostiken laddas upp
@@ -1309,7 +1309,12 @@ class Makro:
         self.syn = Syn()
         self.vy = None          # (bar0, bar1, fisk, bredd, läge) för live-vyn
         self.pekare_flyttad = False
-        self.acc = None         # barens acceleration (px/s²), lärs in under spelet
+        # Spelets fysik (lärs in under fisket och sparas till nästa gång).
+        sparad = inst.get("styrning")
+        try:
+            self.styrning = Styrning(*[float(x) for x in sparad][:2], L=float(sparad[2]))
+        except (TypeError, ValueError, IndexError):
+            self.styrning = Styrning(L=0.3)
         self.diag = Diagnostik(inst, self.logg)
 
     def logg(self, text):
@@ -1492,9 +1497,12 @@ class Makro:
     def reel(self):
         syn = self.syn
         syn.ny_reel()
+        self.styrning.ny_kamp()
+        förra_bild, förra_tid = None, 0.0
+        start_mitt = None
+        rörd = False         # baren står helt still de första ~2 s av kampen
         prover = []          # (tid, bar_mitt) för barens hastighet
         fprover = []         # (tid, fisk_x) för fiskens hastighet
-        fart_hist = []       # (tid, barens hastighet, håll) för att lära in accelerationen
         håll = False
         fisk_rel = 0.5       # var i baren fisken sågs senast (0 = vänster, 1 = höger)
         senast_mitt = None
@@ -1516,6 +1524,10 @@ class Makro:
                 bild = self.skärm.hämta()
                 if bild is None:
                     continue
+                if bild is förra_bild and nu - förra_tid < 0.25:
+                    time.sleep(0.003)   # ingen ny bild än: samma bild igen ger bara brus
+                    continue
+                förra_bild, förra_tid = bild, nu
                 läge, b0, b1, fisk, prog = syn.läs(bild)
                 W = bild.shape[1]
                 self.diag.kamp_bild(bild, läge, b0, b1, fisk, prog, syn.band)
@@ -1524,6 +1536,7 @@ class Makro:
 
                 if läge is None:
                     self.inp.up(BTN_LEFT)
+                    self.styrning.skickat(nu, False)
                     borta_sedan = borta_sedan or nu
                     if nu - borta_sedan > 0.35:
                         return resultat_av("borta")
@@ -1551,11 +1564,29 @@ class Makro:
                     fprover = fprover[-5:]
                 if fisk is not None and b0 is not None:
                     fisk_rel = (fisk - b0) / max(1, b1 - b0)
-                    håll = self.styr(prover, fprover, fart_hist, nu, mitt, b1 - b0, fisk, håll)
+                    if start_mitt is None:
+                        start_mitt = mitt
+                    rörd = rörd or abs(mitt - start_mitt) > 3
+                    lo, hi = -1e9, 1e9
+                    if syn.spann:   # spårets ändar: baren kan inte åka längre
+                        x0 = int(REEL_OMRÅDE[0] * W)
+                        kant = 0.02 * (syn.spann[1] - syn.spann[0])   # pilarna i ändarna
+                        lo = x0 + syn.spann[0] + kant + (b1 - b0) / 2
+                        hi = x0 + syn.spann[1] - kant - (b1 - b0) / 2
+                        if hi <= lo:
+                            lo, hi = -1e9, 1e9
+                    if not rörd:
+                        # Spelet håller baren still i början; tryck inte i onödan.
+                        håll = fisk > mitt + (b1 - b0) * 0.25
+                    else:
+                        håll = self.styrning.beslut(nu, mitt, hastighet(prover[-5:]), fisk,
+                                                    hastighet(fprover), lo, hi)
+                        self.styrning.anpassa(nu)
                 elif fisk is not None and senast_mitt is not None:
                     håll = fisk > senast_mitt      # ser fisken men inte baren
                 else:
                     håll = fisk_rel > 0.5          # ser inte fisken: jaga åt senaste hållet
+                self.styrning.skickat(nu, håll)
                 self.diag.kamp_tryck(håll)
                 if håll:
                     self.inp.down(BTN_LEFT)
@@ -1564,26 +1595,6 @@ class Makro:
                 time.sleep(0.005)
         finally:
             self.inp.up(BTN_LEFT)
-
-    def styr(self, prover, fprover, fart_hist, nu, mitt, bredd, fisk, håll_nu):
-        """Bromspunkt-styrning: håll inne om baren, efter att ha bromsat in,
-        skulle stanna till vänster om där fisken är på väg."""
-        v = hastighet(prover[-5:])
-        fv = hastighet(fprover)
-        if self.acc is None:
-            self.acc = 4.0 * bredd
-        # Lär in accelerationen: hur fort farten ändras när kommandot legat still.
-        fart_hist.append((nu, v, håll_nu))
-        del fart_hist[:-12]
-        if len(fart_hist) >= 6 and all(h[2] == håll_nu for h in fart_hist[-6:]):
-            dt = fart_hist[-1][0] - fart_hist[-6][0]
-            if dt > 0.05:
-                a = abs(fart_hist[-1][1] - fart_hist[-6][1]) / dt
-                if a > 0.5 * bredd:
-                    self.acc = 0.85 * self.acc + 0.15 * min(a, 20 * bredd)
-        broms = max(-1.5 * bredd, min(1.5 * bredd, v * abs(v) / (2 * self.acc)))
-        ledning = max(-0.8 * bredd, min(0.8 * bredd, fv * self.inst["förutsägelse"]))
-        return mitt + broms < fisk + ledning
 
     def anti_afk(self):
         """Roblox kastar ut efter 20 min utan aktivitet. När makrot är pausat
@@ -1634,6 +1645,125 @@ class Makro:
                 self.vy = None
                 if self.inp:
                     self.inp.release_all()
+
+
+class Styrning:
+    """Förutsägande styrning (MPC) för reel-baren.
+
+    Spelet svarar först efter en fördröjning (L, ~0,25 s i Sober med skärm-
+    inspelning), så baren fortsätter i gammal riktning en stund efter varje
+    klick. Varje bild: räkna fram var baren är när det nya kommandot börjar
+    verka (med de kommandon som redan är på väg), pröva sedan planer av typen
+    "håll/släpp i d sekunder, sedan tvärtom" och välj den som håller baren
+    närmast fisken. Fysiken (acceleration när man håller/släpper, broms,
+    fördröjning) utgår från uppmätta värden och finjusteras medan man fiskar.
+    """
+
+    DT = 0.02
+    HORISONT = 0.8
+    PLANER = (0.04, 0.08, 0.12, 0.18, 0.26, 0.36, 0.5, 0.8)
+
+    def __init__(self, upp=1600.0, ner=600.0, broms=0.5, L=0.2):
+        self.upp, self.ner, self.broms, self.L = upp, ner, broms, L
+        self.kommandon = []     # (tid, håll) som skickats
+        self.historik = []      # (tid, mitt) som setts
+        self.senast_anpassad = 0.0
+
+    def ny_kamp(self):
+        self.kommandon = []
+        self.historik = []
+
+    def _gäller(self, s):
+        """Vilket kommando spelet följer vid tiden s (det som skickades före s - L)."""
+        h = False
+        for tk, hk in self.kommandon:
+            if tk <= s - self.L:
+                h = hk
+            else:
+                break
+        return h
+
+    def _steg(self, p, v, h, lo, hi, dt):
+        v += ((self.upp if h else -self.ner) - self.broms * v) * dt
+        p += v * dt
+        if p < lo:
+            p, v = lo, max(0.0, v)
+        elif p > hi:
+            p, v = hi, min(0.0, v)
+        return p, v
+
+    def beslut(self, nu, mitt, v, fisk, fv, lo=-1e9, hi=1e9):
+        """True = håll inne musknappen."""
+        self.historik.append((nu, mitt))
+        del self.historik[:-80]
+        dt = self.DT
+        # 1) Fram till att det nya kommandot verkar: följ det som redan är skickat.
+        p, vv, s = mitt, v, nu
+        while s < nu + self.L - 1e-9:
+            p, vv = self._steg(p, vv, self._gäller(s), lo, hi, dt)
+            s += dt
+        # Fisken: fortsätter en bit åt samma håll, men vänder ofta (dämpad).
+        def fisk_vid(tid):
+            return fisk + fv * min(tid - nu, 0.3)
+        # 2) Pröva planer.
+        bäst = {}
+        for först in (True, False):
+            for d in self.PLANER:
+                pp, pv, tt, kost = p, vv, s, 0.0
+                while tt < s + self.HORISONT:
+                    h = först if tt - s < d else not först
+                    pp, pv = self._steg(pp, pv, h, lo, hi, dt)
+                    tt += dt
+                    kost += (pp - fisk_vid(tt)) ** 2
+                if först not in bäst or kost < bäst[först]:
+                    bäst[först] = kost
+        return bäst[True] < bäst[False]
+
+    def skickat(self, nu, håll):
+        """Kommer ihåg vad som skickades (behövs för att förutsäga fördröjningen)."""
+        self.kommandon.append((nu, håll))
+        if len(self.kommandon) > 200:
+            del self.kommandon[:100]
+
+    def anpassa(self, nu):
+        """Finjusterar fysiken mot det som setts, en sak i taget (fördröjning,
+        acceleration när man håller, acceleration när man släpper)."""
+        if nu - self.senast_anpassad < 1.0 or len(self.historik) < 30:
+            return
+        self.senast_anpassad = nu
+        hist = self.historik[-60:]
+        self.varv = (getattr(self, "varv", -1) + 1) % 3
+        namn = ("L", "upp", "ner")[self.varv]
+        nu_värde = getattr(self, namn)
+        steg = (-0.1, -0.05, 0.05, 0.1) if namn == "L" else (0.8, 0.9, 1.1, 1.25)
+        gränser = {"L": (0.02, 0.45), "upp": (300.0, 8000.0), "ner": (150.0, 6000.0)}[namn]
+        bäst = (self._prediktionsfel(hist), nu_värde)
+        for st in steg:
+            värde = nu_värde + st if namn == "L" else nu_värde * st
+            if not gränser[0] <= värde <= gränser[1]:
+                continue
+            setattr(self, namn, värde)
+            fel = self._prediktionsfel(hist)
+            if fel < bäst[0] * 0.97:
+                bäst = (fel, värde)
+        setattr(self, namn, bäst[1])
+
+    def _prediktionsfel(self, hist):
+        """Hur väl modellen förutsäger baren 0,4 s framåt från olika startpunkter."""
+        fel, n = 0.0, 0
+        for i in range(3, len(hist) - 4, 5):
+            t0 = hist[i][0]
+            v0 = hastighet(hist[i - 3:i + 1])
+            p, v, s = hist[i][1], v0, t0
+            j = i
+            while j + 1 < len(hist) and hist[j + 1][0] - t0 <= 0.4:
+                j += 1
+                while s < hist[j][0]:
+                    p, v = self._steg(p, v, self._gäller(s), -1e9, 1e9, 0.02)
+                    s += 0.02
+                fel += (p - hist[j][1]) ** 2
+                n += 1
+        return fel / max(1, n)
 
 
 def hastighet(prover):
@@ -2340,6 +2470,10 @@ class App:
                 elif typ == "resultat":
                     data, kamptid, shakes = data
                     self.registrera(data, kamptid, shakes)
+                    st = self.makro.styrning
+                    self.inst["styrning"] = [round(st.upp), round(st.ner), round(st.L, 3)]
+                    if sum(self.stat.values()) % 5 == 0:
+                        self.spara_konfig()
                     self.stat[data] += 1
                     if data == "fångad":
                         self.fångster.append(time.time())
