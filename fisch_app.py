@@ -21,7 +21,7 @@ import threading
 import time
 import zlib
 
-VERSION = "2.9"   # höj vid varje ny version så att man ser vilken man kör
+VERSION = "3.0"   # höj vid varje ny version så att man ser vilken man kör
 UPPDATERA_URL = "https://raw.githubusercontent.com/quranzy2011-byte/cluade/main/fisch_app.py"
 GITHUB_API = "https://api.github.com"
 DIAG_REPO = "quranzy2011-byte/cluade-2"   # privat repo dit diagnostiken laddas upp
@@ -50,7 +50,7 @@ STANDARD = {
     "överst": True,         # fönstret alltid överst
 }
 REEL_OMRÅDE = (0.20, 0.74, 0.80, 0.97)   # x0, y0, x1, y1 som andel av skärmen
-SHAKE_OMRÅDE = (0.08, 0.08, 0.92, 0.90)  # där shake-knapparna kan dyka upp
+SHAKE_OMRÅDE = (0.05, 0.15, 0.95, 0.90)  # där shake-knapparna kan dyka upp (inte Robloxknapparna överst)
 
 KEY_ENTER, BTN_LEFT = 28, 272
 
@@ -362,6 +362,14 @@ def hitta_reel(bild, rader=None):
     # Baren är nästan helt ljus (bara pilar och fisken är mörka). Menyer och
     # verktygsfältet har mest mörka rutor med lite ljus text.
     if andel[b0:b1 + 1].mean() < 0.55:
+        return None
+    # En riktig bar är kritvit och ligger i ett mörkt spår: tydligt mörkare på
+    # sidorna. (Verktygsfältets rutor och suddiga menyer är gråvita och har ljust
+    # bredvid sig.)
+    inne = float(np.median(lo[ra:rb, b0:b1 + 1]))
+    sidor = [float(lo[ra:rb, a:b].mean()) for a, b in ((max(0, b0 - 40), b0 - 4),
+                                                         (b1 + 5, min(rw, b1 + 41))) if b - a >= 4]
+    if inne < 200 or (sidor and inne - max(sidor) < 70):
         return None
 
     fisk = None
@@ -911,11 +919,28 @@ def hitta_shake(bild, med_radie=False):
     return (bäst[1], bäst[2], bäst[3]) if med_radie else (bäst[1], bäst[2])
 
 
+def _cirkel(ys, xs):
+    """Minsta-kvadrat-cirkel genom punkter (Kåsa). Returnerar (cy, cx, R) eller None."""
+    import numpy as np
+    A = np.column_stack([xs, ys, np.ones(len(xs))])
+    b = -(xs ** 2 + ys ** 2)
+    try:
+        D, E, F = np.linalg.lstsq(A, b, rcond=None)[0]
+    except np.linalg.LinAlgError:
+        return None
+    cx, cy = -D / 2, -E / 2
+    r2 = cx ** 2 + cy ** 2 - F
+    return (cy, cx, float(np.sqrt(r2))) if r2 > 0 else None
+
+
 def snabb_blå_ring(bild):
     """Snabb sökning (några ms) efter en blå, markerad shake-ring.
 
-    Blå pixlar i shake-området (glest urval) ska bilda en ring: ungefär lika
-    bred som hög, tom i mitten och med rimlig storlek. Returnerar (x, y, R)."""
+    De blå pixlarna i shake-området (glest urval) ska ligga på en cirkel av
+    rimlig storlek. Det räcker att en del av ringen syns (t.ex. när den delvis
+    ligger bakom makrots fönster), men den måste vara rund: en fyrkantig blå
+    markering runt en knapp (spelarlistan, kameran) godtas inte.
+    Returnerar (x, y, R) i skärmkoordinater."""
     import numpy as np
     H, W = bild.shape[:2]
     s = 3
@@ -925,26 +950,98 @@ def snabb_blå_ring(bild):
     b, g, r = reg[..., 0], reg[..., 1], reg[..., 2]
     blå = (b >= 200) & (g >= 100) & (b.astype(np.int16) - r >= 90)
     ys, xs = np.nonzero(blå)
-    if len(ys) < 40:
+    if len(ys) < 25:
         return None
     # Den största klumpen: pixlar nära medianen (en ring åt gången syns).
     my, mx = np.median(ys), np.median(xs)
-    gräns = 0.12 * min(H, W) / s
+    gräns = 0.16 * min(H, W) / s
     nära = (np.abs(ys - my) < gräns) & (np.abs(xs - mx) < gräns)
-    ys, xs = ys[nära], xs[nära]
-    if len(ys) < 40:
+    ys, xs = ys[nära].astype(float), xs[nära].astype(float)
+    if len(ys) < 25:
         return None
-    ya, yb = np.percentile(ys, [2, 98])
-    xa, xb = np.percentile(xs, [2, 98])
-    bh, bw = yb - ya, xb - xa
-    R = (bh + bw) / 4 * s
-    if not (0.02 * H <= R <= 0.14 * H) or not 0.75 <= bw / max(1, bh) <= 1.33:
+    c = _cirkel(ys, xs)
+    # Anpassa om på punkterna nära cirkeln (annat blått i närheten stör inte).
+    for _ in range(2):
+        if c is None:
+            return None
+        d = np.sqrt((ys - c[0]) ** 2 + (xs - c[1]) ** 2)
+        inne = np.abs(d - c[2]) < 0.12 * c[2]
+        if inne.sum() < 20:
+            return None
+        c = _cirkel(ys[inne], xs[inne])
+    if c is None:
         return None
-    cy, cx = (ya + yb) / 2, (xa + xb) / 2
-    d = np.sqrt((ys - cy) ** 2 + (xs - cx) ** 2) * s
-    if (d < 0.6 * R).mean() > 0.05 or (np.abs(d - R) < 0.2 * R).mean() < 0.7:
-        return None     # inte ihålig / inte rund
-    return (int(x0 + cx * s), int(y0 + cy * s), float(R))
+    cy, cx, R = c
+    if not (0.035 * H <= R * s <= 0.14 * H):
+        return None
+    d = np.sqrt((ys - cy) ** 2 + (xs - cx) ** 2)
+    if (np.abs(d - R) < 0.08 * R).mean() < 0.8:
+        return None     # inte rund (t.ex. en fyrkantig markering runt en knapp)
+    # Hur mycket av varvet syns? Minst ~40 % (resten kan vara skymt).
+    vinkel = ((np.arctan2(ys - cy, xs - cx) + np.pi) / (2 * np.pi) * 24).astype(int) % 24
+    if len(np.unique(vinkel)) < 10:
+        return None
+    return (int(x0 + cx * s), int(y0 + cy * s), float(R * s))
+
+
+SOBER_GRÅ = (58, 54, 54)   # BGR: Ubuntus ruta "Sober Is Not Responding" (mörkt tema)
+
+
+def hitta_dialog(bild):
+    """Letar efter en dialogruta mitt på skärmen som stoppar spelet: en stor,
+    enfärgat grå ruta med skarpa kanter (Ubuntus "Sober svarar inte", Robloxs
+    "Disconnected"/"Reconnect" o.s.v.). Returnerar (typ, (x0, y0, x1, y1)) där
+    typ är "sober" eller "ruta", annars None. Tar några ms."""
+    import numpy as np
+    H, W = bild.shape[:2]
+    s = 4
+    ya, yb, xa, xb = int(0.22 * H), int(0.82 * H), int(0.22 * W), int(0.78 * W)
+    reg = bild[ya:yb:s, xa:xb:s, :3].astype(np.int16)
+    lo, hi = reg.min(axis=2), reg.max(axis=2)
+    grå = (hi - lo <= 10) & (lo >= 20) & (hi <= 110)
+    if grå.mean() < 0.1:
+        return None
+    # Rutans färg = vanligaste gråa färgen; rutan = pixlar nästan exakt den färgen.
+    r3 = reg.astype(np.int32) // 3
+    kod = r3[..., 0] * 10000 + r3[..., 1] * 100 + r3[..., 2]
+    värden, antal = np.unique(kod[grå], return_counts=True)
+    k = int(värden[antal.argmax()])
+    färg = np.array([k // 10000 * 3 + 1, k // 100 % 100 * 3 + 1, k % 100 * 3 + 1])
+    mask = (np.abs(reg - färg).max(axis=2) <= 4)
+    ys, xs = np.nonzero(mask)
+    if len(ys) < 200:
+        return None
+    y0, y1 = np.percentile(ys, [3, 97]).astype(int)
+    x0, x1 = np.percentile(xs, [3, 97]).astype(int)
+    if (x1 - x0) * s < 0.18 * W or (y1 - y0) * s < 0.1 * H:
+        return None
+    if mask[y0:y1 + 1, x0:x1 + 1].mean() < 0.55:
+        return None
+    # Skarpa kanter: strax ovanför och under rutan ser det helt annorlunda ut.
+    def kantskillnad(rad_in, rad_ut):
+        if not (0 <= rad_ut < reg.shape[0]):
+            return 1.0
+        return (np.abs(reg[rad_ut, x0:x1 + 1] - färg).max(axis=1) > 12).mean()
+    if kantskillnad(y0 + 1, y0 - 3) < 0.6 or kantskillnad(y1 - 1, y1 + 3) < 0.6:
+        return None
+    ruta = (xa + x0 * s, ya + y0 * s, xa + x1 * s, ya + y1 * s)
+    typ = "sober" if np.abs(färg - np.array(SOBER_GRÅ)).max() <= 3 else "ruta"
+    return typ, ruta
+
+
+def tumnagel(bild):
+    """Glest urval av skärmens mitt (makrots fönster och pekaren påverkar knappt)."""
+    import numpy as np
+    H, W = bild.shape[:2]
+    return bild[int(0.2 * H):int(0.8 * H):24, int(0.25 * W):int(0.75 * W):24, :3].astype(np.int16)
+
+
+def har_ändrats(a, b):
+    """Skiljer sig två tumnaglar (mer än pekaren/brus)?"""
+    import numpy as np
+    if a is None or b is None or a.shape != b.shape:
+        return True
+    return (np.abs(a - b).max(axis=2) > 8).mean() > 0.02
 
 
 def ring_är_blå(bild, x, y, R):
@@ -1433,6 +1530,14 @@ class Diagnostik:
 
 # ---------------------------------------------------------------- Makrot
 
+class Blockerad(Exception):
+    """En dialogruta (Sober svarar inte, utkastad ...) ligger över spelet."""
+
+    def __init__(self, dialog):
+        super().__init__(dialog[0])
+        self.dialog = dialog
+
+
 class Makro:
     """Fiskelogiken. Körs i en egen tråd och rapporterar till appen via en kö."""
 
@@ -1503,6 +1608,104 @@ class Makro:
         """Slår på/av UI Navigation i Roblox."""
         self.inp.tap(int(self.inst["nav_kod"]))
 
+    def vakt(self, bild):
+        """Kollar (högst ~2 ggr/s) om en dialogruta ligger över spelet.
+        Syns den två gånger i rad avbryts det makrot håller på med (Blockerad),
+        så att det inte trycker Enter i rutan (i Sober-rutan är Force Quit förvald)."""
+        nu = time.time()
+        if bild is None or nu - getattr(self, "senast_vakt", 0) < 0.4:
+            return
+        self.senast_vakt = nu
+        # Frusen skärm: bilden står helt still (spelet har hängt sig).
+        tn = tumnagel(bild)
+        if har_ändrats(tn, getattr(self, "vakt_tumnagel", None)):
+            self.vakt_tumnagel, self.senast_ändring = tn, nu
+        elif nu - getattr(self, "senast_ändring", nu) > 20:
+            self.senast_ändring = nu
+            raise Blockerad(("fryst", None))
+        d = hitta_dialog(bild)
+        if d is None:
+            self.dialog_sedd = 0
+            return
+        self.dialog_sedd = getattr(self, "dialog_sedd", 0) + 1
+        if self.dialog_sedd >= 2:
+            self.dialog_sedd = 0
+            raise Blockerad(d)
+
+    def hantera_blockering(self, dialog):
+        """Pausar tills rutan är borta. Sober-rutan: klicka Vänta (inte Force Quit)."""
+        self.inp.release_all()
+        typ = dialog[0]
+        bild = self.skärm.hämta()
+        self.diag.fel(f"dialogruta: {typ}", bild)
+        if typ == "sober":
+            text = "Sober svarar inte. Makrot klickar på Vänta och fortsätter när spelet svarar igen."
+            self.status("Sober svarar inte – väntar")
+        elif typ == "fryst":
+            text = ("Spelet verkar ha frusit (bilden har stått helt still i 20 s). Makrot "
+                    "väntar tills spelet rör sig igen (och försöker igen efter en stund).")
+            self.status("Spelet har frusit – väntar")
+        else:
+            text = ("En ruta ligger över spelet (utkastad?). Makrot pausar och fortsätter "
+                    "själv när rutan är borta.")
+            self.status("Ruta över spelet – pausar")
+        senast = getattr(self, "senast_larm", {}).get(typ, 0)
+        if time.time() - senast > 600:
+            self.q.put(("larm", text))
+            self.senast_larm = dict(getattr(self, "senast_larm", {}), **{typ: time.time()})
+        else:
+            self.logg(text)
+        klickat = larmat = 0.0
+        start = time.time()
+        borta = 0
+        fryst_tn = tumnagel(bild) if bild is not None else None
+        while True:
+            self.vänta(0.5)
+            bild = self.skärm.hämta()
+            d = hitta_dialog(bild) if bild is not None else None
+            if typ == "fryst" and d is None:
+                # Klart när bilden har börjat röra sig igen.
+                ok = bild is not None and har_ändrats(tumnagel(bild), fryst_tn)
+                if ok:
+                    borta += 1
+                    fryst_tn = tumnagel(bild)
+                    if borta >= 3:
+                        break
+                else:
+                    borta = 0
+                nu = time.time()
+                if nu - start > 45:
+                    break       # försök fiska igen (om spelet bara var ovanligt stilla)
+                if nu - start > 60 and nu - larmat > 600:
+                    larmat = nu
+                    self.q.put(("larm", f"Spelet har stått still i {int((nu - start) / 60)} min – "
+                                        "kolla datorn (starta om Sober?)."))
+                continue
+            if d is None:
+                borta += 1
+                if borta >= 3:
+                    break
+                continue
+            borta = 0
+            nu = time.time()
+            if d[0] == "sober" and nu - klickat > 8:
+                # Knappen "Vänta" (Wait) sitter till höger längst ner i rutan.
+                x0, y0, x1, y1 = d[1]
+                H, W = bild.shape[:2]
+                self.inp.flytta((x0 + 0.745 * (x1 - x0)) / W, (y0 + 0.815 * (y1 - y0)) / H)
+                self.pekare_flyttad = True
+                time.sleep(0.05)
+                self.inp.tap(BTN_LEFT)
+                klickat = nu
+                self.logg("Klickade på Vänta i rutan \"Sober svarar inte\"")
+            if nu - start > 60 and nu - larmat > 600:
+                larmat = nu
+                self.q.put(("larm", f"Rutan ligger kvar efter {int((nu - start) / 60)} min – "
+                                    "kolla datorn."))
+        self.senast_ändring = time.time()
+        self.logg(f"Spelet syns igen efter {time.time() - start:.0f} s – fortsätter fiska")
+        self.q.put(("larm_slut", None))
+
     def kasta(self):
         if self.pekare_flyttad:
             # Shake-klicken flyttade pekaren; ställ den mitt i spelet igen.
@@ -1534,6 +1737,7 @@ class Makro:
                 return sett and self.släpp("maxtid")
             self.vänta(0)
             bild = self.skärm.hämta()
+            self.vakt(bild)
             m = hitta_kastmätare(bild) if bild is not None else None
             if bild is not None and bild is not förra and len(filmrutor) < 40 and self.diag.på():
                 H, W = bild.shape[:2]
@@ -1584,6 +1788,7 @@ class Makro:
         try:
             while True:
                 bild = self.skärm.hämta()
+                self.vakt(bild)
                 # Två bilder i rad, så att en meny som blinkar förbi inte räknas.
                 träffar = träffar + 1 if bild is not None and hitta_reel(bild) else 0
                 if träffar >= 2:
@@ -1603,6 +1808,8 @@ class Makro:
                     full_sökning = ring is None and (läge == "klick" or varv % 4 == 0)
                     if full_sökning:
                         ring = hitta_shake(bild, med_radie=True)   # långsam: vita ringar
+                        if ring and ring[2] < 0.035 * H:
+                            ring = None     # för liten för en shake-knapp (t.ex. en ikon)
                         blå = ring is not None and läge == "navigation" and ring_är_blå(bild, *ring)
                     if ring:
                         stat["ringar"] += 1
@@ -1712,6 +1919,7 @@ class Makro:
                     time.sleep(0.003)   # ingen ny bild än: samma bild igen ger bara brus
                     continue
                 förra_bild, förra_tid = bild, nu
+                self.vakt(bild)
                 läge, b0, b1, fisk, prog = syn.läs(bild)
                 W = bild.shape[1]
                 self.diag.kamp_bild(bild, läge, b0, b1, fisk, prog, syn.band)
@@ -1722,6 +1930,11 @@ class Makro:
                 if läge is None:
                     self.inp.up(BTN_LEFT)
                     self.styrning.skickat(nu, False)
+                    # Försvann minispelet för att en ruta lade sig över? Då är
+                    # kampen varken fångad eller tappad.
+                    d = hitta_dialog(bild)
+                    if d:
+                        raise Blockerad(d)
                     borta_sedan = borta_sedan or nu
                     if nu - borta_sedan > 0.35:
                         return resultat_av("borta")
@@ -1812,8 +2025,20 @@ class Makro:
                 resultat = self.cykel()
                 self.diag.resultat(resultat)
                 self.q.put(("resultat", (resultat, self.kamptid, self.shakes)))
+                # Flera kast i rad utan napp: något är troligen fel (meny öppen,
+                # UI dolt, utkastad ...). Säg till en gång; fortsätt ändå försöka.
+                self.inget_i_rad = getattr(self, "inget_i_rad", 0) + 1 \
+                    if resultat == "inget napp" else 0
+                if self.inget_i_rad == 3:
+                    self.q.put(("larm", "3 kast i rad utan napp – kolla spelet (meny öppen, "
+                                        "UI dolt eller utkastad?). Makrot fortsätter försöka."))
             except InterruptedError:
                 pass
+            except Blockerad as b:
+                try:
+                    self.hantera_blockering(b.dialog)
+                except InterruptedError:
+                    pass
             except Exception as fel:  # håll appen vid liv, visa felet i loggen
                 import traceback
                 self.logg(f"Fel: {fel!r}")
@@ -2670,6 +2895,14 @@ class App:
                         self.stoppa(f"Klar, {mål} fiskar fångade", meddela=True)
                 elif typ == "stoppa":
                     self.stoppa(data, meddela=True)
+                elif typ == "larm":
+                    self.skriv("⚠ " + data)
+                    self.sätt_status("Pausad", GUL, data)
+                    if self.inst["notiser"]:
+                        notis(data)
+                    self.discord("⚠ Fisch Makro: " + data)
+                elif typ == "larm_slut":
+                    self.skriv("✓ Spelet syns igen – fiskar vidare")
                 elif typ == "tangent":
                     if data.startswith("TANGENT"):
                         kod = int(data.split()[1])
@@ -2750,6 +2983,12 @@ def main():
         if saknade_paket():
             sys.exit("Kunde inte installera allt. Kör: sudo apt install -y " + " ".join(PAKET))
         os.execv(sys.executable, [sys.executable] + sys.argv)
+    try:
+        # Lägre prioritet än spelet: Sober får datorkraften först (när datorn var
+        # hårt belastad hängde Sober sig: "Sober Is Not Responding").
+        os.nice(5)
+    except OSError:
+        pass
     App().kör()
 
 
