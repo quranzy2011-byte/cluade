@@ -21,7 +21,7 @@ import threading
 import time
 import zlib
 
-VERSION = "3.2"   # höj vid varje ny version så att man ser vilken man kör
+VERSION = "3.3"   # höj vid varje ny version så att man ser vilken man kör
 UPPDATERA_URL = "https://raw.githubusercontent.com/quranzy2011-byte/cluade/main/fisch_app.py"
 GITHUB_API = "https://api.github.com"
 DIAG_REPO = "quranzy2011-byte/cluade-2"   # privat repo dit diagnostiken laddas upp
@@ -2652,7 +2652,8 @@ class App:
         self.root = root = tk.Tk()
         root.title(f"Fisch Makro v{VERSION}")
         root.configure(bg=BG)
-        root.geometry("340x720")
+        self.bredd = 360
+        root.geometry("360x720")
         root.minsize(300, 560)
         root.attributes("-topmost", self.inst["överst"])
         self.stil()
@@ -2703,6 +2704,7 @@ class App:
         self.bygg_inställningar(inst)
         self.bygg_tavla(tavla)
         self.bygg_fångster(fångstflik)
+        root.geometry(f"{self.bredd}x720")
         self.logg = tk.Text(loggflik, bg=PANEL, fg=TEXT, relief="flat", wrap="word",
                             font=("monospace", 9), state="disabled", highlightthickness=0)
         self.logg.pack(fill="both", expand=True)
@@ -2748,7 +2750,8 @@ class App:
                        arrowcolor=DÄMPAD, lightcolor=PANEL, darkcolor=PANEL)
         stil.configure("TNotebook", background=BG, borderwidth=0, bordercolor=BG,
                        lightcolor=BG, darkcolor=BG, tabmargins=0)
-        stil.configure("TNotebook.Tab", background=BG, foreground=DÄMPAD, padding=(5, 4),
+        stil.configure("TNotebook.Tab", background=BG, foreground=DÄMPAD, padding=(4, 4),
+                       font=("", 8),
                        bordercolor=BG, lightcolor=BG, darkcolor=BG)
         stil.map("TNotebook.Tab", background=[("selected", PANEL)],
                  foreground=[("selected", TEXT)])
@@ -2830,8 +2833,17 @@ class App:
         self.fångst_sök.trace_add("write", lambda *_a: self.rita_fångster())
         ram = ttk.Frame(f)
         ram.pack(fill="both", expand=True)
-        kol = (("nr", "#", 24, "e"), ("fisk", "Fisk", 98, "w"), ("kg", "Vikt", 64, "e"),
-               ("chans", "1 på", 50, "e"), ("värde", "Värde", 56, "e"))
+        # Bredder och radhöjd efter typsnittets verkliga storlek (Ubuntu kan skala upp
+        # texten, då klipptes kolumnerna och raderna överlappade).
+        import tkinter.font as tkfont
+        typs = tkfont.Font(font=self.ttk.Style().lookup("Treeview", "font") or "TkDefaultFont")
+        self.ttk.Style().configure("Treeview", rowheight=typs.metrics("linespace") + 6)
+        mät = typs.measure
+        kol = (("nr", "#", mät("100") + 8, "e"), ("fisk", "Fisk", mät("Grandpa Horse") + 6, "w"),
+               ("kg", "kg", mät("1 105.8") + 10, "e"), ("chans", "1 på", mät("10 000") + 10, "e"),
+               ("värde", "C$", mät("99 999") + 10, "e"))
+        # Fönstret måste vara minst så brett (tabell + rullist + marginaler).
+        self.bredd = max(360, sum(k[2] for k in kol) + mät("Grandpa") + 50)
         self.fångst_träd = träd = ttk.Treeview(ram, columns=[k[0] for k in kol], show="headings")
         for namn, rubrik, bredd, just in kol:
             träd.heading(namn, text=rubrik)
@@ -2877,7 +2889,7 @@ class App:
         träd.delete(*träd.get_children())
         for i, x in enumerate(lista[:100], 1):
             kg = x.get("kg") or 0
-            vikt = f"{kg / 1000:.2f} t" if kg >= 1000 else f"{kg:g} kg"
+            vikt = f"{kg:,.1f}".replace(",", " ") if kg >= 1000 else f"{kg:g}"
             chans = f"{x['chans']:,}".replace(",", " ") if x.get("chans") else "–"
             v = self.värde(x)
             träd.insert("", "end", values=(i, x["namn"], vikt, chans,
@@ -2924,14 +2936,14 @@ class App:
             self.kompakt_lbl.grid()
             self.kompakt_knapp.config(text="Stort fönster")
             self.root.minsize(240, 80)
-            self.root.geometry("340x130")
+            self.root.geometry(f"{self.bredd}x130")
         else:
             self.kompakt_lbl.grid_remove()
             self.startknapp.pack(fill="x", pady=(8, 8))
             self.flikar.pack(fill="both", expand=True)
             self.kompakt_knapp.config(text="Litet fönster")
             self.root.minsize(300, 560)
-            self.root.geometry("340x720")
+            self.root.geometry(f"{self.bredd}x720")
         if bool(self.inst.get("kompakt")) != self.kompakt:
             self.inst["kompakt"] = self.kompakt
             self.spara_konfig()
@@ -3029,14 +3041,15 @@ class App:
         }
         for nyckel, text in värden.items():
             self.tavla_lbl[nyckel].config(text=text)
-        rader = [f"{'Datum':<12}{'Tid':<9}{'Fisk':>5}{'/h':>6}{'Träff':>7}"]
+        # Smalt nog för fönstret (~32 tecken): start, längd (h:mm), fiskar, per timme, träff.
+        rader = [f"{'Start':<12}{'Tid':>5}{'Fisk':>5}{'/h':>5}{'Träff':>6}"]
         for p in reversed(self.hist["sessioner"][-15:]):
             pt = p.get("tid", 0)
             pf, ptp = p.get("fångad", 0), p.get("tappad", 0)
             rader.append(f"{time.strftime('%d/%m %H:%M', time.localtime(p['start'])):<12}"
-                         f"{int(pt // 3600)}:{int(pt % 3600 // 60):02d}:{int(pt % 60):02d}  "
-                         f"{pf:>5}{(pf / pt * 3600 if pt else 0):>6.0f}"
-                         f"{(f'{100 * pf / (pf + ptp):.0f}%' if pf + ptp else '–'):>7}")
+                         f"{int(pt // 3600)}:{int(pt % 3600 // 60):02d}".rjust(5) +
+                         f"{pf:>5}{(pf / pt * 3600 if pt else 0):>5.0f}"
+                         f"{(f'{100 * pf / (pf + ptp):.0f}%' if pf + ptp else '–'):>6}")
         if len(rader) == 1:
             rader.append("Inga pass sparade än.")
         self.pass_lista.config(state="normal")
