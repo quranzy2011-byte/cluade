@@ -21,7 +21,7 @@ import threading
 import time
 import zlib
 
-VERSION = "3.0"   # höj vid varje ny version så att man ser vilken man kör
+VERSION = "3.1"   # höj vid varje ny version så att man ser vilken man kör
 UPPDATERA_URL = "https://raw.githubusercontent.com/quranzy2011-byte/cluade/main/fisch_app.py"
 GITHUB_API = "https://api.github.com"
 DIAG_REPO = "quranzy2011-byte/cluade-2"   # privat repo dit diagnostiken laddas upp
@@ -30,6 +30,17 @@ DIAG_GREN = "diagnostik"
 MAPP = os.path.dirname(os.path.abspath(__file__))
 KONFIG = os.path.expanduser("~/.config/fisch-makro/installningar.json")
 STAT_FIL = os.path.expanduser("~/.config/fisch-makro/statistik.json")
+FÅNGST_FIL = os.path.expanduser("~/.config/fisch-makro/fangster.json")
+PRISER_FIL = os.path.expanduser("~/.config/fisch-makro/fiskpriser.json")
+PRISER_URL = "https://raw.githubusercontent.com/quranzy2011-byte/cluade/main/fiskpriser.json"
+# Kända mutationer (prefix före fiskens namn i "You just caught a Shiny Mullet").
+# Prislistan (fiskpriser.json) kan lägga till fler och ger deras multiplikatorer.
+MUTATIONER = ["Shiny", "Sparkling", "Albino", "Darkened", "Negative", "Translucent", "Electric",
+              "Frozen", "Glossy", "Silver", "Mosaic", "Hexed", "Abyssal", "Lunar", "Solarblaze",
+              "Fossilized", "Midas", "Ghastly", "Amber", "Scorched", "Aurora", "Atlantean",
+              "Sinister", "Nuclear", "Studded", "Crystalized", "Revitalized", "Greedy",
+              "Anomalous", "Sandy", "Blighted", "Heavenly", "Unsure", "Subspace", "Quantum",
+              "Glitched", "Wrath", "Seasonal", "Oscar", "Mythical", "Celestial"]
 
 STANDARD = {
     "cast_tid": 1.0,        # sekunder att hålla inne för kast (om kastmätaren inte syns)
@@ -55,7 +66,7 @@ SHAKE_OMRÅDE = (0.05, 0.15, 0.95, 0.90)  # där shake-knapparna kan dyka upp (i
 KEY_ENTER, BTN_LEFT = 28, 272
 
 PAKET = ["python3-evdev", "python3-numpy", "python3-gi", "python3-tk", "gir1.2-gstreamer-1.0",
-         "gir1.2-gst-plugins-base-1.0", "gstreamer1.0-pipewire"]
+         "gir1.2-gst-plugins-base-1.0", "gstreamer1.0-pipewire", "tesseract-ocr"]
 
 # Körs som root: styr musen/tangentbordet och läser F6/F8/Esc.
 # "fisch-makro" är en vanlig mus (knappar), "fisch-makro-pekare" en absolut
@@ -1115,6 +1126,170 @@ def spara_apng(sökväg, rutor):
     os.replace(sökväg + ".tmp", sökväg)
 
 
+# ---------------------------------------------------------------- Fångstloggen
+
+def fångsttext_utsnitt(bild):
+    """Området där "You just caught a ... at ...kg! (1/N)" står (full upplösning)."""
+    H, W = bild.shape[:2]
+    return bild[int(0.70 * H):int(0.88 * H), int(0.15 * W):int(0.85 * W), :3].copy()
+
+
+def _textmask(c, metod=0):
+    """Ljus text med mörk kant (så ser Robloxtext ut) -> True där texten är.
+
+    metod 0: ljus pixel nära mörk kant (bäst på mörk/normal bakgrund).
+    metod 1: ljus pixel med mörk kant på båda sidor (tunna streck; klarar ljus
+             bakgrund bättre, där bakgrunden intill kanten annars räknas som text).
+    metod 2: bara ljusa, nästan vita pixlar (vit text utan hänsyn till kanten).
+    metod 3: ljusa pixlar nära kanten som skiljer sig tydligt från bakgrundens
+             färg (vit och färgad text på ljus/färgad bakgrund)."""
+    import numpy as np
+    hi = c.max(axis=2)
+    if metod == 2:
+        return c.min(axis=2) >= 200
+    if metod == 3:
+        bakgrund = np.median(c.reshape(-1, 3), axis=0)
+        skiljer = np.abs(c - bakgrund).max(axis=2) > 90
+        mörk = hi <= 90
+        nära = mörk.copy()
+        for s in (-3, -2, -1, 1, 2, 3):
+            nära |= np.roll(mörk, s, 0)
+            nära |= np.roll(mörk, s, 1)
+        return (hi >= 150) & skiljer & nära
+    mörk = hi <= (80 if metod == 0 else 90)
+    ljus = hi >= 175
+    if metod == 0:
+        nära = mörk.copy()
+        for s in (-3, -2, -1, 1, 2, 3):
+            nära |= np.roll(mörk, s, 0)
+            nära |= np.roll(mörk, s, 1)
+        return ljus & nära
+
+    def någon(riktning, axel):
+        ut = np.zeros_like(mörk)
+        for s in range(1, 6):
+            ut |= np.roll(mörk, riktning * s, axel)
+        return ut
+    return ljus & ((någon(1, 1) & någon(-1, 1)) | (någon(1, 0) & någon(-1, 0)))
+
+
+def ocr_rader(utsnitt, skärmhöjd, max_rader=3, metod=0):
+    """Läser de textrader i utsnittet som har mest text (tesseract, en rad åt gången)."""
+    import numpy as np
+    import tempfile
+    t = _textmask(utsnitt.astype(np.int16), metod)
+    h = max(8, int(0.018 * skärmhöjd))
+    per = t.sum(axis=1)
+    kand = sorted(((per[i:i + h].sum(), i) for i in range(0, max(1, len(per) - h), max(2, h // 3))),
+                  reverse=True)
+    texter, tagna = [], []
+    for _, i in kand:
+        if len(tagna) >= max_rader:
+            break
+        if any(abs(i - j) < h for j in tagna):
+            continue
+        tagna.append(i)
+        band = t[max(0, i - 4):i + h + 6]
+        kol = np.flatnonzero(band.sum(axis=0) > 0)
+        if len(kol) < 10:
+            continue
+        band = band[:, max(0, kol[0] - 8):kol[-1] + 8]
+        # Svart text på vitt i dubbel storlek med mjuka kanter (tesseract läser
+        # kantiga, pixliga bokstäver dåligt).
+        stor = np.kron(band.astype(np.float32), np.ones((2, 2), np.float32))
+        p = np.pad(stor, 1, mode="edge")
+        mjuk = sum(p[dy:dy + stor.shape[0], dx:dx + stor.shape[1]]
+                   for dy in range(3) for dx in range(3)) / 9
+        svv = (255 - mjuk * 255).astype(np.uint8)
+        with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as fil:
+            sökväg = fil.name
+        try:
+            spara_png(sökväg, np.stack([svv] * 3, axis=2))
+            ut = subprocess.run(["tesseract", sökväg, "-", "--psm", "7"], capture_output=True,
+                                text=True, timeout=10).stdout.strip()
+            if ut:
+                texter.append(ut)
+        except (OSError, subprocess.SubprocessError):
+            pass
+        finally:
+            try:
+                os.remove(sökväg)
+            except OSError:
+                pass
+    return texter
+
+
+def tolka_fångst(text):
+    """"You just caught a Shiny Mullet at 1.4kg! (1/889)" -> dict eller None."""
+    import re
+    t = re.sub(r"[‘’'`´\"“”¢*_|]", " ", text)
+    m = re.search(r"caug\w*\W+(.+?)\W+at\W*(\d[\d.,]*)\s*(kg|t)\b", t, re.I)
+    if not m:
+        return None
+    ord_ = m.group(1).split()
+    # "a"/"an" före namnet (ibland feltolkat som "2", "e", "o")
+    if len(ord_) > 1 and re.fullmatch(r"(?i)an?|[2eo4@]", ord_[0]):
+        ord_ = ord_[1:]
+    ord_ = re.sub(r"[^A-Za-z -]", "", " ".join(ord_)).split()
+    if not ord_:
+        return None
+    namn = " ".join(w[:1].upper() + w[1:].lower() if w.isupper() and len(w) > 2 else w
+                    for w in ord_)
+    tal = m.group(2).replace(",", "")
+    try:
+        kg = float(tal) * (1000 if m.group(3).lower() == "t" else 1)
+    except ValueError:
+        return None
+    c = re.search(r"\(\s*1\s*/\s*(\d[\d,.]*)\s*\)", t)
+    chans = None
+    if c:
+        try:
+            chans = int(c.group(1).replace(",", "").replace(".", ""))
+        except ValueError:
+            pass
+    return {"namn": namn, "kg": round(kg, 2), "chans": chans}
+
+
+def dela_mutationer(namn, mutationer=MUTATIONER):
+    """"Shiny Sparkling Mullet" -> (["Shiny", "Sparkling"], "Mullet")."""
+    ord_ = namn.split()
+    muts = []
+    while len(ord_) > 1 and ord_[0] in mutationer:
+        muts.append(ord_.pop(0))
+    return muts, " ".join(ord_)
+
+
+def läs_fångst(utsnitt_lista, skärmhöjd, kända=()):
+    """Läser fångsttexten i flera bilder och väljer det svar flest bilder ger.
+    Namn som liknar ett redan känt namn rättas till det. Returnerar (dict, råtext)."""
+    import collections
+    import difflib
+    svar, rå = [], []
+    for u in utsnitt_lista:
+        # Pröva metoderna i tur och ordning tills en ger en giltig fångstrad.
+        for metod in (0, 3, 1, 2):
+            r = None
+            for rad in ocr_rader(u, skärmhöjd, metod=metod):
+                rå.append(rad)
+                r = tolka_fångst(rad)
+                if r:
+                    break
+            if r:
+                if kända:
+                    nära = difflib.get_close_matches(r["namn"], list(kända), 1, 0.8)
+                    if nära:
+                        r["namn"] = nära[0]
+                svar.append(r)
+                break
+    if not svar:
+        return None, rå
+    namn = collections.Counter(r["namn"] for r in svar).most_common(1)[0][0]
+    kg = collections.Counter(r["kg"] for r in svar if r["namn"] == namn).most_common(1)[0][0]
+    chanser = [r["chans"] for r in svar if r["chans"]]
+    chans = collections.Counter(chanser).most_common(1)[0][0] if chanser else None
+    return {"namn": namn, "kg": kg, "chans": chans}, rå
+
+
 def tangentnamn(kod):
     """Läsbart namn på en tangentkod (fysisk tangent, oberoende av layout)."""
     kända = {43: "' eller \\ (vid Enter)", 41: "§ (vänster om 1)", 12: "+", 13: "´",
@@ -1213,6 +1388,7 @@ class Diagnostik:
         self.senaste_film = None
         threading.Thread(target=self._skrivare, daemon=True).start()
         threading.Thread(target=self._uppladdare, daemon=True).start()
+        threading.Thread(target=self._hämta_wiki_senare, daemon=True).start()
 
     # ---- insamling (anropas från makrotråden, måste vara snabbt)
     def på(self):
@@ -1319,7 +1495,7 @@ class Diagnostik:
 
     def fångstbild(self, bild):
         """Bilden strax efter en fångst ("I caught a ...!") - för fångstloggen."""
-        if self.på() and bild is not None and self.n_fångstbilder < 40:
+        if self.på() and bild is not None and self.n_fångstbilder < 10:
             self.n_fångstbilder += 1
             self.bild(f"fangst_{time.strftime('%H%M%S')}", bild, halv=True)
 
@@ -1328,6 +1504,54 @@ class Diagnostik:
         if self.på():
             self.rapport.setdefault("shake", [])
             self.rapport["shake"] = (self.rapport["shake"] + [dict(stat, tid=tid)])[-300:]
+
+    def fångsttext(self, utsnitt, rå, tolkat):
+        """Fångsttexten i full upplösning + vad textläsningen fick fram (för finjustering)."""
+        if not self.på():
+            return
+        self.rapport.setdefault("fångsttext", [])
+        self.rapport["fångsttext"] = (self.rapport["fångsttext"] +
+                                      [[time.strftime("%H:%M:%S"), rå, tolkat]])[-200:]
+        if utsnitt is not None and getattr(self, "n_texter", 0) < 40:
+            self.n_texter = getattr(self, "n_texter", 0) + 1
+            self.bild(f"fangsttext_{time.strftime('%H%M%S')}", utsnitt)
+
+    WIKI_SIDOR = ("Fish", "All_Fish", "Mutations", "Mutation", "Bestiary")
+
+    def _hämta_wiki_senare(self):
+        time.sleep(20)
+        try:
+            self.hämta_wiki()
+        except Exception as fel:
+            self.logg(f"Diagnostik: wikisidorna kunde inte hämtas ({fel})")
+
+    def hämta_wiki(self):
+        """Laddar ner Fisch-wikins fisk- och mutationssidor en gång och lägger dem i
+        diagnostiken, så att prislistan (grundpris per kg, mutationer) kan byggas."""
+        import urllib.request
+        if not self.på() or self.inst.get("wiki_hämtad") or not self.inst.get("gh_token"):
+            return
+        mapp = os.path.join(MAPP, "diagnostik", "wiki")
+        os.makedirs(mapp, exist_ok=True)
+        antal = 0
+        for sida in self.WIKI_SIDOR:
+            for typ, url in (("wikitext", f"https://fischipedia.org/index.php?title={sida}&action=raw"),
+                             ("html", f"https://fischipedia.org/api.php?action=parse&page={sida}"
+                                      "&prop=text&format=json&formatversion=2")):
+                try:
+                    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 FischMakro"})
+                    with urllib.request.urlopen(req, timeout=20) as svar:
+                        data = svar.read()
+                except Exception as fel:
+                    data = f"FEL: {fel!r}".encode()
+                sökväg = os.path.join(mapp, f"{sida}.{typ}.txt")
+                with open(sökväg, "wb") as fil:
+                    fil.write(data[:8_000_000])
+                self.uppkö.put(sökväg)
+                antal += len(data) > 1000
+        if antal:
+            self.inst["wiki_hämtad"] = True
+            self.logg(f"Diagnostik: laddade ner {antal} wikisidor till prislistan")
 
     def kastfilm(self, rutor):
         """Kort film (full upplösning) runt gubben under kastet, när kastmätaren
@@ -1877,12 +2101,30 @@ class Makro:
                             [round(st.upp), round(st.ner), round(st.L, 3)])
         self.vy = None
         if resultat == "fångad":
-            self.vänta(0.4)
-            self.diag.fångstbild(self.skärm.hämta())
-            self.vänta(self.slump(1.1, 0.2))
+            # Fångsttexten ("You just caught a ... (1/N)") syns ett par sekunder:
+            # ta tre bilder av den och läs dem i bakgrunden (fångstloggen).
+            utsnitt, bild = [], None
+            for paus in (0.4, 0.5, 0.5):
+                self.vänta(paus)
+                bild = self.skärm.hämta()
+                if bild is not None:
+                    utsnitt.append(fångsttext_utsnitt(bild))
+            self.diag.fångstbild(bild)
+            if utsnitt and shutil.which("tesseract"):
+                threading.Thread(target=self._läs_fångst, args=(utsnitt, bild.shape[0]),
+                                 daemon=True).start()
+            self.vänta(self.slump(0.1, 0.5))
         else:
             self.vänta(self.slump(1.5, 0.2))
         return resultat
+
+    def _läs_fångst(self, utsnitt, H):
+        try:
+            r, rå = läs_fångst(utsnitt, H, getattr(self, "kända_namn", ()))
+        except Exception as fel:
+            r, rå = None, [f"fel: {fel!r}"]
+        self.diag.fångsttext(utsnitt[0], rå, r)
+        self.q.put(("fångst", r))
 
     def reel(self):
         syn = self.syn
@@ -2226,9 +2468,22 @@ class App:
             pass
         self.session = None
         self.svit = 0
+        self.fisklogg = []   # fångstloggen: {namn, kg, chans, tid}
+        try:
+            with open(FÅNGST_FIL) as f:
+                self.fisklogg = [x for x in json.load(f) if isinstance(x, dict) and x.get("namn")]
+        except (OSError, ValueError):
+            pass
+        self.priser = {}
+        try:
+            with open(PRISER_FIL) as f:
+                self.priser = json.load(f)
+        except (OSError, ValueError):
+            pass
 
         self.q = queue.Queue()
         self.makro = Makro(self.inst, self.q)
+        self.makro.kända_namn = {x["namn"] for x in self.fisklogg}
         self.stat = {"fångad": 0, "tappad": 0, "inget napp": 0}
         self.fångster = []   # tidpunkter för fångster (för grafen)
         self.start_tid = None
@@ -2259,10 +2514,18 @@ class App:
         self.steg_text.grid(row=1, column=1, columnspan=2, sticky="w")
         self.versions_lbl = ttk.Label(topp, text=f"version {VERSION}", style="Dämpad.TLabel")
         self.versions_lbl.grid(row=0, column=2, sticky="ne")
+        self.kompakt_knapp = ttk.Button(topp, text="Litet fönster", style="Liten.TButton",
+                                        command=self.växla_kompakt)
+        self.kompakt_knapp.grid(row=0, column=3, sticky="ne", padx=(6, 0))
+        # I litet läge: en rad med det viktigaste.
+        self.kompakt_lbl = ttk.Label(topp, text="", style="Panel.TLabel", font=("", 11, "bold"))
+        self.kompakt_lbl.grid(row=2, column=0, columnspan=4, sticky="w", pady=(6, 0))
+        self.kompakt_lbl.grid_remove()
         topp.columnconfigure(1, weight=1)
         self.startknapp = ttk.Button(yttre, text="Starta  (F6)", style="Start.TButton",
                                      command=self.växla, state="disabled")
         self.startknapp.pack(fill="x", pady=(8, 8))
+        self.kompakt = False
 
         self.flikar = flikar = ttk.Notebook(yttre)
         flikar.pack(fill="both", expand=True)
@@ -2270,14 +2533,17 @@ class App:
         inst = ttk.Frame(flikar, padding=(0, 8))
         loggflik = ttk.Frame(flikar, padding=(0, 8))
         tavla = ttk.Frame(flikar, padding=(0, 8))
+        fångstflik = ttk.Frame(flikar, padding=(0, 8))
         flikar.add(fiske, text="Fiske")
         flikar.add(tavla, text="Statistik")
-        flikar.add(inst, text="Inställningar")
+        flikar.add(fångstflik, text="Fångster")
+        flikar.add(inst, text="Inställn.")
         flikar.add(loggflik, text="Logg")
 
         self.bygg_fiske(fiske)
         self.bygg_inställningar(inst)
         self.bygg_tavla(tavla)
+        self.bygg_fångster(fångstflik)
         self.logg = tk.Text(loggflik, bg=PANEL, fg=TEXT, relief="flat", wrap="word",
                             font=("monospace", 9), state="disabled", highlightthickness=0)
         self.logg.pack(fill="both", expand=True)
@@ -2287,6 +2553,9 @@ class App:
         threading.Thread(target=self.starta_tjänster, daemon=True).start()
         threading.Thread(target=self.makro.loop, daemon=True).start()
         self.root.after(3000, lambda: self.sök_uppdatering(tyst=True))
+        threading.Thread(target=self.hämta_priser, daemon=True).start()
+        if self.inst.get("kompakt"):
+            self.root.after(200, self.växla_kompakt)
         self.uppdatera()
 
     def stil(self):
@@ -2306,9 +2575,21 @@ class App:
         stil.configure("TButton", background=PANEL, foreground=TEXT, borderwidth=0, padding=6)
         stil.map("TButton", background=[("active", "#2b2c40")])
         stil.configure("Start.TButton", font=("", 12, "bold"), padding=10)
+        stil.configure("Liten.TButton", font=("", 8), padding=(6, 2))
+        stil.configure("Val.TRadiobutton", background=PANEL, foreground=DÄMPAD, padding=(6, 4),
+                       indicatorsize=0)
+        stil.map("Val.TRadiobutton", background=[("selected", "#2b2c40"), ("active", PANEL)],
+                 foreground=[("selected", TEXT)])
+        stil.configure("Treeview", background=PANEL, fieldbackground=PANEL, foreground=TEXT,
+                       rowheight=20, borderwidth=0, font=("", 9))
+        stil.configure("Treeview.Heading", background=BG, foreground=DÄMPAD, borderwidth=0,
+                       font=("", 8, "bold"))
+        stil.map("Treeview", background=[("selected", "#2b2c40")])
+        stil.configure("Vertical.TScrollbar", background=PANEL, troughcolor=BG, bordercolor=BG,
+                       arrowcolor=DÄMPAD, lightcolor=PANEL, darkcolor=PANEL)
         stil.configure("TNotebook", background=BG, borderwidth=0, bordercolor=BG,
                        lightcolor=BG, darkcolor=BG, tabmargins=0)
-        stil.configure("TNotebook.Tab", background=BG, foreground=DÄMPAD, padding=(10, 4),
+        stil.configure("TNotebook.Tab", background=BG, foreground=DÄMPAD, padding=(5, 4),
                        bordercolor=BG, lightcolor=BG, darkcolor=BG)
         stil.map("TNotebook.Tab", background=[("selected", PANEL)],
                  foreground=[("selected", TEXT)])
@@ -2370,6 +2651,131 @@ class App:
         ttk.Button(f, text="Nollställ all statistik", command=self.nollställ_allt
                    ).pack(fill="x", pady=(8, 0))
         self.rita_tavla()
+
+    # ---- fångstloggen
+    def bygg_fångster(self, f):
+        tk, ttk = self.tk, self.ttk
+        val = ttk.Frame(f, style="Panel.TFrame")
+        val.pack(fill="x")
+        self.fångst_läge = tk.StringVar(value="sällsynt")
+        for värde, text in (("sällsynt", "Sällsyntast"), ("tyngst", "Tyngst"),
+                            ("värde", "Mest värd")):
+            ttk.Radiobutton(val, text=text, value=värde, variable=self.fångst_läge,
+                            style="Val.TRadiobutton", command=self.rita_fångster
+                            ).pack(side="left", expand=True, fill="x")
+        sökrad = ttk.Frame(f)
+        sökrad.pack(fill="x", pady=(6, 4))
+        ttk.Label(sökrad, text="Sök:").pack(side="left", padx=(0, 6))
+        self.fångst_sök = tk.StringVar()
+        ttk.Entry(sökrad, textvariable=self.fångst_sök).pack(side="left", fill="x", expand=True)
+        self.fångst_sök.trace_add("write", lambda *_a: self.rita_fångster())
+        ram = ttk.Frame(f)
+        ram.pack(fill="both", expand=True)
+        kol = (("nr", "#", 24, "e"), ("fisk", "Fisk", 98, "w"), ("kg", "Vikt", 64, "e"),
+               ("chans", "1 på", 50, "e"), ("värde", "Värde", 56, "e"))
+        self.fångst_träd = träd = ttk.Treeview(ram, columns=[k[0] for k in kol], show="headings")
+        for namn, rubrik, bredd, just in kol:
+            träd.heading(namn, text=rubrik)
+            träd.column(namn, width=bredd, minwidth=20, anchor=just, stretch=(namn == "fisk"))
+        rull = ttk.Scrollbar(ram, orient="vertical", command=träd.yview)
+        träd.configure(yscrollcommand=rull.set)
+        träd.pack(side="left", fill="both", expand=True)
+        rull.pack(side="right", fill="y")
+        self.fångst_info = ttk.Label(f, text="", style="Dämpad.TLabel", wraplength=300)
+        self.fångst_info.pack(fill="x", pady=(6, 0))
+        self.rita_fångster()
+
+    def mutationslista(self):
+        return MUTATIONER + [m for m in self.priser.get("mutationer", {}) if m not in MUTATIONER]
+
+    def värde(self, x):
+        """Grundpris per kg × vikt × mutationernas multiplikatorer (None om priset saknas)."""
+        muts, fisk = dela_mutationer(x["namn"], self.mutationslista())
+        info = self.priser.get("fiskar", {}).get(fisk)
+        if not info or not info.get("kg_pris"):
+            return None
+        mult = 1.0
+        for m in muts:
+            mult *= float(self.priser.get("mutationer", {}).get(m, 1.0))
+        return float(info["kg_pris"]) * float(x["kg"]) * mult
+
+    def rita_fångster(self):
+        if not hasattr(self, "fångst_träd"):
+            return
+        lista = self.fisklogg
+        sök = self.fångst_sök.get().strip().lower()
+        if sök:
+            lista = [x for x in lista if sök in x["namn"].lower()]
+        läge = self.fångst_läge.get()
+        if läge == "sällsynt":
+            lista = sorted(lista, key=lambda x: x.get("chans") or 0, reverse=True)
+        elif läge == "tyngst":
+            lista = sorted(lista, key=lambda x: x.get("kg") or 0, reverse=True)
+        else:
+            lista = sorted((x for x in lista if self.värde(x) is not None),
+                           key=self.värde, reverse=True)
+        träd = self.fångst_träd
+        träd.delete(*träd.get_children())
+        for i, x in enumerate(lista[:100], 1):
+            kg = x.get("kg") or 0
+            vikt = f"{kg / 1000:.2f} t" if kg >= 1000 else f"{kg:g} kg"
+            chans = f"{x['chans']:,}".replace(",", " ") if x.get("chans") else "–"
+            v = self.värde(x)
+            träd.insert("", "end", values=(i, x["namn"], vikt, chans,
+                                           f"{v:,.0f}".replace(",", " ") if v is not None else "–"))
+        info = f"{len(self.fisklogg)} fångster loggade. Topp 100 visas."
+        if läge == "värde" and not self.priser.get("fiskar"):
+            info += (" Värde kräver prislistan (grundpris per kg och mutationer); den laddas "
+                     "ner automatiskt så fort den finns.")
+        if not shutil.which("tesseract"):
+            info += " Textläsning saknas: starta om appen så installeras den."
+        self.fångst_info.config(text=info)
+
+    def spara_fisklogg(self):
+        try:
+            os.makedirs(os.path.dirname(FÅNGST_FIL), exist_ok=True)
+            with open(FÅNGST_FIL + ".tmp", "w", encoding="utf-8") as f:
+                json.dump(self.fisklogg, f, ensure_ascii=False)
+            os.replace(FÅNGST_FIL + ".tmp", FÅNGST_FIL)
+        except OSError:
+            pass
+
+    def hämta_priser(self):
+        """Laddar ner prislistan (grundpris per kg, mutationer) om den finns."""
+        import urllib.request
+        try:
+            req = urllib.request.Request(PRISER_URL + f"?t={int(time.time())}",
+                                         headers={"User-Agent": "FischMakro"})
+            with urllib.request.urlopen(req, timeout=15) as svar:
+                data = json.loads(svar.read().decode("utf-8"))
+            if isinstance(data, dict) and data.get("fiskar"):
+                os.makedirs(os.path.dirname(PRISER_FIL), exist_ok=True)
+                with open(PRISER_FIL, "w", encoding="utf-8") as f:
+                    json.dump(data, f, ensure_ascii=False)
+                self.q.put(("priser", data))
+        except Exception:
+            pass
+
+    # ---- litet fönster
+    def växla_kompakt(self):
+        self.kompakt = not self.kompakt
+        if self.kompakt:
+            self.flikar.pack_forget()
+            self.startknapp.pack_forget()
+            self.kompakt_lbl.grid()
+            self.kompakt_knapp.config(text="Stort fönster")
+            self.root.minsize(240, 80)
+            self.root.geometry("340x130")
+        else:
+            self.kompakt_lbl.grid_remove()
+            self.startknapp.pack(fill="x", pady=(8, 8))
+            self.flikar.pack(fill="both", expand=True)
+            self.kompakt_knapp.config(text="Litet fönster")
+            self.root.minsize(300, 560)
+            self.root.geometry("340x720")
+        if bool(self.inst.get("kompakt")) != self.kompakt:
+            self.inst["kompakt"] = self.kompakt
+            self.spara_konfig()
 
     def spara_hist(self):
         try:
@@ -2866,6 +3272,9 @@ class App:
         h, rest = divmod(int(tid), 3600)
         self.stat_lbl["tid"].config(text=f"{h}:{rest // 60:02d}:{rest % 60:02d}")
         self.stat_lbl["takt"].config(text=f"{f / tid * 3600:.0f}" if tid > 60 else "–")
+        if self.kompakt:
+            takt = f"{f / tid * 3600:.0f}/h" if tid > 60 else "–/h"
+            self.kompakt_lbl.config(text=f"🐟 {f}   ✗ {t}   {takt}   {h}:{rest // 60:02d}")
         return tid
 
     def uppdatera(self):
@@ -2901,6 +3310,19 @@ class App:
                     if self.inst["notiser"]:
                         notis(data)
                     self.discord("⚠ Fisch Makro: " + data)
+                elif typ == "fångst":
+                    if data:
+                        data = dict(data, tid=time.strftime("%Y-%m-%d %H:%M"))
+                        self.fisklogg.append(data)
+                        self.spara_fisklogg()
+                        self.makro.kända_namn = {x["namn"] for x in self.fisklogg}
+                        chans = f"  (1 på {data['chans']:,})".replace(",", " ") \
+                            if data.get("chans") else ""
+                        self.skriv(f"   {data['namn']}, {data['kg']:g} kg{chans}")
+                        self.rita_fångster()
+                elif typ == "priser":
+                    self.priser = data
+                    self.rita_fångster()
                 elif typ == "larm_slut":
                     self.skriv("✓ Spelet syns igen – fiskar vidare")
                 elif typ == "tangent":
@@ -2957,6 +3379,10 @@ class App:
         self.root.mainloop()
 
 
+def saknade_paket_ocr():
+    return [] if shutil.which("tesseract") else ["tesseract"]
+
+
 def saknade_paket():
     saknas = []
     for mod in ("numpy", "gi", "evdev", "tkinter"):
@@ -2983,6 +3409,17 @@ def main():
         if saknade_paket():
             sys.exit("Kunde inte installera allt. Kör: sudo apt install -y " + " ".join(PAKET))
         os.execv(sys.executable, [sys.executable] + sys.argv)
+    markering = os.path.join(os.path.dirname(KONFIG), "ocr_forsokt")
+    if saknade_paket_ocr() and not os.path.exists(markering):
+        # Textläsningen (fångstloggen) är inte nödvändig: ett försök, sedan kör appen
+        # ändå (och frågar inte igen varje start).
+        print("Installerar textläsning (tesseract) för fångstloggen...")
+        subprocess.run(root_kommando(["apt-get", "install", "-y", "tesseract-ocr"]), check=False)
+        try:
+            os.makedirs(os.path.dirname(markering), exist_ok=True)
+            open(markering, "w").close()
+        except OSError:
+            pass
     try:
         # Lägre prioritet än spelet: Sober får datorkraften först (när datorn var
         # hårt belastad hängde Sober sig: "Sober Is Not Responding").
