@@ -21,7 +21,7 @@ import threading
 import time
 import zlib
 
-VERSION = "2.7"   # höj vid varje ny version så att man ser vilken man kör
+VERSION = "2.8"   # höj vid varje ny version så att man ser vilken man kör
 UPPDATERA_URL = "https://raw.githubusercontent.com/quranzy2011-byte/cluade/main/fisch_app.py"
 GITHUB_API = "https://api.github.com"
 DIAG_REPO = "quranzy2011-byte/cluade-2"   # privat repo dit diagnostiken laddas upp
@@ -50,7 +50,7 @@ STANDARD = {
     "överst": True,         # fönstret alltid överst
 }
 REEL_OMRÅDE = (0.20, 0.74, 0.80, 0.97)   # x0, y0, x1, y1 som andel av skärmen
-SHAKE_OMRÅDE = (0.08, 0.08, 0.92, 0.80)  # där shake-knapparna kan dyka upp
+SHAKE_OMRÅDE = (0.08, 0.08, 0.92, 0.90)  # där shake-knapparna kan dyka upp
 
 KEY_ENTER, BTN_LEFT = 28, 272
 
@@ -795,7 +795,7 @@ def _ringtäckning(vit, cy, cx, R):
     return träff.mean()
 
 
-def hitta_shake(bild):
+def hitta_shake(bild, med_radie=False):
     """Letar efter en SHAKE-knapp: vit ring med mörk insida och vit text.
 
     1. Grovsökning med en ringmall i låg upplösning (FFT) i flera storlekar.
@@ -812,8 +812,11 @@ def hitta_shake(bild):
     reg = bild[y0:y0 + h * s, x0:x0 + w * s]
 
     def vitmask(a):
+        # Ringen är vit, eller ljusblå när UI Navigation har markerat knappen.
         lo, hi = _lo_hi(a)
-        return (lo >= 155) & (hi - lo <= 40)
+        b, g, r = a[..., 0], a[..., 1], a[..., 2]
+        blå = (b >= 200) & (g >= 100) & (b.astype(np.int16) - r >= 90)
+        return ((lo >= 155) & (hi - lo <= 40)) | blå
 
     # Varannan pixel, max per 2x2 och lite förtjockning: även tunna ringar syns.
     vit = vitmask(reg[::2, ::2]).reshape(h, 2, w, 2).max(axis=(1, 3))
@@ -852,8 +855,26 @@ def hitta_shake(bild):
         if täck < 0.8 or not inne.any() or mörk[inne].mean() < 0.5:
             continue
         if bäst is None or täck + p > bäst[0]:
-            bäst = (täck + p, x0 + xa + fx, y0 + ya + fy)
-    return (bäst[1], bäst[2]) if bäst else None
+            bäst = (täck + p, x0 + xa + fx, y0 + ya + fy, R)
+    if bäst is None:
+        return None
+    return (bäst[1], bäst[2], bäst[3]) if med_radie else (bäst[1], bäst[2])
+
+
+def ring_är_blå(bild, x, y, R):
+    """Är shake-ringen blå, dvs. markerad av UI Navigation? Då träffar Enter
+    just den knappen (och inte t.ex. dansmenyn eller kameran)."""
+    import numpy as np
+    H, W = bild.shape[:2]
+    v = np.linspace(0, 2 * np.pi, 72, endpoint=False)
+    träff = n = 0
+    for r in (R * 0.94, R, R * 1.06):
+        xs = np.clip((x + r * np.cos(v)).astype(int), 0, W - 1)
+        ys = np.clip((y + r * np.sin(v)).astype(int), 0, H - 1)
+        px = bild[ys, xs].astype(np.int16)
+        träff += int(((px[:, 0] >= 200) & (px[:, 1] >= 100) & (px[:, 0] - px[:, 2] >= 90)).sum())
+        n += len(v)
+    return träff / n >= 0.25
 
 
 def spara_png(sökväg, bgr):
@@ -1077,12 +1098,22 @@ class Diagnostik:
         if self.kamp and self.rader:
             self.rader[-1][6] = 1 if håll else 0
 
-    def kamp_slut(self, resultat, kamptid):
+    def kamp_slut(self, resultat, kamptid, orsak=None, styrning=None):
         k, self.kamp = self.kamp, None
         if not (self.på() and k):
             return
         k["resultat"] = resultat
         k["tid"] = round(kamptid, 1)
+        k["orsak"] = orsak              # full progress / borta / timeout
+        k["styrning"] = styrning        # inlärd fysik: [upp, ner, fördröjning]
+        k["bilder_per_s"] = round(k["bilder"] / kamptid, 1) if kamptid > 0 else None
+        # Hur nära fisken baren låg (px från barens mitt), när båda syntes.
+        avst = [abs((r[2] + r[3]) / 2 - r[4]) for r in self.rader
+                if r[1] == "vit" and r[2] is not None and r[4] is not None]
+        if avst:
+            avst.sort()
+            k["avstånd_median"] = round(avst[len(avst) // 2])
+            k["avstånd_p95"] = round(avst[int(len(avst) * 0.95)])
         self.rapport["kamper"] = (self.rapport["kamper"] + [k])[-500:]
         if resultat in self.n_filmer and len(self.film) >= 5 \
                 and self.n_filmer[resultat] < self.MAX_FILMER[resultat]:
@@ -1108,6 +1139,12 @@ class Diagnostik:
         if self.på() and bild is not None and self.n_fångstbilder < 40:
             self.n_fångstbilder += 1
             self.bild(f"fangst_{time.strftime('%H%M%S')}", bild, halv=True)
+
+    def shake(self, tid, stat):
+        """Hur shake-fasen gick: tid från kast till minispel, Enter/klick, ringar."""
+        if self.på():
+            self.rapport.setdefault("shake", [])
+            self.rapport["shake"] = (self.rapport["shake"] + [dict(stat, tid=tid)])[-300:]
 
     def kastbild(self, bild):
         """En bild mitt i kastet när kastmätaren inte hittades (högst 3 per pass)."""
@@ -1418,53 +1455,72 @@ class Makro:
         return True
 
     def vänta_på_napp(self):
-        """Väntar tills minispelet dyker upp och sköter shake. False = inget napp."""
+        """Väntar tills minispelet dyker upp och sköter shake. False = inget napp.
+
+        UI Navigation: Enter trycks BARA när shake-knappen syns och är markerad
+        (blå ring). Blint Enter-tryckande öppnade dansmenyn och kameran när
+        något annat råkade vara markerat. Syns knappen men är vit (inte
+        markerad) klickas den med musen i stället."""
         läge = self.inst["shake"]
         self.status("Väntar på napp")
         if läge == "navigation":
             self.nav()
-        start = time.time()
+        start = kast_slut = time.time()
         senast_klick = 0.0
         kandidat = None
+        träffar = 0
+        stat = {"enter": 0, "klick": 0, "ringar": 0, "blå": 0}
         try:
-            träffar = 0
             while True:
                 bild = self.skärm.hämta()
                 # Två bilder i rad, så att en meny som blinkar förbi inte räknas.
                 träffar = träffar + 1 if bild is not None and hitta_reel(bild) else 0
                 if träffar >= 2:
+                    self.diag.shake(round(time.time() - kast_slut, 2), stat)
                     return True
                 if träffar:
                     continue        # minispelet syns nog redan: tryck inget, kolla nästa bild
                 nu = time.time()
                 if nu - start > self.inst["napp_timeout"]:
+                    self.diag.shake(None, stat)
                     return False
-                if läge == "navigation":
-                    self.status("Skakar")
-                    self.inp.tap(KEY_ENTER)
-                    self.vänta(self.slump(0.08, 0.25))
-                    continue
-                if läge == "klick" and bild is not None:
-                    pos = hitta_shake(bild)
+                if läge in ("navigation", "klick") and bild is not None:
+                    ring = hitta_shake(bild, med_radie=True)
                     H, W = bild.shape[:2]
-                    # Kräv samma träff i två bilder i rad, så att inget ryck ger felklick.
-                    if pos and kandidat and abs(pos[0] - kandidat[0]) < W * 0.02 \
-                            and abs(pos[1] - kandidat[1]) < H * 0.02:
-                        if nu - senast_klick > self.slump(0.15, 0.3):
-                            j = 4 if self.inst["slumpa"] else 0
-                            self.status("Skakar")
-                            self.inp.flytta((pos[0] + random.uniform(-j, j)) / W,
-                                            (pos[1] + random.uniform(-j, j)) / H)
-                            self.pekare_flyttad = True
-                            time.sleep(0.03)
-                            self.inp.tap(BTN_LEFT)
-                            senast_klick = nu
-                            self.shakes += 1
-                            start = nu          # shake = något händer, nollställ timeout
-                            kandidat = None
-                            self.vänta(0.05)
+                    if ring:
+                        stat["ringar"] += 1
+                        blå = läge == "navigation" and ring_är_blå(bild, *ring)
+                        stat["blå"] += blå
+                        if blå:
+                            if nu - senast_klick > self.slump(0.12, 0.3):
+                                self.status("Skakar")
+                                self.inp.tap(KEY_ENTER)
+                                senast_klick = nu
+                                self.shakes += 1
+                                stat["enter"] += 1
+                                start = nu          # shake = något händer, nollställ timeout
+                                kandidat = None
+                                self.vänta(0.05)
                             continue
-                    kandidat = pos
+                        # Kräv samma träff i två bilder i rad, så att inget ryck ger felklick.
+                        if kandidat and abs(ring[0] - kandidat[0]) < W * 0.02 \
+                                and abs(ring[1] - kandidat[1]) < H * 0.02:
+                            if nu - senast_klick > self.slump(0.15, 0.3):
+                                j = 4 if self.inst["slumpa"] else 0
+                                self.status("Skakar")
+                                self.inp.flytta((ring[0] + random.uniform(-j, j)) / W,
+                                                (ring[1] + random.uniform(-j, j)) / H)
+                                self.pekare_flyttad = True
+                                time.sleep(0.03)
+                                self.inp.tap(BTN_LEFT)
+                                senast_klick = nu
+                                self.shakes += 1
+                                stat["klick"] += 1
+                                start = nu
+                                kandidat = None
+                                self.vänta(0.05)
+                                continue
+                    kandidat = ring
                 self.vänta(0.03)
         finally:
             if läge == "navigation":
@@ -1484,7 +1540,9 @@ class Makro:
         self.diag.kamp_start()
         resultat = self.reel()
         self.kamptid = time.time() - kampstart
-        self.diag.kamp_slut(resultat, self.kamptid)
+        st = self.styrning
+        self.diag.kamp_slut(resultat, self.kamptid, getattr(self, "kamp_orsak", None),
+                            [round(st.upp), round(st.ner), round(st.L, 3)])
         self.vy = None
         if resultat == "fångad":
             self.vänta(0.4)
@@ -1513,6 +1571,7 @@ class Makro:
         start = time.time()
 
         def resultat_av(orsak):
+            self.kamp_orsak = orsak
             return utfall.slut(time.time(), orsak, sista_läge)
 
         try:
@@ -1532,6 +1591,7 @@ class Makro:
                 W = bild.shape[1]
                 self.diag.kamp_bild(bild, läge, b0, b1, fisk, prog, syn.band)
                 if utfall.bild(nu, läge, prog):
+                    self.kamp_orsak = "full progress"
                     return "fångad"
 
                 if läge is None:
