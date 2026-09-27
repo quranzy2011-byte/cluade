@@ -21,7 +21,7 @@ import threading
 import time
 import zlib
 
-VERSION = "3.1"   # höj vid varje ny version så att man ser vilken man kör
+VERSION = "3.2"   # höj vid varje ny version så att man ser vilken man kör
 UPPDATERA_URL = "https://raw.githubusercontent.com/quranzy2011-byte/cluade/main/fisch_app.py"
 GITHUB_API = "https://api.github.com"
 DIAG_REPO = "quranzy2011-byte/cluade-2"   # privat repo dit diagnostiken laddas upp
@@ -435,19 +435,54 @@ def läs_progress(bild, rb, bandhöjd, x0, x1, geo=None, väntad=None):
     if yb - ya < 2:
         return None
     lo = _lo_hi(bild[ya:yb, x0:x1])[0]
-    # Ramens övre/nedre kant: rader där ljusa pixlar täcker det mesta av bredden.
+    W = bild.shape[1]
+
+    def rimlig(r):
+        """Progressbaren sitter mitt på skärmen, en bit under spåret."""
+        if r is None:
+            return False
+        mitt = x0 + (r[2] + r[3]) / 2
+        bredd = r[3] - r[2]
+        # Exakt centrerad (en fyllning som slutar före ramens högerkant är det inte).
+        return (abs(mitt - W / 2) <= max(6, 0.004 * W) and 0.1 * W <= bredd <= 0.45 * W
+                and 0.4 * bandhöjd <= r[0] + (ya - rb) <= 1.4 * bandhöjd)
+
+    def para(kanter):
+        """Ramen = två kanter (övre och nedre) med samma vänster- och högerände."""
+        bäst = None
+        for i, (ya_, va, ha) in enumerate(kanter):
+            for yb_, vb, hb in kanter[i + 1:]:
+                if 3 <= yb_ - ya_ <= 30 and abs(va - vb) <= 4 and abs(ha - hb) <= 4:
+                    r = (ya_, yb_, min(va, vb), max(ha, hb))
+                    if rimlig(r) and (bäst is None or r[3] - r[2] > bäst[3] - bäst[2]):
+                        bäst = r
+        return bäst
+
+    # 1) Kanter = rader där ljusa pixlar täcker det mesta av bredden (mörk bakgrund).
     kanter = []
     for i, rad in enumerate(lo):
         xs = np.flatnonzero(rad >= 100)
         if len(xs) > 10 and len(xs) >= 0.5 * (xs[-1] - xs[0]):
             kanter.append((i, xs[0], xs[-1]))
-    # Ramen = två kanter (övre och nedre) med samma vänster- och högerände.
-    ram = None
-    for i, (ya_, va, ha) in enumerate(kanter):
-        for yb_, vb, hb in kanter[i + 1:]:
-            if 3 <= yb_ - ya_ <= 30 and abs(va - vb) <= 4 and abs(ha - hb) <= 4:
-                if ram is None or ha - va > ram[3] - ram[2]:
-                    ram = (ya_, yb_, min(va, vb), max(ha, hb))
+    ram = para(kanter)
+    if ram is None:
+        # 2) Ljus bakgrund (sand, snö): kanten = tunn linje som är ljusare än
+        #    raderna ovanför/under; längsta täta sträckan på raden.
+        utökad = _lo_hi(bild[max(0, ya - 2):min(H, yb + 2), x0:x1])[0].astype(np.int16)
+        f = ya - max(0, ya - 2)
+        kanter = []
+        for i, rad in enumerate(lo):
+            j = i + f
+            if j - 2 < 0 or j + 2 >= len(utökad):
+                continue
+            grannar = np.minimum(utökad[j - 2], utökad[j + 2])
+            xs = np.flatnonzero((rad >= 100) & (rad.astype(np.int16) - grannar >= 35))
+            if len(xs) <= 10:
+                continue
+            bit = max(_körningar(xs, 12), key=len)
+            if len(bit) > 10 and len(bit) >= 0.5 * (bit[-1] - bit[0]):
+                kanter.append((i, int(bit[0]), int(bit[-1])))
+        ram = para(kanter)
     if ram is None:
         return None
     topp, botten, vä, hö = ram
@@ -509,49 +544,70 @@ def läs_fyllning(bild, ram):
 
 
 def hitta_kastmätare(bild):
-    """Hittar kastmätaren: en smal lodrät stapel bredvid gubben som fylls med
-    vitt nerifrån, med en grön topp. Returnerar (andel 0-1, x) eller None."""
+    """Hittar kastmätaren: ett smalt lodrätt rör bredvid gubben (två tunna mörka
+    kantlinjer, grön topp) som fylls med vitt nerifrån.
+    Returnerar (andel 0-1, x) eller None."""
     import numpy as np
     H, W = bild.shape[:2]
-    x0, x1, y0, y1 = int(0.35 * W), int(0.75 * W), int(0.25 * H), int(0.85 * H)
-    reg = bild[y0:y1, x0:x1]
-    lo, hi = _lo_hi(reg)
-    vit = (lo >= 200) & (hi - lo <= 40)
-    kol = np.flatnonzero(vit.sum(axis=0) >= 0.03 * H)
-    bäst = None
-    for g in _körningar(kol, 1):
-        if not (3 <= len(g) <= 16):
-            continue
-        rader = np.flatnonzero(vit[:, g].mean(axis=1) >= 0.6)
+    x0, x1, y0, y1 = int(0.30 * W), int(0.80 * W), int(0.20 * H), int(0.88 * H)
+    hi = bild[y0:y1, x0:x1].max(axis=2).astype(np.int16)
+    # Kantlinje = tunn mörk "dal": tydligt mörkare än 2 px till vänster och höger.
+    dal = np.zeros(hi.shape, bool)
+    dal[:, 2:-2] = (hi[:, 2:-2] < hi[:, :-4] - 20) & (hi[:, 2:-2] < hi[:, 4:] - 20) & \
+        (hi[:, 2:-2] < 120)
+    dal[:, 1:] |= dal[:, :-1]          # tillåt att linjen vickar en pixel
+    minst = int(0.08 * H)
+    kol = np.flatnonzero(dal.sum(axis=0) >= minst)
+    if len(kol) < 2:
+        return None
+
+    def sträcka(x):
+        rader = np.flatnonzero(dal[:, x])
         if len(rader) == 0:
+            return None
+        run = max(_körningar(rader, 4), key=len)
+        return (int(run[0]), int(run[-1])) if run[-1] - run[0] >= minst else None
+
+    sträckor = {int(x): sträcka(x) for x in kol}
+    bäst = None
+    for xv in kol:
+        a = sträckor[int(xv)]
+        if a is None:
             continue
-        run = max(_körningar(rader, 2), key=len)
-        topp, botten = int(run[0]), int(run[-1])
-        if botten - topp < 0.03 * H:
-            continue
-        # Ovanför fyllningen: mörkt spår och sedan en grön topp.
-        b, gr, r = (reg[:, g, i].astype(int).mean(axis=1) for i in range(3))
-        grön = (gr > 100) & (gr > r + 35) & (gr > b + 20)
-        mörk = np.maximum(np.maximum(b, gr), r) < 70
-        lock = None
-        y = topp - 1
-        while y >= max(0, topp - int(0.4 * H)):
-            if grön[y]:
-                lock = y
-                break
-            if not mörk[y] and topp - y > 3:
-                break
-            y -= 1
-        if lock is None:
-            continue
-        # Mätarens totala höjd: från under den gröna toppen till botten.
-        full = botten - lock
-        if full < 0.05 * H:
-            continue
-        andel = (botten - topp) / full
-        if bäst is None or full > bäst[1]:
-            bäst = (min(1.0, andel), full, x0 + int(g.mean()))
-    return (bäst[0], bäst[2]) if bäst else None
+        for xh in kol[(kol >= xv + 5) & (kol <= xv + 16)]:
+            b = sträckor[int(xh)]
+            if b is None or abs(a[0] - b[0]) > 8 or abs(a[1] - b[1]) > 8:
+                continue
+            topp, botten = max(a[0], b[0]), min(a[1], b[1])
+            längd = botten - topp
+            if längd < minst:
+                continue
+            mitt = (int(xv) + int(xh)) // 2
+            inne = hi[topp:botten + 1, mitt]
+            # Fyllningen: ljust nerifrån och upp (tomma delen är mörk/genomskinlig).
+            # Jämför med rörets mörkaste del (tom), men högst 140: en helt full
+            # mätare har ingen mörk del.
+            tom = min(140, int(np.percentile(inne, 10)))
+            ljus = inne >= max(160, tom + 30)
+            # Räkna från botten; de nedersta raderna (rörets kant) får vara mörka.
+            nerifrån = ljus[::-1]
+            start = next((k for k in range(min(8, len(nerifrån))) if nerifrån[k]), None)
+            n = 0
+            if start is not None:
+                n = start
+                for v in nerifrån[start:]:
+                    if not v:
+                        break
+                    n += 1
+            # Grön topp strax ovanför röret gör det säkert att det är mätaren.
+            ovan = bild[max(0, y0 + topp - 20):y0 + topp + 3, x0 + mitt, :3].astype(np.int16)
+            grön = bool(((ovan[:, 1] > ovan[:, 2] + 30) & (ovan[:, 1] > ovan[:, 0] + 20)).any())
+            poäng = längd + (1000 if grön else 0)
+            if bäst is None or poäng > bäst[0]:
+                bäst = (poäng, min(1.0, n / längd), x0 + mitt, grön)
+    if bäst is None or not bäst[3]:
+        return None
+    return (bäst[1], bäst[2])
 
 
 def spårmask(remsa, gräns=60):
@@ -710,10 +766,16 @@ class Syn:
         self.linor = None
         self.fisk = None
 
+    # Progressbarens ram i 1920x1080 (uppmätt i användarens spel). Används tills
+    # en egen har hittats; läs_fyllning kontrollerar ändå att ramen syns där.
+    STANDARD_RAM = {(1080, 1920): (984, 993, 750, 1169)}
+
     def läs(self, bild):
         """Returnerar (läge, bar0, bar1, fisk, progress). läge = 'vit', 'mörk' eller None."""
         import numpy as np
         H, W = bild.shape[:2]
+        if self.ram4 is None:
+            self.ram4 = self.STANDARD_RAM.get((H, W))
         x0, x1 = int(REEL_OMRÅDE[0] * W), int(REEL_OMRÅDE[2] * W)
         self.n = getattr(self, "n", 0) + 1
         r = None
@@ -1044,7 +1106,8 @@ def tumnagel(bild):
     """Glest urval av skärmens mitt (makrots fönster och pekaren påverkar knappt)."""
     import numpy as np
     H, W = bild.shape[:2]
-    return bild[int(0.2 * H):int(0.8 * H):24, int(0.25 * W):int(0.75 * W):24, :3].astype(np.int16)
+    # ner till reel-spelet: en bar som rör sig räknas också som liv
+    return bild[int(0.2 * H):int(0.95 * H):24, int(0.25 * W):int(0.75 * W):24, :3].astype(np.int16)
 
 
 def har_ändrats(a, b):
@@ -1131,7 +1194,8 @@ def spara_apng(sökväg, rutor):
 def fångsttext_utsnitt(bild):
     """Området där "You just caught a ... at ...kg! (1/N)" står (full upplösning)."""
     H, W = bild.shape[:2]
-    return bild[int(0.70 * H):int(0.88 * H), int(0.15 * W):int(0.85 * W), :3].copy()
+    # 20-80 % av bredden: inte makrots eget fönster till vänster.
+    return bild[int(0.70 * H):int(0.88 * H), int(0.20 * W):int(0.80 * W), :3].copy()
 
 
 def _textmask(c, metod=0):
@@ -1220,27 +1284,43 @@ def ocr_rader(utsnitt, skärmhöjd, max_rader=3, metod=0):
 
 
 def tolka_fångst(text):
-    """"You just caught a Shiny Mullet at 1.4kg! (1/889)" -> dict eller None."""
+    """"You just caught a Shiny Mullet at 1.4kg! (1/889)" -> dict eller None.
+
+    Tål vanliga läsfel från textläsningen: "caughta", "augnt", "ai"/"al" i
+    stället för "at", "ke"/"kg:" i stället för "kg"."""
     import re
     t = re.sub(r"[‘’'`´\"“”¢*_|]", " ", text)
-    m = re.search(r"caug\w*\W+(.+?)\W+at\W*(\d[\d.,]*)\s*(kg|t)\b", t, re.I)
+    m = re.search(r"(?:caug\w*|cau\w*|augn\w*|ught\w*)\W+(.+?)\W+"
+                  r"(?:at|ai|al|af|ar|av|a1|ot|si)\W*(\d[\d.,]*)\s*([kK]|t\b|[a-z¢!])", t)
     if not m:
         return None
     ord_ = m.group(1).split()
-    # "a"/"an" före namnet (ibland feltolkat som "2", "e", "o")
-    if len(ord_) > 1 and re.fullmatch(r"(?i)an?|[2eo4@]", ord_[0]):
+    # "a"/"an" före namnet (ibland feltolkat som "2", "3", "4", "e", "o")
+    if len(ord_) > 1 and re.fullmatch(r"(?i)an?|[234eo@]", ord_[0]):
         ord_ = ord_[1:]
     ord_ = re.sub(r"[^A-Za-z -]", "", " ".join(ord_)).split()
-    if not ord_:
+    if not ord_ or sum(len(w) for w in ord_) < 3:
         return None
-    namn = " ".join(w[:1].upper() + w[1:].lower() if w.isupper() and len(w) > 2 else w
+    namn = " ".join(w[:1].upper() + w[1:] if w.islower() and len(w) > 2 else
+                    (w[:1].upper() + w[1:].lower() if w.isupper() and len(w) > 2 else w)
                     for w in ord_)
-    tal = m.group(2).replace(",", "")
+    tal = m.group(2).rstrip(".,")
+    # Fisch visar vikten med en decimal och komma som tusentalsavgränsare
+    # ("1,105.8kg"). Textläsningen blandar ihop punkt och komma, så: tre siffror
+    # efter en avgränsare = tusental, annars decimaler.
+    import re as _re
+    delar = _re.split(r"[.,]", tal)
+    if len(delar) == 1:
+        tal = delar[0]
+    elif len(delar[-1]) == 3:
+        tal = "".join(delar)
+    else:
+        tal = "".join(delar[:-1]) + "." + delar[-1]
     try:
-        kg = float(tal) * (1000 if m.group(3).lower() == "t" else 1)
+        kg = float(tal) * (1000 if m.group(3) == "t" and "." in tal else 1)
     except ValueError:
         return None
-    c = re.search(r"\(\s*1\s*/\s*(\d[\d,.]*)\s*\)", t)
+    c = re.search(r"\(\s*1\s*/\s*(\d[\d,.]*)\s*[)}\]!]", t[m.end():])
     chans = None
     if c:
         try:
@@ -1260,34 +1340,61 @@ def dela_mutationer(namn, mutationer=MUTATIONER):
 
 
 def läs_fångst(utsnitt_lista, skärmhöjd, kända=()):
-    """Läser fångsttexten i flera bilder och väljer det svar flest bilder ger.
-    Namn som liknar ett redan känt namn rättas till det. Returnerar (dict, råtext)."""
+    """Läser fångsttexten i flera bilder och väger ihop svaren.
+
+    Alla tolkade rader samlas; liknande namn slås ihop (läsfel som "Crak"/"Crab")
+    och rättas mot redan kända namn. Varje fisk som syns i flera bilder loggas
+    (vid "Extra!" fångas två fiskar på en gång). Returnerar (lista, råtext)."""
     import collections
     import difflib
     svar, rå = [], []
     for u in utsnitt_lista:
-        # Pröva metoderna i tur och ordning tills en ger en giltig fångstrad.
         for metod in (0, 3, 1, 2):
-            r = None
+            hittat = False
             for rad in ocr_rader(u, skärmhöjd, metod=metod):
                 rå.append(rad)
                 r = tolka_fångst(rad)
                 if r:
-                    break
-            if r:
-                if kända:
-                    nära = difflib.get_close_matches(r["namn"], list(kända), 1, 0.8)
-                    if nära:
-                        r["namn"] = nära[0]
-                svar.append(r)
+                    svar.append(r)
+                    hittat = True
+            if hittat:
                 break
     if not svar:
         return None, rå
-    namn = collections.Counter(r["namn"] for r in svar).most_common(1)[0][0]
-    kg = collections.Counter(r["kg"] for r in svar if r["namn"] == namn).most_common(1)[0][0]
-    chanser = [r["chans"] for r in svar if r["chans"]]
-    chans = collections.Counter(chanser).most_common(1)[0][0] if chanser else None
-    return {"namn": namn, "kg": kg, "chans": chans}, rå
+    # Gruppera liknande namn.
+    grupper = []    # [namn, [svar]]
+    for r in svar:
+        for g in grupper:
+            if difflib.SequenceMatcher(None, r["namn"].lower(), g[0].lower()).ratio() >= 0.75:
+                g[1].append(r)
+                break
+        else:
+            grupper.append([r["namn"], [r]])
+    minst = 2 if len(utsnitt_lista) >= 2 else 1
+    ut = []
+    for _, rs in sorted(grupper, key=lambda g: -len(g[1])):
+        if len(rs) < minst and ut:
+            continue
+        if ut:
+            # En andra fisk ("Extra!") ska ha annan vikt; samma vikt = samma fisk
+            # med ett felläst namn.
+            första = ut[0]["kg"]
+            kg2 = collections.Counter(r["kg"] for r in rs).most_common(1)[0][0]
+            if abs(kg2 - första) <= 0.05 * max(första, 0.1):
+                continue
+            namn2 = collections.Counter(r["namn"] for r in rs).most_common(1)[0][0]
+            if difflib.SequenceMatcher(None, namn2.lower(), ut[0]["namn"].lower()).ratio() >= 0.5:
+                continue    # samma fisk, läst fel (t.ex. "Bnentom Key" = "Phantom Ray")
+        namn = collections.Counter(r["namn"] for r in rs).most_common(1)[0][0]
+        if kända:
+            nära = difflib.get_close_matches(namn, list(kända), 1, 0.8)
+            if nära:
+                namn = nära[0]
+        kg = collections.Counter(r["kg"] for r in rs).most_common(1)[0][0]
+        chanser = [r["chans"] for r in rs if r["chans"]]
+        chans = collections.Counter(chanser).most_common(1)[0][0] if chanser else None
+        ut.append({"namn": namn, "kg": kg, "chans": chans})
+    return ut[:2], rå
 
 
 def tangentnamn(kod):
@@ -1358,9 +1465,9 @@ class Diagnostik:
 
     MAX_BILDER = 300
     MAX_MB = 400          # mappen hålls under så här många MB
-    FILM_FPS = 15
-    FILM_SEK = 6
-    MAX_FILMER = {"tappad": 20, "fångad": 3}   # per pass
+    FILM_FPS = 10
+    FILM_SEK = 5
+    MAX_FILMER = {"tappad": 8, "fångad": 3}    # per pass (filmerna är stora)
 
     def __init__(self, inst, logg):
         import collections
@@ -1389,6 +1496,7 @@ class Diagnostik:
         threading.Thread(target=self._skrivare, daemon=True).start()
         threading.Thread(target=self._uppladdare, daemon=True).start()
         threading.Thread(target=self._hämta_wiki_senare, daemon=True).start()
+        threading.Thread(target=self._gamla_skärmbilder, daemon=True).start()
 
     # ---- insamling (anropas från makrotråden, måste vara snabbt)
     def på(self):
@@ -1439,8 +1547,8 @@ class Diagnostik:
         import numpy as np
         H, W = bild.shape[:2]
         if self.utsnitt is None:
-            # Hela nedre delen (bar, progress, verktygsfält) så att allt syns.
-            y0, y1 = int(REEL_OMRÅDE[1] * H), int(0.99 * H)
+            # Baren, progressbaren och överkanten av verktygsfältet.
+            y0, y1 = int(0.80 * H), int(0.97 * H)
             x0, x1 = int(REEL_OMRÅDE[0] * W), int(REEL_OMRÅDE[2] * W)
             self.utsnitt = tuple(int(v) for v in (y0, y0 + (y1 - y0) // 2 * 2,
                                                    x0, x0 + (x1 - x0) // 2 * 2))
@@ -1505,6 +1613,14 @@ class Diagnostik:
             self.rapport.setdefault("shake", [])
             self.rapport["shake"] = (self.rapport["shake"] + [dict(stat, tid=tid)])[-300:]
 
+    def rättning(self, resultat):
+        """Fångsttexten syntes efter en kamp som räknats som tappad."""
+        if self.på() and resultat == "tappad":
+            r = self.rapport["resultat"]
+            r["tappad"] = max(0, r.get("tappad", 0) - 1)
+            r["fångad"] = r.get("fångad", 0) + 1
+            self.rapport["rättade"] = self.rapport.get("rättade", 0) + 1
+
     def fångsttext(self, utsnitt, rå, tolkat):
         """Fångsttexten i full upplösning + vad textläsningen fick fram (för finjustering)."""
         if not self.på():
@@ -1516,7 +1632,28 @@ class Diagnostik:
             self.n_texter = getattr(self, "n_texter", 0) + 1
             self.bild(f"fangsttext_{time.strftime('%H%M%S')}", utsnitt)
 
-    WIKI_SIDOR = ("Fish", "All_Fish", "Mutations", "Mutation", "Bestiary")
+    # Färdigritade sidor (action=render ger HTML med de mallgenererade tabellerna).
+    WIKI_SIDOR = ("All_Fish", "Mutations", "Template:Fish_Table", "Template:Mutation_Table")
+
+    def _gamla_skärmbilder(self):
+        """F8-bilder från äldre versioner låg i autoclicker-mappen: flytta dem till
+        diagnostik/skarmbilder och ladda upp dem."""
+        import glob
+        import shutil as sh
+        time.sleep(10)
+        if not self.på():
+            return
+        mapp = os.path.join(MAPP, "diagnostik", "skarmbilder")
+        for gammal in sorted(glob.glob(os.path.join(MAPP, "fisch_bild_*.png")))[-60:]:
+            try:
+                os.makedirs(mapp, exist_ok=True)
+                datum = time.strftime("%Y%m%d", time.localtime(os.path.getmtime(gammal)))
+                ny = os.path.join(mapp, os.path.basename(gammal).replace(
+                    "fisch_bild_", f"fisch_bild_{datum}_"))
+                sh.move(gammal, ny)
+                self.uppkö.put(ny)
+            except OSError:
+                pass
 
     def _hämta_wiki_senare(self):
         time.sleep(20)
@@ -1529,28 +1666,27 @@ class Diagnostik:
         """Laddar ner Fisch-wikins fisk- och mutationssidor en gång och lägger dem i
         diagnostiken, så att prislistan (grundpris per kg, mutationer) kan byggas."""
         import urllib.request
-        if not self.på() or self.inst.get("wiki_hämtad") or not self.inst.get("gh_token"):
+        if not self.på() or self.inst.get("wiki_hämtad2") or not self.inst.get("gh_token"):
             return
         mapp = os.path.join(MAPP, "diagnostik", "wiki")
         os.makedirs(mapp, exist_ok=True)
         antal = 0
         for sida in self.WIKI_SIDOR:
             for typ, url in (("wikitext", f"https://fischipedia.org/index.php?title={sida}&action=raw"),
-                             ("html", f"https://fischipedia.org/api.php?action=parse&page={sida}"
-                                      "&prop=text&format=json&formatversion=2")):
+                             ("html", f"https://fischipedia.org/index.php?title={sida}&action=render")):
                 try:
                     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 FischMakro"})
                     with urllib.request.urlopen(req, timeout=20) as svar:
                         data = svar.read()
                 except Exception as fel:
                     data = f"FEL: {fel!r}".encode()
-                sökväg = os.path.join(mapp, f"{sida}.{typ}.txt")
+                sökväg = os.path.join(mapp, f"{sida.replace(':', '_')}.{typ}.txt")
                 with open(sökväg, "wb") as fil:
                     fil.write(data[:8_000_000])
                 self.uppkö.put(sökväg)
                 antal += len(data) > 1000
         if antal:
-            self.inst["wiki_hämtad"] = True
+            self.inst["wiki_hämtad2"] = True
             self.logg(f"Diagnostik: laddade ner {antal} wikisidor till prislistan")
 
     def kastfilm(self, rutor):
@@ -1683,6 +1819,8 @@ class Diagnostik:
         bas = os.path.join(MAPP, "diagnostik")
         filer = []
         for rot, _, namn in os.walk(bas):
+            if os.path.basename(rot) == "skarmbilder":
+                continue        # användarens egna F8-bilder tas inte bort
             filer += [os.path.join(rot, f) for f in namn if f.endswith((".png", ".json"))
                       and f != "rapport.json"]
         try:
@@ -1775,6 +1913,11 @@ class Makro:
         self.syn = Syn()
         self.vy = None          # (bar0, bar1, fisk, bredd, läge) för live-vyn
         self.pekare_flyttad = False
+        # Progressbarens ram (sitter alltid på samma ställe; sparas till nästa gång,
+        # så att den kan läsas även där den är svår att hitta, t.ex. på ljus sand).
+        sparad_ram = inst.get("progressram")
+        if isinstance(sparad_ram, list) and len(sparad_ram) == 4:
+            self.syn.ram4 = tuple(int(v) for v in sparad_ram)
         # Spelets fysik (lärs in under fisket och sparas till nästa gång).
         sparad = inst.get("styrning")
         try:
@@ -1817,9 +1960,11 @@ class Makro:
                 self.logg(f"Skärmbild: inga bilder från skärmen än "
                           f"({self.skärm.antal} bilder mottagna).")
                 return
-            namn = time.strftime("fisch_bild_%H%M%S.png")
-            sökväg = os.path.join(MAPP, namn)
+            mapp = os.path.join(MAPP, "diagnostik", "skarmbilder")
+            os.makedirs(mapp, exist_ok=True)
+            sökväg = os.path.join(mapp, time.strftime("fisch_bild_%Y%m%d_%H%M%S.png"))
             spara_png(sökväg, bild)
+            self.diag.uppkö.put(sökväg)   # laddas upp med diagnostiken
             self.logg(f"Sparade {sökväg} ({bild.shape[1]}x{bild.shape[0]})")
             self.logg(f"  ser: reel={hitta_reel(bild)} shake={hitta_shake(bild)}")
         except Exception as fel:
@@ -1953,12 +2098,17 @@ class Makro:
         kastbild = False
         filmrutor = []       # (tid, utsnitt runt gubben) för diagnostiken
         förra = None
+        först_sett = None
+        högst = 0.0
         while True:
             nu = time.time()
             if nu - start > 3.0 or (not sett and nu - start > max(1.2, self.inst["cast_tid"])):
-                if not sett:
-                    self.diag.kastfilm(filmrutor)
+                self.diag.kastfilm(filmrutor)
                 return sett and self.släpp("maxtid")
+            if sett and nu - först_sett > 1.2 and högst < 0.15:
+                # Mätaren "syns" men rör sig inte: fel träff, släpp som vanligt.
+                self.diag.kastfilm(filmrutor)
+                return self.släpp("mätaren rör sig inte")
             self.vänta(0)
             bild = self.skärm.hämta()
             self.vakt(bild)
@@ -1974,14 +2124,18 @@ class Makro:
                     self.diag.kastbild(bild)
                 time.sleep(0.005)
                 continue
+            if not sett:
+                först_sett = nu
             sett = True
             andel = m[0]
+            högst = max(högst, andel)
             prover.append((time.time(), andel))
             prover = prover[-5:]
             fart = hastighet(prover)
             # Släpp strax innan toppen (släppet når spelet ~0,05 s senare), eller
             # direkt om mätaren står still/vänder högt upp.
             if andel + max(0.0, fart) * 0.05 >= 0.99 or (andel >= 0.95 and fart <= 0.05):
+                self.diag.kastfilm(filmrutor)   # de första kasten per pass, för kontroll
                 return self.släpp(f"{andel:.0%}")
             time.sleep(0.003)
 
@@ -2096,35 +2250,40 @@ class Makro:
         self.diag.kamp_start()
         resultat = self.reel()
         self.kamptid = time.time() - kampstart
+        if self.syn.ram4 and list(self.syn.ram4) != self.inst.get("progressram"):
+            self.inst["progressram"] = [int(v) for v in self.syn.ram4]
         st = self.styrning
         self.diag.kamp_slut(resultat, self.kamptid, getattr(self, "kamp_orsak", None),
                             [round(st.upp), round(st.ner), round(st.L, 3)])
         self.vy = None
+        # Fångsttexten ("You just caught a ... (1/N)") syns ett par sekunder efter
+        # en fångst: ta tre bilder och läs dem i bakgrunden. Det görs efter varje
+        # kamp - syns texten efter en "tappad" var den i själva verket fångad.
+        utsnitt, bild = [], None
+        for paus in (0.4, 0.5, 0.5):
+            self.vänta(paus)
+            bild = self.skärm.hämta()
+            if bild is not None:
+                utsnitt.append(fångsttext_utsnitt(bild))
         if resultat == "fångad":
-            # Fångsttexten ("You just caught a ... (1/N)") syns ett par sekunder:
-            # ta tre bilder av den och läs dem i bakgrunden (fångstloggen).
-            utsnitt, bild = [], None
-            for paus in (0.4, 0.5, 0.5):
-                self.vänta(paus)
-                bild = self.skärm.hämta()
-                if bild is not None:
-                    utsnitt.append(fångsttext_utsnitt(bild))
             self.diag.fångstbild(bild)
-            if utsnitt and shutil.which("tesseract"):
-                threading.Thread(target=self._läs_fångst, args=(utsnitt, bild.shape[0]),
-                                 daemon=True).start()
-            self.vänta(self.slump(0.1, 0.5))
-        else:
-            self.vänta(self.slump(1.5, 0.2))
+        if utsnitt and shutil.which("tesseract"):
+            threading.Thread(target=self._läs_fångst, args=(utsnitt, bild.shape[0], resultat),
+                             daemon=True).start()
+        self.vänta(self.slump(0.1, 0.5))
         return resultat
 
-    def _läs_fångst(self, utsnitt, H):
+    def _läs_fångst(self, utsnitt, H, resultat="fångad"):
         try:
             r, rå = läs_fångst(utsnitt, H, getattr(self, "kända_namn", ()))
         except Exception as fel:
             r, rå = None, [f"fel: {fel!r}"]
         self.diag.fångsttext(utsnitt[0], rå, r)
-        self.q.put(("fångst", r))
+        if not r and any("caught" in t.lower() for t in rå):
+            r = [{"namn": None}]    # texten syntes men gick inte att tolka: ändå en fångst
+        if r:
+            self.diag.rättning(resultat)
+        self.q.put(("fångst", (r, resultat)))
 
     def reel(self):
         syn = self.syn
@@ -2785,6 +2944,24 @@ class App:
         except OSError:
             pass
 
+    def rätta_till_fångad(self):
+        """Senaste "tappad" var egentligen en fångst (fångsttexten syntes)."""
+        if self.stat["tappad"] > 0:
+            self.stat["tappad"] -= 1
+        self.stat["fångad"] += 1
+        self.fångster.append(time.time())
+        tot = self.hist["totalt"]
+        tot["tappad"] = max(0, tot.get("tappad", 0) - 1)
+        tot["fångad"] = tot.get("fångad", 0) + 1
+        dagar = self.hist.setdefault("dagar", {})
+        dag = time.strftime("%Y-%m-%d")
+        dagar[dag] = dagar.get(dag, 0) + 1
+        if self.session:
+            self.session["tappad"] = max(0, self.session.get("tappad", 0) - 1)
+            self.session["fångad"] = self.session.get("fångad", 0) + 1
+        self.spara_hist()
+        self.skriv("   ↺ Rättat: fångad (fångsttexten syntes)")
+
     def registrera(self, resultat, kamptid, shakes):
         tot, rek = self.hist["totalt"], self.hist["rekord"]
         tot[resultat] = tot.get(resultat, 0) + 1
@@ -3311,7 +3488,23 @@ class App:
                         notis(data)
                     self.discord("⚠ Fisch Makro: " + data)
                 elif typ == "fångst":
-                    if data:
+                    fiskar, gissat = data
+                    # Samma fisk (namn + vikt) nyss? Texten kan synas kvar efter nästa kamp.
+                    nu_t = time.time()
+                    senaste = getattr(self, "senaste_fiskar", [])
+                    senaste = [(t, n, k) for t, n, k in senaste if nu_t - t < 20]
+                    if fiskar and fiskar[0].get("namn") and any(
+                            n == fiskar[0]["namn"] and abs(k - fiskar[0]["kg"]) < 0.5
+                            for _, n, k in senaste):
+                        fiskar = None
+                    for x in fiskar or []:
+                        if x.get("namn"):
+                            senaste.append((nu_t, x["namn"], x["kg"]))
+                    self.senaste_fiskar = senaste
+                    if fiskar and gissat == "tappad":
+                        # Fångsttexten syntes: det var en fångst, inte en förlust.
+                        self.rätta_till_fångad()
+                    for data in [x for x in (fiskar or []) if x.get("namn")]:
                         data = dict(data, tid=time.strftime("%Y-%m-%d %H:%M"))
                         self.fisklogg.append(data)
                         self.spara_fisklogg()
@@ -3409,6 +3602,24 @@ def main():
         if saknade_paket():
             sys.exit("Kunde inte installera allt. Kör: sudo apt install -y " + " ".join(PAKET))
         os.execv(sys.executable, [sys.executable] + sys.argv)
+    # Bara en app åt gången: två makron som styr musen samtidigt ger kaos.
+    import fcntl
+    os.makedirs(os.path.dirname(KONFIG), exist_ok=True)
+    global _LÅS
+    _LÅS = open(os.path.join(os.path.dirname(KONFIG), "app.lock"), "w")
+    try:
+        fcntl.flock(_LÅS, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except OSError:
+        try:
+            import tkinter as tk
+            from tkinter import messagebox
+            rot = tk.Tk()
+            rot.withdraw()
+            messagebox.showinfo("Fisch Makro", "Fisch Makro körs redan (kolla fönstren).\n"
+                                "Två makron samtidigt styr musen om varandra.")
+        except Exception:
+            print("Fisch Makro körs redan.")
+        sys.exit(0)
     markering = os.path.join(os.path.dirname(KONFIG), "ocr_forsokt")
     if saknade_paket_ocr() and not os.path.exists(markering):
         # Textläsningen (fångstloggen) är inte nödvändig: ett försök, sedan kör appen
