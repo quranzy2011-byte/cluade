@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fisch Makro - app med sidopanel. Ubuntu (Wayland) + Sober.
+"""Fisch Makro - app med sidopanel. Ubuntu (Wayland) + Sober, eller Windows + Roblox.
 
 Fiskar själv: kastar, klickar på SHAKE-knapparna, håller baren över fisken
 (även när fisken är utanför baren) och känner igen fångst via progressbaren.
@@ -21,13 +21,14 @@ import threading
 import time
 import zlib
 
-VERSION = "3.5"   # höj vid varje ny version så att man ser vilken man kör
+VERSION = "3.6"   # höj vid varje ny version så att man ser vilken man kör
 UPPDATERA_URL = "https://raw.githubusercontent.com/quranzy2011-byte/cluade/main/fisch_app.py"
 GITHUB_API = "https://api.github.com"
 DIAG_REPO = "quranzy2011-byte/cluade-2"   # privat repo dit diagnostiken laddas upp
 DIAG_GREN = "diagnostik"
 
 MAPP = os.path.dirname(os.path.abspath(__file__))
+WINDOWS = sys.platform == "win32"
 KONFIG = os.path.expanduser("~/.config/fisch-makro/installningar.json")
 STAT_FIL = os.path.expanduser("~/.config/fisch-makro/statistik.json")
 FÅNGST_FIL = os.path.expanduser("~/.config/fisch-makro/fangster.json")
@@ -319,6 +320,175 @@ class Skärm:
             buf.unmap(info)
         return self.bild
 
+
+
+# ---------------------------------------------------------------- Windows
+
+class WinInput:
+    """Windows: tangenter och musklick via SendInput. Tangenterna skickas som
+    scankoder, som har samma nummer som Linux-koderna (Enter = 28 osv.), så
+    inställningarna fungerar likadant. F6/F8/Esc läses med GetAsyncKeyState."""
+
+    VK_NAMN = {0x75: "F6", 0x77: "F8", 0x1B: "ESC"}
+
+    def __init__(self, on_key):
+        import ctypes
+        from ctypes import wintypes
+        self.ct = ctypes
+        self.user32 = ctypes.WinDLL("user32", use_last_error=True)
+        ULONG_PTR = ctypes.c_size_t
+
+        class MOUSEINPUT(ctypes.Structure):
+            _fields_ = [("dx", wintypes.LONG), ("dy", wintypes.LONG), ("mouseData", wintypes.DWORD),
+                        ("dwFlags", wintypes.DWORD), ("time", wintypes.DWORD),
+                        ("dwExtraInfo", ULONG_PTR)]
+
+        class KEYBDINPUT(ctypes.Structure):
+            _fields_ = [("wVk", wintypes.WORD), ("wScan", wintypes.WORD), ("dwFlags", wintypes.DWORD),
+                        ("time", wintypes.DWORD), ("dwExtraInfo", ULONG_PTR)]
+
+        class HARDWAREINPUT(ctypes.Structure):
+            _fields_ = [("uMsg", wintypes.DWORD), ("wParamL", wintypes.WORD),
+                        ("wParamH", wintypes.WORD)]
+
+        class _U(ctypes.Union):
+            _fields_ = [("mi", MOUSEINPUT), ("ki", KEYBDINPUT), ("hi", HARDWAREINPUT)]
+
+        class INPUT(ctypes.Structure):
+            _fields_ = [("type", wintypes.DWORD), ("u", _U)]
+
+        self.INPUT, self.MOUSEINPUT, self.KEYBDINPUT = INPUT, MOUSEINPUT, KEYBDINPUT
+        self.user32.SendInput.argtypes = (wintypes.UINT, ctypes.POINTER(INPUT), ctypes.c_int)
+        self.user32.GetAsyncKeyState.restype = ctypes.c_short
+        self.held = set()
+        self.lock = threading.Lock()
+        self.lära = False
+        self.kör = True
+        threading.Thread(target=self._läs_tangenter, args=(on_key,), daemon=True).start()
+
+    def _skicka(self, inp):
+        with self.lock:
+            self.user32.SendInput(1, self.ct.byref(inp), self.ct.sizeof(inp))
+
+    def _mus(self, flaggor, dx=0, dy=0):
+        inp = self.INPUT(type=0)
+        inp.u.mi = self.MOUSEINPUT(dx, dy, 0, flaggor, 0, 0)
+        self._skicka(inp)
+
+    def _tangent(self, kod, upp):
+        flaggor = 0x0008 | (0x0002 if upp else 0)          # SCANCODE (+ KEYUP)
+        if kod > 0xFF:
+            flaggor |= 0x0001                              # utökad tangent (E0-prefix)
+        inp = self.INPUT(type=1)
+        inp.u.ki = self.KEYBDINPUT(0, kod & 0xFF, flaggor, 0, 0)
+        self._skicka(inp)
+
+    def _skick(self, kod, upp):
+        if kod == BTN_LEFT:
+            self._mus(0x0004 if upp else 0x0002)           # LEFTUP / LEFTDOWN
+        elif kod == 273:
+            self._mus(0x0010 if upp else 0x0008)           # höger knapp
+        else:
+            self._tangent(kod, upp)
+
+    def _läs_tangenter(self, on_key):
+        nere = set()
+        while self.kör:
+            time.sleep(0.02)
+            if self.lära:
+                for vk in range(8, 255):
+                    if vk in (0x10, 0x11, 0x12, 0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5):
+                        continue
+                    if self.user32.GetAsyncKeyState(vk) & 0x8000 and vk not in nere:
+                        self.lära = False
+                        sc = self.user32.MapVirtualKeyW(vk, 0)     # VK -> scankod
+                        if vk in (0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x2D, 0x2E):
+                            sc |= 0x100                            # pil- och navigeringstangenter
+                        on_key(f"TANGENT {sc}")
+                        break
+            for vk in list(range(8, 255)) if self.lära else self.VK_NAMN:
+                tryckt = bool(self.user32.GetAsyncKeyState(vk) & 0x8000)
+                if tryckt and vk not in nere:
+                    nere.add(vk)
+                    if vk in self.VK_NAMN and not self.lära:
+                        on_key(self.VK_NAMN[vk])
+                elif not tryckt:
+                    nere.discard(vk)
+
+    def down(self, code):
+        if code not in self.held:
+            self.held.add(code)
+            self._skick(code, False)
+
+    def up(self, code):
+        if code in self.held:
+            self.held.discard(code)
+            self._skick(code, True)
+
+    def tap(self, *codes):
+        for c in codes:
+            self._skick(c, False)
+        time.sleep(0.03)
+        for c in reversed(codes):
+            self._skick(c, True)
+
+    def rör(self, dx, dy):
+        self._mus(0x0001, int(dx), int(dy))                # MOVE (relativt)
+
+    def lär(self):
+        self.lära = True
+
+    def flytta(self, fx, fy):
+        fx, fy = min(max(fx, 0.0), 1.0), min(max(fy, 0.0), 1.0)
+        self._mus(0x8001, int(fx * 65535), int(fy * 65535))   # ABSOLUTE | MOVE (huvudskärmen)
+
+    def release_all(self):
+        for c in list(self.held):
+            self.up(c)
+        self._mus(0x0004)
+
+    def stäng(self):
+        self.kör = False
+        try:
+            self.release_all()
+        except Exception:
+            pass
+
+
+class WinSkärm:
+    """Windows: skärmbilder av huvudskärmen med mss (en instans per tråd)."""
+
+    def __init__(self):
+        import mss  # noqa: F401  (kontrollera att det finns)
+        self.lokal = threading.local()
+        self.bild = None
+        self.antal = 0
+        self.tider = []
+        self.hämta()
+
+    def bilder_per_s(self):
+        nu = time.time()
+        return len([t for t in self.tider if nu - t < 2]) / 2
+
+    def hämta(self):
+        import numpy as np
+        sct = getattr(self.lokal, "sct", None)
+        if sct is None:
+            import mss
+            sct = self.lokal.sct = mss.mss()
+        try:
+            skott = sct.grab(sct.monitors[1])
+        except Exception:
+            return self.bild
+        self.bild = np.frombuffer(skott.bgra, np.uint8).reshape(skott.height, skott.width, 4)[:, :, :3].copy()
+        self.antal += 1
+        nu = time.time()
+        self.tider = [t for t in self.tider[-60:] if nu - t < 2] + [nu]
+        return self.bild
+
+
+if WINDOWS:
+    Input, Skärm = WinInput, WinSkärm
 
 # ---------------------------------------------------------------- Bildanalys
 
@@ -1384,11 +1554,13 @@ def ocr_rader(utsnitt, skärmhöjd, max_rader=3, metod=0):
         try:
             spara_png(sökväg, np.stack([svv] * 3, axis=2))
             # Lägsta prioritet och en tråd: spelet och makrot går före.
-            kommando = ["tesseract", sökväg, "-", "--psm", "7"]
+            kommando = [tesseract() or "tesseract", sökväg, "-", "--psm", "7"]
             if shutil.which("nice"):
                 kommando = ["nice", "-n", "19"] + kommando
             ut = subprocess.run(kommando, capture_output=True, text=True, timeout=10,
-                                env=dict(os.environ, OMP_THREAD_LIMIT="1")).stdout.strip()
+                                env=dict(os.environ, OMP_THREAD_LIMIT="1"),
+                                creationflags=0x08000000 if WINDOWS else 0   # inget konsolfönster
+                                ).stdout.strip()
             if ut:
                 texter.append(ut)
         except (OSError, subprocess.SubprocessError):
@@ -1617,8 +1789,29 @@ def hämta_senaste():
     return m.group(1), kod
 
 
+def tesseract():
+    """Sökvägen till tesseract (textläsningen), eller None."""
+    hittad = shutil.which("tesseract")
+    if hittad or not WINDOWS:
+        return hittad
+    for bas in (os.environ.get("ProgramFiles", r"C:\Program Files"),
+                os.environ.get("ProgramFiles(x86)", r"C:\Program Files (x86)"),
+                os.path.join(os.environ.get("LOCALAPPDATA", ""), "Programs")):
+        kandidat = os.path.join(bas, "Tesseract-OCR", "tesseract.exe")
+        if os.path.exists(kandidat):
+            return kandidat
+    return None
+
+
 def notis(text):
     """Skrivbordsnotis + ljud (om det finns)."""
+    if WINDOWS:
+        try:
+            import winsound
+            winsound.MessageBeep()
+        except Exception:
+            pass
+        return
     try:
         if shutil.which("notify-send"):
             subprocess.Popen(["notify-send", "-a", "Fisch Makro", "Fisch Makro", text])
@@ -2586,7 +2779,7 @@ class Makro:
             self.redan_kastat = True
         if resultat == "fångad":
             self.diag.fångstbild(bild)
-        if utsnitt and shutil.which("tesseract"):
+        if utsnitt and tesseract():
             threading.Thread(target=self._läs_fångst, args=(utsnitt, bild.shape[0], resultat),
                              daemon=True).start()
         self.vänta(self.slump(0.1, 0.5))
@@ -2939,7 +3132,7 @@ class App:
         self.inst = dict(STANDARD)
         self.profiler = {}
         try:
-            with open(KONFIG) as f:
+            with open(KONFIG, encoding="utf-8") as f:
                 data = json.load(f)
             if "inställningar" in data:
                 self.inst.update(data["inställningar"])
@@ -2955,7 +3148,7 @@ class App:
 
         self.hist = {"totalt": {}, "rekord": {}, "sessioner": []}
         try:
-            with open(STAT_FIL) as f:
+            with open(STAT_FIL, encoding="utf-8") as f:
                 self.hist.update(json.load(f))
         except (OSError, ValueError):
             pass
@@ -2963,13 +3156,13 @@ class App:
         self.svit = 0
         self.fisklogg = []   # fångstloggen: {namn, kg, chans, tid}
         try:
-            with open(FÅNGST_FIL) as f:
+            with open(FÅNGST_FIL, encoding="utf-8") as f:
                 self.fisklogg = [x for x in json.load(f) if isinstance(x, dict) and x.get("namn")]
         except (OSError, ValueError):
             pass
         self.priser = {}
         try:
-            with open(PRISER_FIL) as f:
+            with open(PRISER_FIL, encoding="utf-8") as f:
                 self.priser = json.load(f)
         except (OSError, ValueError):
             pass
@@ -3251,7 +3444,7 @@ class App:
         if läge == "värde" and not self.priser.get("fiskar"):
             info += (" Värde kräver prislistan (grundpris per kg och mutationer); den laddas "
                      "ner automatiskt så fort den finns.")
-        if not shutil.which("tesseract"):
+        if not tesseract():
             info += " Textläsning saknas: starta om appen så installeras den."
         self.fångst_info.config(text=info)
 
@@ -3304,7 +3497,7 @@ class App:
     def spara_hist(self):
         try:
             os.makedirs(os.path.dirname(STAT_FIL), exist_ok=True)
-            with open(STAT_FIL, "w") as f:
+            with open(STAT_FIL, "w", encoding="utf-8") as f:
                 json.dump(self.hist, f, indent=1, ensure_ascii=False)
         except OSError:
             pass
@@ -3516,9 +3709,11 @@ class App:
     def starta_tjänster(self):
         try:
             self.q.put(("logg", f"Fisch Makro version {VERSION}"))
-            self.q.put(("logg", "Frågar efter lösenord..."))
+            if not WINDOWS:
+                self.q.put(("logg", "Frågar efter lösenord..."))
             self.makro.inp = Input(lambda namn: self.q.put(("tangent", namn)))
-            self.q.put(("logg", "Välj skärmen med Roblox om en ruta dyker upp."))
+            if not WINDOWS:
+                self.q.put(("logg", "Välj skärmen med Roblox om en ruta dyker upp."))
             self.makro.skärm = Skärm()
             self.q.put(("redo", None))
         except Exception as fel:
@@ -3541,7 +3736,7 @@ class App:
     def spara_konfig(self):
         try:
             os.makedirs(os.path.dirname(KONFIG), exist_ok=True)
-            with open(KONFIG, "w") as f:
+            with open(KONFIG, "w", encoding="utf-8") as f:
                 json.dump({"inställningar": self.inst, "profiler": self.profiler}, f,
                           indent=2, ensure_ascii=False)
         except OSError:
@@ -3660,13 +3855,16 @@ class App:
 
     def starta_om(self):
         self.stäng()
-        os.execv(sys.executable, [sys.executable, os.path.abspath(__file__)])
+        starta_om_processen([os.path.abspath(__file__)])
 
     def öppna_diagnostik(self):
         mapp = os.path.join(MAPP, "diagnostik")
         os.makedirs(mapp, exist_ok=True)
         try:
-            subprocess.Popen(["xdg-open", mapp])
+            if WINDOWS:
+                os.startfile(mapp)
+            else:
+                subprocess.Popen(["xdg-open", mapp])
         except OSError:
             self.skriv(f"Diagnostiken ligger i {mapp}")
 
@@ -3679,6 +3877,11 @@ class App:
             self.skriv("Inga filmer än. En film sparas när en fisk tappas.")
             return
         film = max(filmer, key=os.path.getmtime)
+        if WINDOWS:
+            import pathlib
+            import webbrowser
+            webbrowser.open(pathlib.Path(film).as_uri())
+            return
         for prog in ("firefox", "google-chrome", "chromium", "chromium-browser", "xdg-open"):
             if shutil.which(prog):
                 try:
@@ -3942,7 +4145,7 @@ class App:
 
 
 def saknade_paket_ocr():
-    return [] if shutil.which("tesseract") else ["tesseract"]
+    return [] if tesseract() else ["tesseract"]
 
 
 def saknade_paket():
@@ -3962,22 +4165,26 @@ def saknade_paket():
     return saknas
 
 
-def main():
-    if os.geteuid() == 0:
-        sys.exit("Starta utan sudo: python3 fisch_app.py")
-    if saknade_paket():
-        print("Installerar det som saknas...")
-        subprocess.run(root_kommando(["apt-get", "install", "-y"] + PAKET), check=False)
-        if saknade_paket():
-            sys.exit("Kunde inte installera allt. Kör: sudo apt install -y " + " ".join(PAKET))
-        os.execv(sys.executable, [sys.executable] + sys.argv)
-    # Bara en app åt gången: två makron som styr musen samtidigt ger kaos.
-    import fcntl
+def starta_om_processen(argv):
+    """Startar om appen (på Windows går det inte att byta ut processen)."""
+    if WINDOWS:
+        subprocess.Popen([sys.executable] + argv)
+        os._exit(0)
+    os.execv(sys.executable, [sys.executable] + argv)
+
+
+def en_instans():
+    """Bara en app åt gången: två makron som styr musen samtidigt ger kaos."""
     os.makedirs(os.path.dirname(KONFIG), exist_ok=True)
     global _LÅS
     _LÅS = open(os.path.join(os.path.dirname(KONFIG), "app.lock"), "w")
     try:
-        fcntl.flock(_LÅS, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        if WINDOWS:
+            import msvcrt
+            msvcrt.locking(_LÅS.fileno(), msvcrt.LK_NBLCK, 1)
+        else:
+            import fcntl
+            fcntl.flock(_LÅS, fcntl.LOCK_EX | fcntl.LOCK_NB)
     except OSError:
         try:
             import tkinter as tk
@@ -3989,6 +4196,45 @@ def main():
         except Exception:
             print("Fisch Makro körs redan.")
         sys.exit(0)
+
+
+def main_windows():
+    import ctypes
+    # Riktiga pixlar även med skalning (125 %, 150 %): annars stämmer inte
+    # skärmbilderna och musens koordinater med varandra.
+    try:
+        ctypes.windll.shcore.SetProcessDpiAwareness(2)
+    except Exception:
+        try:
+            ctypes.windll.user32.SetProcessDPIAware()
+        except Exception:
+            pass
+    saknas = []
+    for mod in ("numpy", "mss"):
+        try:
+            __import__(mod)
+        except ImportError:
+            saknas.append(mod)
+    if saknas:
+        print("Installerar " + ", ".join(saknas) + " ...")
+        subprocess.run([sys.executable, "-m", "pip", "install", "--user"] + saknas, check=False)
+        starta_om_processen(sys.argv)
+    en_instans()
+    App().kör()
+
+
+def main():
+    if WINDOWS:
+        return main_windows()
+    if os.geteuid() == 0:
+        sys.exit("Starta utan sudo: python3 fisch_app.py")
+    if saknade_paket():
+        print("Installerar det som saknas...")
+        subprocess.run(root_kommando(["apt-get", "install", "-y"] + PAKET), check=False)
+        if saknade_paket():
+            sys.exit("Kunde inte installera allt. Kör: sudo apt install -y " + " ".join(PAKET))
+        os.execv(sys.executable, [sys.executable] + sys.argv)
+    en_instans()
     markering = os.path.join(os.path.dirname(KONFIG), "ocr_forsokt")
     if saknade_paket_ocr() and not os.path.exists(markering):
         # Textläsningen (fångstloggen) är inte nödvändig: ett försök, sedan kör appen
