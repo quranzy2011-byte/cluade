@@ -1,0 +1,10357 @@
+{
+"fiskar": {
+"Basalt": {
+"kg_pris": 0.71,
+"kg": 18.0,
+"pris": 12.9,
+"plats": "Roslit Volcano"
+},
+"Bent Harpoon": {
+"kg_pris": 3.33,
+"kg": 2.25,
+"pris": 7.5,
+"plats": "Lower Deep"
+},
+"Bone": {
+"kg_pris": 12.0,
+"kg": 1.75,
+"pris": 21.0,
+"plats": "Regionless"
+},
+"Boot": {
+"kg_pris": 12.5,
+"kg": 1.2,
+"pris": 15.0,
+"plats": "Regionless"
+},
+"Brinicle": {
+"kg_pris": 1.5,
+"kg": 5.5,
+"pris": 8.3,
+"plats": "Astral Observatory"
+},
+"Broken Arrow": {
+"kg_pris": 12.5,
+"kg": 0.25,
+"pris": 3.1,
+"plats": "Apollo's Song of Light"
+},
+"Broken Flashlight": {
+"kg_pris": 10.0,
+"kg": 0.35,
+"pris": 3.5,
+"plats": "Outer Deep"
+},
+"Broken Gear": {
+"kg_pris": 12.5,
+"kg": 0.25,
+"pris": 3.1,
+"plats": "Zeus's Thunder of Chaos"
+},
+"Chipped Crown": {
+"kg_pris": 12.5,
+"kg": 0.25,
+"pris": 3.1,
+"plats": "Poseidon's Storm of Floods"
+},
+"Communication Circuit": {
+"kg_pris": 221.43,
+"kg": 1.3,
+"pris": 287.9,
+"plats": "Sunstone Island"
+},
+"Crushed Diving Helmet": {
+"kg_pris": 1.5,
+"kg": 7.0,
+"pris": 10.5,
+"plats": "Gloomy Crevice"
+},
+"Destroyed Fossil": {
+"kg_pris": 7.78,
+"kg": 2.75,
+"pris": 21.4,
+"plats": "Regionless"
+},
+"Device Display": {
+"kg_pris": 833.33,
+"kg": 0.25,
+"pris": 208.3,
+"plats": "Ocean"
+},
+"Dissolved Bone": {
+"kg_pris": 50.0,
+"kg": 0.35,
+"pris": 17.5,
+"plats": "Brine Pool"
+},
+"Driftwood": {
+"kg_pris": 16.67,
+"kg": 0.6,
+"pris": 10.0,
+"plats": "Regionless"
+},
+"Freezing Shroom": {
+"kg_pris": 92.86,
+"kg": 0.45,
+"pris": 41.8,
+"plats": "Snowburrow"
+},
+"Fungal Cluster": {
+"kg_pris": 10.0,
+"kg": 0.9,
+"pris": 9.0,
+"plats": "Mushgrove Swamp"
+},
+"Honey Clump": {
+"kg_pris": 5.14,
+"kg": 3.0,
+"pris": 15.4,
+"plats": "Nectar Den"
+},
+"Ice": {
+"kg_pris": 2.5,
+"kg": 5.0,
+"pris": 12.5,
+"plats": "Snowcap Island"
+},
+"Log": {
+"kg_pris": 16.53,
+"kg": 6.0,
+"pris": 99.2,
+"plats": "Regionless"
+},
+"Oversized Leaf": {
+"kg_pris": 6.25,
+"kg": 3.5,
+"pris": 21.9,
+"plats": "Living Garden"
+},
+"Rock": {
+"kg_pris": 0.71,
+"kg": 18.0,
+"pris": 12.9,
+"plats": "Regionless"
+},
+"Rusty Bolt": {
+"kg_pris": 130.0,
+"kg": 0.3,
+"pris": 39.0,
+"plats": "Mineshaft"
+},
+"Rusty Hook": {
+"kg_pris": 10.0,
+"kg": 0.3,
+"pris": 3.0,
+"plats": "Bellona's Frenzy of War"
+},
+"Scrap Metal": {
+"kg_pris": 8.0,
+"kg": 3.0,
+"pris": 24.0,
+"plats": "Regionless"
+},
+"Seaweed": {
+"kg_pris": 30.0,
+"kg": 0.2,
+"pris": 6.0,
+"plats": "Regionless"
+},
+"Skull": {
+"kg_pris": 12.5,
+"kg": 0.25,
+"pris": 3.1,
+"plats": "Hades' Underworld of Indefinite"
+},
+"Slag": {
+"kg_pris": 3.64,
+"kg": 5.25,
+"pris": 19.1,
+"plats": "Scoria Reach"
+},
+"Stalactite": {
+"kg_pris": 2.69,
+"kg": 9.5,
+"pris": 25.6,
+"plats": "Regionless"
+},
+"String": {
+"kg_pris": 2.5,
+"kg": 0.45,
+"pris": 1.1,
+"plats": "Desolate Deep"
+},
+"Tire": {
+"kg_pris": 1.82,
+"kg": 11.0,
+"pris": 20.0,
+"plats": "Regionless"
+},
+"Toxic Jellymass": {
+"kg_pris": 3.0,
+"kg": 4.5,
+"pris": 13.5,
+"plats": "Toxic Grove"
+},
+"Translator Core": {
+"kg_pris": 200.0,
+"kg": 1.3,
+"pris": 260.0,
+"plats": "Roslit Bay"
+},
+"Abyssal Slickhead": {
+"kg_pris": 7.29,
+"kg": 4.5,
+"pris": 32.8,
+"plats": "Cultist Lair"
+},
+"Anchovy": {
+"kg_pris": 166.67,
+"kg": 0.2,
+"pris": 33.3,
+"plats": "Moosewood"
+},
+"Andaman Shortnose Chimaera": {
+"kg_pris": 26.67,
+"kg": 2.0,
+"pris": 53.3,
+"plats": "Lower Deep"
+},
+"Aqua Scribe": {
+"kg_pris": 47.27,
+"kg": 0.75,
+"pris": 35.5,
+"plats": "Ethereal Abyss"
+},
+"Ashy Pearl": {
+"kg_pris": 250.0,
+"kg": 0.25,
+"pris": 62.5,
+"plats": "Scoria Reach"
+},
+"Atlantean Anchovy": {
+"kg_pris": 63.75,
+"kg": 0.5,
+"pris": 31.9,
+"plats": "Sunken Depths"
+},
+"Atlantean Sardine": {
+"kg_pris": 51.0,
+"kg": 0.65,
+"pris": 33.2,
+"plats": "Ethereal Abyss"
+},
+"Basalt Loach": {
+"kg_pris": 34.09,
+"kg": 3.8,
+"pris": 129.5,
+"plats": "Scoria Reach"
+},
+"Batfish": {
+"kg_pris": 8.75,
+"kg": 5.0,
+"pris": 43.8,
+"plats": "Coral Bastion"
+},
+"Blisterfish": {
+"kg_pris": 32.0,
+"kg": 1.4,
+"pris": 44.8,
+"plats": "Cursed Isle"
+},
+"Bloom Sprout": {
+"kg_pris": 50.0,
+"kg": 1.85,
+"pris": 92.5,
+"plats": "Living Garden"
+},
+"Bluegem Angelfish": {
+"kg_pris": 5.0,
+"kg": 6.5,
+"pris": 32.5,
+"plats": "Treasure Island"
+},
+"Bluegill": {
+"kg_pris": 85.0,
+"kg": 0.35,
+"pris": 29.7,
+"plats": "Snowcap Island"
+},
+"Bluelip Batfish": {
+"kg_pris": 8.33,
+"kg": 4.0,
+"pris": 33.3,
+"plats": "Luminescent Cavern"
+},
+"Bluntnose Sixgill Shark": {
+"kg_pris": 0.17,
+"kg": 325.0,
+"pris": 55.3,
+"plats": "Gloomy Crevice"
+},
+"Bog Skulker": {
+"kg_pris": 56.0,
+"kg": 2.15,
+"pris": 120.4,
+"plats": "Toxic Grove"
+},
+"Bream": {
+"kg_pris": 19.26,
+"kg": 1.9,
+"pris": 36.6,
+"plats": "Moosewood"
+},
+"Calcified Trilobite": {
+"kg_pris": 25.0,
+"kg": 1.25,
+"pris": 31.3,
+"plats": "Drylands"
+},
+"Canopy Dartfish": {
+"kg_pris": 85.71,
+"kg": 1.1,
+"pris": 94.3,
+"plats": "Everturn Forest"
+},
+"Cardinal Tetra": {
+"kg_pris": 17.0,
+"kg": 2.0,
+"pris": 34.0,
+"plats": "Lost Jungle"
+},
+"Carrot Goldfish": {
+"kg_pris": 16.67,
+"kg": 2.0,
+"pris": 33.3,
+"plats": "Carrot Garden"
+},
+"Carrot Pufferfish": {
+"kg_pris": 13.89,
+"kg": 2.6,
+"pris": 36.1,
+"plats": "Carrot Garden"
+},
+"Cave Loach": {
+"kg_pris": 17.0,
+"kg": 1.9,
+"pris": 32.3,
+"plats": "Cultist Lair"
+},
+"Celestial Crab": {
+"kg_pris": 91.67,
+"kg": 0.4,
+"pris": 36.7,
+"plats": "Astral Observatory"
+},
+"Celestial Pearl Danio": {
+"kg_pris": 150.0,
+"kg": 0.2,
+"pris": 30.0,
+"plats": "Skycrest"
+},
+"Chub": {
+"kg_pris": 17.33,
+"kg": 2.0,
+"pris": 34.7,
+"plats": "Roslit Bay"
+},
+"Cladoselache": {
+"kg_pris": 2.25,
+"kg": 21.0,
+"pris": 47.3,
+"plats": "Ancient Isle"
+},
+"Clowned Triggerfish": {
+"kg_pris": 9.09,
+"kg": 3.45,
+"pris": 31.4,
+"plats": "Castaway Cliffs"
+},
+"Coin Triggerfish": {
+"kg_pris": 5.56,
+"kg": 5.9,
+"pris": 32.8,
+"plats": "Treasure Island"
+},
+"Column Crawler": {
+"kg_pris": 43.33,
+"kg": 0.85,
+"pris": 36.8,
+"plats": "Ethereal Abyss"
+},
+"Copper Rockfish": {
+"kg_pris": 19.0,
+"kg": 3.0,
+"pris": 57.0,
+"plats": "Collapsed Ruins"
+},
+"Coral Chromis": {
+"kg_pris": 26.0,
+"kg": 1.25,
+"pris": 32.5,
+"plats": "Grand Reef"
+},
+"Cornetfish": {
+"kg_pris": 2.83,
+"kg": 19.0,
+"pris": 53.8,
+"plats": "Sunken Reliquary"
+},
+"Corsair Grouper": {
+"kg_pris": 2.5,
+"kg": 12.5,
+"pris": 31.3,
+"plats": "Forsaken Shores"
+},
+"Crackfin Minnow": {
+"kg_pris": 170.0,
+"kg": 0.25,
+"pris": 42.5,
+"plats": "Enchanted Crevice"
+},
+"Crowned Royal Gramma": {
+"kg_pris": 1.67,
+"kg": 19.5,
+"pris": 32.5,
+"plats": "Treasure Island"
+},
+"Cryoskin": {
+"kg_pris": 6.63,
+"kg": 5.5,
+"pris": 36.4,
+"plats": "Challenger's Deep"
+},
+"Dark Snailfish": {
+"kg_pris": 162.5,
+"kg": 0.25,
+"pris": 40.6,
+"plats": "Lower Deep"
+},
+"Deep-sea Anglerfish": {
+"kg_pris": 26.67,
+"kg": 2.0,
+"pris": 53.3,
+"plats": "Gloomy Crevice"
+},
+"Deep-sea Dragonfish": {
+"kg_pris": 13.0,
+"kg": 2.4,
+"pris": 31.2,
+"plats": "The Depths"
+},
+"Deep-sea Hatchetfish": {
+"kg_pris": 14.57,
+"kg": 2.0,
+"pris": 29.1,
+"plats": "The Depths"
+},
+"Dewdrop Dab": {
+"kg_pris": 75.0,
+"kg": 0.8,
+"pris": 60.0,
+"plats": "Living Garden"
+},
+"Dryskin Minnow": {
+"kg_pris": 30.0,
+"kg": 0.9,
+"pris": 27.0,
+"plats": "Drylands"
+},
+"Duskscale Carp": {
+"kg_pris": 28.57,
+"kg": 1.9,
+"pris": 54.3,
+"plats": "Hades' Underworld of Indefinite"
+},
+"Dustscale Dace": {
+"kg_pris": 105.71,
+"kg": 0.45,
+"pris": 47.6,
+"plats": "Enchanted Crevice"
+},
+"Emerald Angelfish": {
+"kg_pris": 3.95,
+"kg": 8.6,
+"pris": 34.0,
+"plats": "Treasure Island"
+},
+"Endler's Livebearer": {
+"kg_pris": 250.0,
+"kg": 0.15,
+"pris": 37.5,
+"plats": "Skycrest"
+},
+"Flamekissed Hawkfish": {
+"kg_pris": 8.5,
+"kg": 3.85,
+"pris": 32.7,
+"plats": "Castaway Cliffs"
+},
+"Fractured Minnow": {
+"kg_pris": 116.67,
+"kg": 0.4,
+"pris": 46.7,
+"plats": "Olympian Fissure"
+},
+"Frostpetal Minnow": {
+"kg_pris": 121.43,
+"kg": 0.5,
+"pris": 60.7,
+"plats": "Everturn Forest"
+},
+"Frostscale Fangtooth": {
+"kg_pris": 7.29,
+"kg": 5.0,
+"pris": 36.4,
+"plats": "Challenger's Deep"
+},
+"Frozen Char": {
+"kg_pris": 12.5,
+"kg": 2.5,
+"pris": 31.3,
+"plats": "Astral Observatory"
+},
+"Garden Snail": {
+"kg_pris": 112.5,
+"kg": 0.6,
+"pris": 67.5,
+"plats": "Living Garden"
+},
+"Gargoyle Goby": {
+"kg_pris": 950.0,
+"kg": 0.1,
+"pris": 95.0,
+"plats": "Veil of the Forsaken"
+},
+"Gazerfish": {
+"kg_pris": 3.71,
+"kg": 11.0,
+"pris": 40.9,
+"plats": "Brine Pool"
+},
+"Gem Anchovy": {
+"kg_pris": 25.0,
+"kg": 1.4,
+"pris": 35.0,
+"plats": "Treasure Island"
+},
+"Gem Salmon": {
+"kg_pris": 4.55,
+"kg": 7.0,
+"pris": 31.8,
+"plats": "Treasure Island"
+},
+"Glassfish": {
+"kg_pris": 127.5,
+"kg": 0.25,
+"pris": 31.9,
+"plats": "Sunstone Island"
+},
+"Gleamfin Minnow": {
+"kg_pris": 116.67,
+"kg": 0.4,
+"pris": 46.7,
+"plats": "Apollo's Song of Light"
+},
+"Gloamfin Gar": {
+"kg_pris": 0.43,
+"kg": 80.0,
+"pris": 34.7,
+"plats": "Blue Moon"
+},
+"Gloombiter": {
+"kg_pris": 29.55,
+"kg": 1.55,
+"pris": 45.8,
+"plats": "Cursed Isle"
+},
+"Gnomefish": {
+"kg_pris": 8.13,
+"kg": 5.0,
+"pris": 40.6,
+"plats": "Crowned Ruins"
+},
+"Grayling": {
+"kg_pris": 27.0,
+"kg": 1.25,
+"pris": 33.8,
+"plats": "Snowcap Island"
+},
+"Green Sea Urchin": {
+"kg_pris": 18.0,
+"kg": 1.75,
+"pris": 31.5,
+"plats": "Boreal Pines"
+},
+"Greenland Shark": {
+"kg_pris": 0.1,
+"kg": 650.0,
+"pris": 61.8,
+"plats": "Gloomy Crevice"
+},
+"Gudgeon": {
+"kg_pris": 166.67,
+"kg": 0.2,
+"pris": 33.3,
+"plats": "Terrapin Island"
+},
+"Haddock": {
+"kg_pris": 13.0,
+"kg": 2.75,
+"pris": 35.8,
+"plats": "Ocean"
+},
+"Hellfire Haddock": {
+"kg_pris": 8.5,
+"kg": 4.25,
+"pris": 36.1,
+"plats": "Volcanic Vents"
+},
+"Herring": {
+"kg_pris": 47.27,
+"kg": 0.8,
+"pris": 37.8,
+"plats": "Snowcap Island"
+},
+"Hogchoker": {
+"kg_pris": 4.0,
+"kg": 7.0,
+"pris": 28.0,
+"plats": "Mushgrove Swamp"
+},
+"Honey Drifter": {
+"kg_pris": 81.25,
+"kg": 1.3,
+"pris": 105.6,
+"plats": "Nectar Den"
+},
+"Horseshoe Crab": {
+"kg_pris": 6.0,
+"kg": 6.5,
+"pris": 39.0,
+"plats": "Desolate Deep"
+},
+"Humpback Anglerfish": {
+"kg_pris": 50.0,
+"kg": 1.0,
+"pris": 50.0,
+"plats": "Gloomy Crevice"
+},
+"Hydra Haddock": {
+"kg_pris": 1.09,
+"kg": 34.0,
+"pris": 36.9,
+"plats": "Veil of the Forsaken"
+},
+"Inferno Hide": {
+"kg_pris": 6.63,
+"kg": 5.5,
+"pris": 36.4,
+"plats": "Volcanic Vents"
+},
+"Iron Chunk": {
+"kg_pris": 112.75,
+"kg": 2.5,
+"pris": 281.9,
+"plats": "Mineshaft"
+},
+"Lanternfish": {
+"kg_pris": 21.67,
+"kg": 1.75,
+"pris": 37.9,
+"plats": "Tidefall"
+},
+"Largemouth Bass": {
+"kg_pris": 11.56,
+"kg": 2.75,
+"pris": 31.8,
+"plats": "Moosewood"
+},
+"Leviathan Humpback Anglerfish": {
+"kg_pris": 0.64,
+"kg": 57.5,
+"pris": 36.7,
+"plats": "Abyssal Zenith"
+},
+"Lightning Minnow": {
+"kg_pris": 36.0,
+"kg": 1.0,
+"pris": 36.0,
+"plats": "Zeus's Sanctuary"
+},
+"Lizardfish": {
+"kg_pris": 0.63,
+"kg": 75.0,
+"pris": 46.9,
+"plats": "Coral Bastion"
+},
+"Lobster": {
+"kg_pris": 17.86,
+"kg": 1.85,
+"pris": 33.0,
+"plats": "Ocean"
+},
+"Mackerel": {
+"kg_pris": 13.0,
+"kg": 2.5,
+"pris": 32.5,
+"plats": "Ocean"
+},
+"Mantis Shrimp": {
+"kg_pris": 90.0,
+"kg": 0.3,
+"pris": 27.0,
+"plats": "Outer Deep"
+},
+"Mexican Tetra": {
+"kg_pris": 33.33,
+"kg": 1.0,
+"pris": 33.3,
+"plats": "Cultist Lair"
+},
+"Minnow": {
+"kg_pris": 85.0,
+"kg": 0.35,
+"pris": 29.7,
+"plats": "Roslit Bay"
+},
+"Moon Arctic Char": {
+"kg_pris": 1.77,
+"kg": 21.0,
+"pris": 37.1,
+"plats": "Blue Moon"
+},
+"Moonveil Killifish": {
+"kg_pris": 4.42,
+"kg": 8.0,
+"pris": 35.3,
+"plats": "Blue Moon"
+},
+"Mullet": {
+"kg_pris": 27.0,
+"kg": 1.25,
+"pris": 33.8,
+"plats": "Ocean"
+},
+"Mussel": {
+"kg_pris": 250.0,
+"kg": 0.15,
+"pris": 37.5,
+"plats": "Ocean"
+},
+"Neon Tetra": {
+"kg_pris": 20.0,
+"kg": 1.75,
+"pris": 35.0,
+"plats": "Lost Jungle"
+},
+"Neptune's Nibbler": {
+"kg_pris": 34.0,
+"kg": 1.0,
+"pris": 34.0,
+"plats": "Ethereal Abyss"
+},
+"Night Shrimp": {
+"kg_pris": 250.0,
+"kg": 0.15,
+"pris": 37.5,
+"plats": "Vertigo"
+},
+"Northern Krill": {
+"kg_pris": 450.0,
+"kg": 0.1,
+"pris": 45.0,
+"plats": "Astral Observatory"
+},
+"Oil Sardine": {
+"kg_pris": 2.25,
+"kg": 12.5,
+"pris": 28.1,
+"plats": "Crowned Ruins"
+},
+"One-jaw Eel": {
+"kg_pris": 42.5,
+"kg": 1.25,
+"pris": 53.1,
+"plats": "Gloomy Crevice"
+},
+"Oracle Minnow": {
+"kg_pris": 72.86,
+"kg": 0.45,
+"pris": 32.8,
+"plats": "Sunken Depths"
+},
+"Peacock Squid": {
+"kg_pris": 87.5,
+"kg": 0.5,
+"pris": 43.8,
+"plats": "Astral Observatory"
+},
+"Pearl": {
+"kg_pris": 125.0,
+"kg": 0.25,
+"pris": 31.3,
+"plats": "Roslit Bay"
+},
+"Pearl-Plated Pleco": {
+"kg_pris": 32.81,
+"kg": 2.0,
+"pris": 65.6,
+"plats": "Calm Zone"
+},
+"Pelagic Cod": {
+"kg_pris": 0.08,
+"kg": 750.0,
+"pris": 56.3,
+"plats": "Tidefall"
+},
+"Perch": {
+"kg_pris": 45.0,
+"kg": 0.7,
+"pris": 31.5,
+"plats": "Roslit Bay"
+},
+"Petrified Ammonite": {
+"kg_pris": 15.71,
+"kg": 2.25,
+"pris": 35.4,
+"plats": "Drylands"
+},
+"Phytoplankton": {
+"kg_pris": 400.0,
+"kg": 0.1,
+"pris": 40.0,
+"plats": "Astral Observatory"
+},
+"Piranha": {
+"kg_pris": 10.8,
+"kg": 3.5,
+"pris": 37.8,
+"plats": "Ancient Isle"
+},
+"Pistol Shrimp": {
+"kg_pris": 250.0,
+"kg": 0.15,
+"pris": 37.5,
+"plats": "Outer Deep"
+},
+"Pollen Guppy": {
+"kg_pris": 105.56,
+"kg": 0.65,
+"pris": 68.6,
+"plats": "Everturn Forest"
+},
+"Pollock": {
+"kg_pris": 11.0,
+"kg": 3.0,
+"pris": 33.0,
+"plats": "Snowcap Island"
+},
+"Porgy": {
+"kg_pris": 18.0,
+"kg": 1.75,
+"pris": 31.5,
+"plats": "Ocean"
+},
+"Poseidon's Perch": {
+"kg_pris": 21.2,
+"kg": 1.75,
+"pris": 37.1,
+"plats": "Sunken Depths"
+},
+"Pumice Puffer": {
+"kg_pris": 28.57,
+"kg": 2.15,
+"pris": 61.4,
+"plats": "Obsidian Trench"
+},
+"Quartzfin Queenfish": {
+"kg_pris": 1.25,
+"kg": 29.0,
+"pris": 36.3,
+"plats": "Calm Zone"
+},
+"Red Drum": {
+"kg_pris": 22.4,
+"kg": 1.75,
+"pris": 39.2,
+"plats": "Snowcap Island"
+},
+"Red Snapper": {
+"kg_pris": 7.57,
+"kg": 4.0,
+"pris": 30.3,
+"plats": "Moosewood"
+},
+"Red Spotted Blenny": {
+"kg_pris": 20.4,
+"kg": 1.5,
+"pris": 30.6,
+"plats": "Crimson Cavern"
+},
+"Reef Minnow": {
+"kg_pris": 85.0,
+"kg": 0.35,
+"pris": 29.7,
+"plats": "Grand Reef"
+},
+"Ripplefin Carp": {
+"kg_pris": 28.57,
+"kg": 1.9,
+"pris": 54.3,
+"plats": "Poseidon's Storm of Floods"
+},
+"Rotwood Perch": {
+"kg_pris": 52.5,
+"kg": 1.6,
+"pris": 84.0,
+"plats": "Everturn Forest"
+},
+"Roughhead Grenadier": {
+"kg_pris": 0.13,
+"kg": 500.0,
+"pris": 65.6,
+"plats": "Collapsed Ruins"
+},
+"Roundnose Grenadier": {
+"kg_pris": 0.09,
+"kg": 750.0,
+"pris": 68.8,
+"plats": "Crowned Ruins"
+},
+"Rustscale Minnow": {
+"kg_pris": 116.67,
+"kg": 0.4,
+"pris": 46.7,
+"plats": "Bellona's Frenzy of War"
+},
+"Sacabambaspis": {
+"kg_pris": 110.0,
+"kg": 0.35,
+"pris": 38.5,
+"plats": "Outer Deep"
+},
+"Sand Dollar": {
+"kg_pris": 250.0,
+"kg": 0.15,
+"pris": 37.5,
+"plats": "Ocean"
+},
+"Sandbar Loach": {
+"kg_pris": 19.2,
+"kg": 1.5,
+"pris": 28.8,
+"plats": "Drylands"
+},
+"Sardine": {
+"kg_pris": 170.0,
+"kg": 0.2,
+"pris": 34.0,
+"plats": "Ocean"
+},
+"Scoria Scorpionfish": {
+"kg_pris": 22.12,
+"kg": 3.35,
+"pris": 74.1,
+"plats": "Obsidian Trench"
+},
+"Sea Bass": {
+"kg_pris": 8.67,
+"kg": 4.0,
+"pris": 34.7,
+"plats": "Ocean"
+},
+"Shortfin Mako Shark": {
+"kg_pris": 0.52,
+"kg": 62.5,
+"pris": 32.5,
+"plats": "Forsaken Shores"
+},
+"Shrimp": {
+"kg_pris": 250.0,
+"kg": 0.15,
+"pris": 37.5,
+"plats": "Ocean"
+},
+"Silver Scuttler": {
+"kg_pris": 0.22,
+"kg": 165.0,
+"pris": 35.8,
+"plats": "Blue Moon"
+},
+"Sky Bass": {
+"kg_pris": 10.33,
+"kg": 4.0,
+"pris": 41.3,
+"plats": "Above The Clouds"
+},
+"Slate Tuna": {
+"kg_pris": 0.97,
+"kg": 45.0,
+"pris": 43.5,
+"plats": "Desolate Deep"
+},
+"Sleek Snailfish": {
+"kg_pris": 233.33,
+"kg": 0.2,
+"pris": 46.7,
+"plats": "Lower Deep"
+},
+"Smallmouth Bass": {
+"kg_pris": 30.59,
+"kg": 1.1,
+"pris": 33.6,
+"plats": "Terrapin Island"
+},
+"Sockeye Salmon": {
+"kg_pris": 7.29,
+"kg": 4.5,
+"pris": 32.8,
+"plats": "Moosewood"
+},
+"Sparkfin Minnow": {
+"kg_pris": 116.67,
+"kg": 0.4,
+"pris": 46.7,
+"plats": "Zeus's Thunder of Chaos"
+},
+"Sparkfin Tetra": {
+"kg_pris": 4.42,
+"kg": 8.5,
+"pris": 37.5,
+"plats": "Zeus's Sanctuary"
+},
+"Spiderfish": {
+"kg_pris": 51.0,
+"kg": 0.65,
+"pris": 33.2,
+"plats": "Vertigo"
+},
+"Splinterfin Carp": {
+"kg_pris": 26.67,
+"kg": 2.0,
+"pris": 53.3,
+"plats": "Bellona's Frenzy of War"
+},
+"Spore Lurker": {
+"kg_pris": 66.67,
+"kg": 1.5,
+"pris": 100.0,
+"plats": "Toxic Grove"
+},
+"Static Guppy": {
+"kg_pris": 114.29,
+"kg": 0.45,
+"pris": 51.4,
+"plats": "Zeus's Thunder of Chaos"
+},
+"Sunken Silverscale": {
+"kg_pris": 37.14,
+"kg": 0.9,
+"pris": 33.4,
+"plats": "Sunken Depths"
+},
+"Sunscale Tetra": {
+"kg_pris": 88.89,
+"kg": 0.6,
+"pris": 53.3,
+"plats": "Apollo's Song of Light"
+},
+"Swamp Bass": {
+"kg_pris": 8.67,
+"kg": 4.0,
+"pris": 34.7,
+"plats": "Mushgrove Swamp"
+},
+"Sweetfish": {
+"kg_pris": 104.0,
+"kg": 0.35,
+"pris": 36.4,
+"plats": "Sunstone Island"
+},
+"Tidepool Minnow": {
+"kg_pris": 116.67,
+"kg": 0.4,
+"pris": 46.7,
+"plats": "Poseidon's Storm of Floods"
+},
+"Titanic Black Seadevil": {
+"kg_pris": 4.86,
+"kg": 8.0,
+"pris": 38.9,
+"plats": "Abyssal Zenith"
+},
+"Trout": {
+"kg_pris": 10.4,
+"kg": 2.95,
+"pris": 30.7,
+"plats": "Moosewood"
+},
+"Voltfin Carp": {
+"kg_pris": 2.16,
+"kg": 17.5,
+"pris": 37.8,
+"plats": "Zeus's Sanctuary"
+},
+"West Australian Lanternshark": {
+"kg_pris": 40.0,
+"kg": 1.0,
+"pris": 40.0,
+"plats": "Lower Deep"
+},
+"White Perch": {
+"kg_pris": 45.0,
+"kg": 0.7,
+"pris": 31.5,
+"plats": "Mushgrove Swamp"
+},
+"Wispfin Minnow": {
+"kg_pris": 116.67,
+"kg": 0.4,
+"pris": 46.7,
+"plats": "Hades' Underworld of Indefinite"
+},
+"Abadhah Chromis": {
+"kg_pris": 625.0,
+"kg": 0.15,
+"pris": 93.8,
+"plats": "Outer Deep"
+},
+"Abyss Snapper": {
+"kg_pris": 27.5,
+"kg": 2.75,
+"pris": 75.6,
+"plats": "Atlantean Storm"
+},
+"Abyssal Bearded Seadevil": {
+"kg_pris": 2.6,
+"kg": 29.0,
+"pris": 75.4,
+"plats": "Abyssal Zenith"
+},
+"Amberjack": {
+"kg_pris": 2.88,
+"kg": 30.0,
+"pris": 86.3,
+"plats": "Ocean"
+},
+"Amberleaf Carp": {
+"kg_pris": 70.91,
+"kg": 4.75,
+"pris": 336.8,
+"plats": "Everturn Forest"
+},
+"Anomalocaris": {
+"kg_pris": 2.73,
+"kg": 25.0,
+"pris": 68.1,
+"plats": "Ancient Isle"
+},
+"Antarctic Whitefish": {
+"kg_pris": 60.0,
+"kg": 1.25,
+"pris": 75.0,
+"plats": "Astral Observatory"
+},
+"Arctic Char": {
+"kg_pris": 18.67,
+"kg": 4.0,
+"pris": 74.7,
+"plats": "Snowcap Island"
+},
+"Ash-Cloud Angelfish": {
+"kg_pris": 266.67,
+"kg": 0.55,
+"pris": 146.7,
+"plats": "Obsidian Trench"
+},
+"Atlantic Halosaur": {
+"kg_pris": 0.11,
+"kg": 950.0,
+"pris": 104.5,
+"plats": "Collapsed Ruins"
+},
+"Bait Crate": {
+"kg_pris": 9.38,
+"kg": 8.0,
+"pris": 75.0,
+"plats": "Regionless"
+},
+"Barracuda": {
+"kg_pris": 10.09,
+"kg": 8.25,
+"pris": 83.3,
+"plats": "Ocean"
+},
+"Beamtail Koi": {
+"kg_pris": 12.92,
+"kg": 8.0,
+"pris": 103.3,
+"plats": "Apollo's Song of Light"
+},
+"Black-mouth Beardfish": {
+"kg_pris": 216.67,
+"kg": 0.6,
+"pris": 130.0,
+"plats": "Lower Deep"
+},
+"Blackfin Icefish": {
+"kg_pris": 0.58,
+"kg": 190.0,
+"pris": 110.8,
+"plats": "Collapsed Ruins"
+},
+"Blackfish": {
+"kg_pris": 55.0,
+"kg": 1.25,
+"pris": 68.8,
+"plats": "Snowcap Island"
+},
+"Bladeback Perch": {
+"kg_pris": 25.0,
+"kg": 4.0,
+"pris": 100.0,
+"plats": "Bellona's Frenzy of War"
+},
+"Blight Pufferfish": {
+"kg_pris": 183.33,
+"kg": 1.0,
+"pris": 183.3,
+"plats": "Toxic Grove"
+},
+"Bloomfin Trout": {
+"kg_pris": 119.23,
+"kg": 2.2,
+"pris": 262.3,
+"plats": "Everturn Forest"
+},
+"Blue Tang": {
+"kg_pris": 72.67,
+"kg": 0.9,
+"pris": 65.4,
+"plats": "Roslit Bay"
+},
+"Bone-Plate Dace": {
+"kg_pris": 25.56,
+"kg": 3.0,
+"pris": 76.7,
+"plats": "Drylands"
+},
+"Bowfin": {
+"kg_pris": 18.33,
+"kg": 4.5,
+"pris": 82.5,
+"plats": "Mushgrove Swamp"
+},
+"Brine Shrimp": {
+"kg_pris": 363.33,
+"kg": 0.2,
+"pris": 72.7,
+"plats": "Brine Pool"
+},
+"Bronze Corydoras": {
+"kg_pris": 23.11,
+"kg": 3.0,
+"pris": 69.3,
+"plats": "Lost Jungle"
+},
+"Buccaneer Barracuda": {
+"kg_pris": 4.48,
+"kg": 17.0,
+"pris": 76.2,
+"plats": "Forsaken Shores"
+},
+"Bumpy Snailfish": {
+"kg_pris": 0.9,
+"kg": 125.0,
+"pris": 112.5,
+"plats": "Tidefall"
+},
+"Burbot": {
+"kg_pris": 32.0,
+"kg": 2.25,
+"pris": 72.0,
+"plats": "Snowcap Island"
+},
+"Butterflyfish": {
+"kg_pris": 73.33,
+"kg": 0.85,
+"pris": 62.3,
+"plats": "Roslit Bay"
+},
+"Cactus-Feeder Barb": {
+"kg_pris": 27.5,
+"kg": 2.5,
+"pris": 68.8,
+"plats": "Drylands"
+},
+"Carp": {
+"kg_pris": 21.6,
+"kg": 3.0,
+"pris": 64.8,
+"plats": "Moosewood"
+},
+"Carrot Eel": {
+"kg_pris": 18.62,
+"kg": 4.3,
+"pris": 80.1,
+"plats": "Carrot Garden"
+},
+"Carrot Minnow": {
+"kg_pris": 19.81,
+"kg": 3.7,
+"pris": 73.3,
+"plats": "Carrot Garden"
+},
+"Chargeback Bass": {
+"kg_pris": 7.89,
+"kg": 13.0,
+"pris": 102.6,
+"plats": "Zeus's Thunder of Chaos"
+},
+"Chillshadow Chub": {
+"kg_pris": 67.5,
+"kg": 1.1,
+"pris": 74.3,
+"plats": "Mariana's Veil"
+},
+"Chinfish": {
+"kg_pris": 26.25,
+"kg": 3.0,
+"pris": 78.8,
+"plats": "Sunstone Island"
+},
+"Clownfish": {
+"kg_pris": 180.0,
+"kg": 0.35,
+"pris": 63.0,
+"plats": "Roslit Bay"
+},
+"Coalfin Darter": {
+"kg_pris": 120.0,
+"kg": 1.75,
+"pris": 210.0,
+"plats": "Scoria Reach"
+},
+"Cobalt Angelfish": {
+"kg_pris": 12.22,
+"kg": 6.0,
+"pris": 73.3,
+"plats": "Castaway Cliffs"
+},
+"Cod": {
+"kg_pris": 10.8,
+"kg": 6.0,
+"pris": 64.8,
+"plats": "Ocean"
+},
+"Colossal Carp": {
+"kg_pris": 21.2,
+"kg": 3.5,
+"pris": 74.2,
+"plats": "Poseidon Temple"
+},
+"Colossal Saccopharynx": {
+"kg_pris": 0.54,
+"kg": 140.0,
+"pris": 75.6,
+"plats": "Abyssal Zenith"
+},
+"Combscale Bass": {
+"kg_pris": 70.0,
+"kg": 4.25,
+"pris": 297.5,
+"plats": "Nectar Den"
+},
+"Common Crate": {
+"kg_pris": 12.5,
+"kg": 8.0,
+"pris": 100.0,
+"plats": "Regionless"
+},
+"Common Fangtooth": {
+"kg_pris": 500.0,
+"kg": 0.2,
+"pris": 100.0,
+"plats": "Lower Deep"
+},
+"Coral Guard": {
+"kg_pris": 12.0,
+"kg": 6.5,
+"pris": 78.0,
+"plats": "Grand Reef"
+},
+"Crab": {
+"kg_pris": 72.86,
+"kg": 1.0,
+"pris": 72.9,
+"plats": "Ocean"
+},
+"Crescent Fish": {
+"kg_pris": 104.17,
+"kg": 0.75,
+"pris": 78.1,
+"plats": "Astral Observatory"
+},
+"Crystal Chorus": {
+"kg_pris": 22.0,
+"kg": 3.75,
+"pris": 82.5,
+"plats": "Sunken Depths"
+},
+"Currenttail Bass": {
+"kg_pris": 8.06,
+"kg": 12.5,
+"pris": 100.7,
+"plats": "Poseidon's Storm of Floods"
+},
+"Danionella Cerebrum": {
+"kg_pris": 1300.0,
+"kg": 0.1,
+"pris": 130.0,
+"plats": "Skycrest"
+},
+"Devil Scorpionfish": {
+"kg_pris": 52.0,
+"kg": 1.65,
+"pris": 85.8,
+"plats": "Lower Deep"
+},
+"Diamond Discus": {
+"kg_pris": 0.59,
+"kg": 127.5,
+"pris": 75.8,
+"plats": "Calm Zone"
+},
+"Echo Fisher": {
+"kg_pris": 16.92,
+"kg": 4.75,
+"pris": 80.4,
+"plats": "Ethereal Abyss"
+},
+"Embertail Eel": {
+"kg_pris": 25.5,
+"kg": 2.9,
+"pris": 74.0,
+"plats": "Volcanic Vents"
+},
+"Emerald Elephantnose": {
+"kg_pris": 0.64,
+"kg": 110.0,
+"pris": 70.1,
+"plats": "Calm Zone"
+},
+"Emperor Angelfish": {
+"kg_pris": 133.33,
+"kg": 1.0,
+"pris": 133.3,
+"plats": "Coral Bastion"
+},
+"Fading Guppy": {
+"kg_pris": 207.14,
+"kg": 0.45,
+"pris": 93.2,
+"plats": "Hades' Underworld of Indefinite"
+},
+"Fish Barrel": {
+"kg_pris": 6.67,
+"kg": 15.0,
+"pris": 100.0,
+"plats": "Regionless"
+},
+"Flower Flounder": {
+"kg_pris": 92.86,
+"kg": 2.4,
+"pris": 222.9,
+"plats": "Living Garden"
+},
+"Fourhorn Sculpin": {
+"kg_pris": 18.5,
+"kg": 3.5,
+"pris": 64.8,
+"plats": "Boreal Pines"
+},
+"Frigid Shrimp": {
+"kg_pris": 135.0,
+"kg": 0.55,
+"pris": 74.3,
+"plats": "Frigid Cavern"
+},
+"Frost Minnow": {
+"kg_pris": 67.5,
+"kg": 1.2,
+"pris": 81.0,
+"plats": "Cryogenic Canal"
+},
+"Frost Ray": {
+"kg_pris": 0.46,
+"kg": 160.0,
+"pris": 74.0,
+"plats": "Blue Moon"
+},
+"Frostling Goby": {
+"kg_pris": 38.57,
+"kg": 2.0,
+"pris": 77.1,
+"plats": "Glacial Grotto"
+},
+"Galleon Goliath": {
+"kg_pris": 5.5,
+"kg": 12.5,
+"pris": 68.8,
+"plats": "Forsaken Shores"
+},
+"Gem Eel": {
+"kg_pris": 22.0,
+"kg": 3.4,
+"pris": 74.8,
+"plats": "Treasure Island"
+},
+"Gemscale Mandarinfish": {
+"kg_pris": 9.45,
+"kg": 7.5,
+"pris": 70.9,
+"plats": "Treasure Island"
+},
+"Glacial Crab": {
+"kg_pris": 168.75,
+"kg": 0.5,
+"pris": 84.4,
+"plats": "Astral Observatory"
+},
+"Goldband Butterflyfish": {
+"kg_pris": 4.73,
+"kg": 14.5,
+"pris": 68.5,
+"plats": "Treasure Island"
+},
+"Goldfish": {
+"kg_pris": 145.71,
+"kg": 0.45,
+"pris": 65.6,
+"plats": "Moosewood"
+},
+"Gollum Snakehead": {
+"kg_pris": 21.8,
+"kg": 3.25,
+"pris": 70.9,
+"plats": "Cultist Lair"
+},
+"Greater Weever": {
+"kg_pris": 1.58,
+"kg": 75.0,
+"pris": 118.8,
+"plats": "Crowned Ruins"
+},
+"Grey Carp": {
+"kg_pris": 15.71,
+"kg": 4.5,
+"pris": 70.7,
+"plats": "Mushgrove Swamp"
+},
+"Harvest Sunfish": {
+"kg_pris": 49.28,
+"kg": 13.3,
+"pris": 655.4,
+"plats": "Everturn Forest"
+},
+"Hawaiian Bobtail Squid": {
+"kg_pris": 51.0,
+"kg": 1.25,
+"pris": 63.8,
+"plats": "Luminescent Cavern"
+},
+"Hoarfrost Pike": {
+"kg_pris": 28.89,
+"kg": 15.0,
+"pris": 433.3,
+"plats": "Everturn Forest"
+},
+"Ice Anchovy": {
+"kg_pris": 176.67,
+"kg": 0.4,
+"pris": 70.7,
+"plats": "Overgrowth Caves"
+},
+"Ice Eel": {
+"kg_pris": 53.0,
+"kg": 1.4,
+"pris": 74.2,
+"plats": "Frigid Cavern"
+},
+"Icy Salmon": {
+"kg_pris": 10.8,
+"kg": 7.0,
+"pris": 75.6,
+"plats": "Overgrowth Caves"
+},
+"Infernal Iguanafish": {
+"kg_pris": 52.5,
+"kg": 1.4,
+"pris": 73.5,
+"plats": "Volcanic Vents"
+},
+"Ironjaw Guppy": {
+"kg_pris": 140.0,
+"kg": 0.65,
+"pris": 91.0,
+"plats": "Bellona's Frenzy of War"
+},
+"John Dory": {
+"kg_pris": 19.38,
+"kg": 5.0,
+"pris": 96.9,
+"plats": "Sunken Reliquary"
+},
+"Kraken Koi": {
+"kg_pris": 0.4,
+"kg": 190.0,
+"pris": 75.3,
+"plats": "Veil of the Forsaken"
+},
+"Lantern Parasite": {
+"kg_pris": 190.0,
+"kg": 0.75,
+"pris": 142.5,
+"plats": "Toxic Grove"
+},
+"Longtail Bass": {
+"kg_pris": 27.0,
+"kg": 3.0,
+"pris": 81.0,
+"plats": "Sunstone Island"
+},
+"Lurking Crescent Pike": {
+"kg_pris": 6.11,
+"kg": 12.5,
+"pris": 76.4,
+"plats": "Blue Moon"
+},
+"Magma Tang": {
+"kg_pris": 38.33,
+"kg": 1.8,
+"pris": 69.0,
+"plats": "Roslit Volcano"
+},
+"Mandarinfish": {
+"kg_pris": 21.6,
+"kg": 3.25,
+"pris": 70.2,
+"plats": "Castaway Cliffs"
+},
+"Marble Maiden": {
+"kg_pris": 30.86,
+"kg": 2.5,
+"pris": 77.1,
+"plats": "Sunken Depths"
+},
+"Mero Goby": {
+"kg_pris": 350.0,
+"kg": 0.25,
+"pris": 87.5,
+"plats": "Outer Deep"
+},
+"Mirage Fin": {
+"kg_pris": 21.45,
+"kg": 3.5,
+"pris": 75.1,
+"plats": "Drylands"
+},
+"Moenkhausia Pitanga": {
+"kg_pris": 320.0,
+"kg": 0.35,
+"pris": 112.0,
+"plats": "Skycrest"
+},
+"Mosaic Swimmer": {
+"kg_pris": 27.0,
+"kg": 3.0,
+"pris": 81.0,
+"plats": "Ethereal Abyss"
+},
+"Murkback Bass": {
+"kg_pris": 7.89,
+"kg": 13.0,
+"pris": 102.6,
+"plats": "Hades' Underworld of Indefinite"
+},
+"Murkslither": {
+"kg_pris": 33.0,
+"kg": 2.85,
+"pris": 94.1,
+"plats": "Cursed Isle"
+},
+"Obsidian-Plated Piranha": {
+"kg_pris": 48.89,
+"kg": 3.0,
+"pris": 146.7,
+"plats": "Volcanic Vents"
+},
+"Onychodus": {
+"kg_pris": 0.79,
+"kg": 120.0,
+"pris": 94.3,
+"plats": "Ancient Isle"
+},
+"Oyster": {
+"kg_pris": 202.0,
+"kg": 0.35,
+"pris": 70.7,
+"plats": "Ocean"
+},
+"Pacific Flatnose": {
+"kg_pris": 53.33,
+"kg": 2.0,
+"pris": 106.7,
+"plats": "Gloomy Crevice"
+},
+"Pacific Footballfish": {
+"kg_pris": 42.5,
+"kg": 2.5,
+"pris": 106.3,
+"plats": "Lower Deep"
+},
+"Pacific Sleeper Shark": {
+"kg_pris": 0.27,
+"kg": 450.0,
+"pris": 122.1,
+"plats": "Gloomy Crevice"
+},
+"Pale Crevice Tang": {
+"kg_pris": 71.11,
+"kg": 1.15,
+"pris": 81.8,
+"plats": "Enchanted Crevice"
+},
+"Pale Ghost Lumpfish": {
+"kg_pris": 137.5,
+"kg": 0.5,
+"pris": 68.8,
+"plats": "Blue Moon"
+},
+"Pale Tang": {
+"kg_pris": 77.33,
+"kg": 0.9,
+"pris": 69.6,
+"plats": "Keepers Altar"
+},
+"Papillated Redbait": {
+"kg_pris": 366.67,
+"kg": 0.2,
+"pris": 73.3,
+"plats": "Outer Deep"
+},
+"Paresca Whipnose Anglerfish": {
+"kg_pris": 231.25,
+"kg": 0.5,
+"pris": 115.6,
+"plats": "Lower Deep"
+},
+"Parotocinclus Halys": {
+"kg_pris": 241.67,
+"kg": 0.4,
+"pris": 96.7,
+"plats": "Skycrest"
+},
+"Pelagic Stingray": {
+"kg_pris": 8.4,
+"kg": 17.5,
+"pris": 147.0,
+"plats": "Gloomy Crevice"
+},
+"Phantom Ray": {
+"kg_pris": 19.0,
+"kg": 5.0,
+"pris": 95.0,
+"plats": "Desolate Deep"
+},
+"Polar Cod": {
+"kg_pris": 44.8,
+"kg": 1.5,
+"pris": 67.2,
+"plats": "Boreal Pines"
+},
+"Porcupinefish": {
+"kg_pris": 0.29,
+"kg": 300.0,
+"pris": 87.0,
+"plats": "Sunken Reliquary"
+},
+"Prawn": {
+"kg_pris": 200.0,
+"kg": 0.3,
+"pris": 60.0,
+"plats": "Ocean"
+},
+"Pumpkinseed": {
+"kg_pris": 210.0,
+"kg": 0.3,
+"pris": 63.0,
+"plats": "Roslit Bay"
+},
+"Radiant Guppy": {
+"kg_pris": 207.14,
+"kg": 0.45,
+"pris": 93.2,
+"plats": "Apollo's Song of Light"
+},
+"Red Crabsquid": {
+"kg_pris": 10.5,
+"kg": 6.5,
+"pris": 68.3,
+"plats": "Crimson Cavern"
+},
+"Red Tang": {
+"kg_pris": 72.67,
+"kg": 0.9,
+"pris": 65.4,
+"plats": "Sunstone Island"
+},
+"Reef Goby": {
+"kg_pris": 35.0,
+"kg": 2.0,
+"pris": 70.0,
+"plats": "Grand Reef"
+},
+"Regal Angelfish": {
+"kg_pris": 158.33,
+"kg": 0.8,
+"pris": 126.7,
+"plats": "Coral Bastion"
+},
+"Rotjaw": {
+"kg_pris": 36.39,
+"kg": 2.55,
+"pris": 92.8,
+"plats": "Cursed Isle"
+},
+"Ruby Neon Eviota": {
+"kg_pris": 550.0,
+"kg": 0.15,
+"pris": 82.5,
+"plats": "Skycrest"
+},
+"Saffron Cod": {
+"kg_pris": 22.4,
+"kg": 3.25,
+"pris": 72.8,
+"plats": "Boreal Pines"
+},
+"Salmon": {
+"kg_pris": 10.8,
+"kg": 7.0,
+"pris": 75.6,
+"plats": "Ocean"
+},
+"Sapflow Eel": {
+"kg_pris": 112.5,
+"kg": 3.5,
+"pris": 393.8,
+"plats": "Everturn Forest"
+},
+"Scallop": {
+"kg_pris": 220.0,
+"kg": 0.35,
+"pris": 77.0,
+"plats": "Ocean"
+},
+"Scorpionfish": {
+"kg_pris": 8.0,
+"kg": 12.5,
+"pris": 100.0,
+"plats": "Coral Bastion"
+},
+"Sea Bunny": {
+"kg_pris": 550.0,
+"kg": 0.15,
+"pris": 82.5,
+"plats": "Astral Observatory"
+},
+"Sea Raven": {
+"kg_pris": 14.86,
+"kg": 4.5,
+"pris": 66.9,
+"plats": "Crimson Cavern"
+},
+"Serpent Surgeonfish": {
+"kg_pris": 0.51,
+"kg": 147.5,
+"pris": 75.9,
+"plats": "Veil of the Forsaken"
+},
+"Shadowfang Snapper": {
+"kg_pris": 21.2,
+"kg": 3.5,
+"pris": 74.2,
+"plats": "Kraken Lair"
+},
+"Shortnose Chimaera": {
+"kg_pris": 0.15,
+"kg": 750.0,
+"pris": 115.6,
+"plats": "Collapsed Ruins"
+},
+"Shortspine Thornyhead": {
+"kg_pris": 72.5,
+"kg": 1.4,
+"pris": 101.5,
+"plats": "Gloomy Crevice"
+},
+"Silt-Crusted Carp": {
+"kg_pris": 20.0,
+"kg": 4.0,
+"pris": 80.0,
+"plats": "Drylands"
+},
+"Silver Roughy": {
+"kg_pris": 0.39,
+"kg": 250.0,
+"pris": 96.9,
+"plats": "Crowned Ruins"
+},
+"Sinocyclocheilus": {
+"kg_pris": 27.0,
+"kg": 2.5,
+"pris": 67.5,
+"plats": "Cultist Lair"
+},
+"Smeltjaw Snapper": {
+"kg_pris": 71.43,
+"kg": 2.65,
+"pris": 189.3,
+"plats": "Scoria Reach"
+},
+"Snow Crab": {
+"kg_pris": 5.5,
+"kg": 12.5,
+"pris": 68.8,
+"plats": "Boreal Pines"
+},
+"Snowflake Smelt": {
+"kg_pris": 54.5,
+"kg": 1.5,
+"pris": 81.8,
+"plats": "Cryogenic Canal"
+},
+"Snowgill Dace": {
+"kg_pris": 42.4,
+"kg": 1.75,
+"pris": 74.2,
+"plats": "Glacial Grotto"
+},
+"Splitfin Koi": {
+"kg_pris": 12.5,
+"kg": 8.0,
+"pris": 100.0,
+"plats": "Olympian Fissure"
+},
+"Spotted Drum": {
+"kg_pris": 85.0,
+"kg": 1.5,
+"pris": 127.5,
+"plats": "Crowned Ruins"
+},
+"Starfish": {
+"kg_pris": 14.43,
+"kg": 4.5,
+"pris": 64.9,
+"plats": "Ancient Isle"
+},
+"Static Ray": {
+"kg_pris": 3.67,
+"kg": 22.5,
+"pris": 82.5,
+"plats": "Zeus's Sanctuary"
+},
+"Subzero Stargazer": {
+"kg_pris": 23.33,
+"kg": 3.25,
+"pris": 75.8,
+"plats": "Challenger's Deep"
+},
+"Sunleaf Sunfish": {
+"kg_pris": 84.0,
+"kg": 4.25,
+"pris": 357.0,
+"plats": "Everturn Forest"
+},
+"Surftail Guppy": {
+"kg_pris": 166.67,
+"kg": 0.6,
+"pris": 100.0,
+"plats": "Poseidon's Storm of Floods"
+},
+"Tempest Ray": {
+"kg_pris": 54.5,
+"kg": 1.25,
+"pris": 68.1,
+"plats": "Atlantean Storm"
+},
+"Temple Drifter": {
+"kg_pris": 19.82,
+"kg": 4.0,
+"pris": 79.3,
+"plats": "Ethereal Abyss"
+},
+"Tentacled Horror": {
+"kg_pris": 9.0,
+"kg": 8.5,
+"pris": 76.5,
+"plats": "Kraken Lair"
+},
+"Thorn Ribbon Eel": {
+"kg_pris": 32.0,
+"kg": 13.0,
+"pris": 416.0,
+"plats": "Living Garden"
+},
+"Titan Tuna": {
+"kg_pris": 15.43,
+"kg": 5.0,
+"pris": 77.1,
+"plats": "Poseidon Temple"
+},
+"Twilight Eel": {
+"kg_pris": 5.75,
+"kg": 15.0,
+"pris": 86.3,
+"plats": "Vertigo"
+},
+"Typhleotris": {
+"kg_pris": 24.0,
+"kg": 2.85,
+"pris": 68.4,
+"plats": "Cultist Lair"
+},
+"Voltstripe Carp": {
+"kg_pris": 48.33,
+"kg": 2.0,
+"pris": 96.7,
+"plats": "Zeus's Thunder of Chaos"
+},
+"Walleye": {
+"kg_pris": 27.0,
+"kg": 2.9,
+"pris": 78.3,
+"plats": "Terrapin Island"
+},
+"Warty Oreo": {
+"kg_pris": 22.5,
+"kg": 5.0,
+"pris": 112.5,
+"plats": "Crowned Ruins"
+},
+"White Bass": {
+"kg_pris": 43.2,
+"kg": 1.4,
+"pris": 60.5,
+"plats": "Terrapin Island"
+},
+"Winged Carp": {
+"kg_pris": 25.6,
+"kg": 3.0,
+"pris": 76.8,
+"plats": "Above The Clouds"
+},
+"Yellowfin Tuna": {
+"kg_pris": 0.81,
+"kg": 90.5,
+"pris": 73.2,
+"plats": "Moosewood"
+},
+"Acanthodii": {
+"kg_pris": 13.44,
+"kg": 14.5,
+"pris": 194.8,
+"plats": "Ancient Isle"
+},
+"Angelfish": {
+"kg_pris": 110.0,
+"kg": 1.25,
+"pris": 137.5,
+"plats": "Roslit Bay"
+},
+"Aquatic Tackle Box": {
+"kg_pris": 23.53,
+"kg": 17.0,
+"pris": 400.0,
+"plats": "Outer Deep"
+},
+"Arcflash Koi": {
+"kg_pris": 18.67,
+"kg": 10.0,
+"pris": 186.7,
+"plats": "Zeus's Thunder of Chaos"
+},
+"Armorhead": {
+"kg_pris": 0.13,
+"kg": 1250.0,
+"pris": 162.5,
+"plats": "Crowned Ruins"
+},
+"Atlantean Guardian": {
+"kg_pris": 28.13,
+"kg": 6.0,
+"pris": 168.8,
+"plats": "Sunken Depths"
+},
+"Atlantic Dragonfish": {
+"kg_pris": 933.33,
+"kg": 0.2,
+"pris": 186.7,
+"plats": "Lower Deep"
+},
+"Banded Dragonfish": {
+"kg_pris": 900.0,
+"kg": 0.2,
+"pris": 180.0,
+"plats": "Outer Deep"
+},
+"Bigeye Houndshark": {
+"kg_pris": 0.1,
+"kg": 1650.0,
+"pris": 165.0,
+"plats": "Collapsed Ruins"
+},
+"Bigeye Trevally": {
+"kg_pris": 110.0,
+"kg": 1.65,
+"pris": 181.5,
+"plats": "Coral Bastion"
+},
+"Birgeria": {
+"kg_pris": 1.85,
+"kg": 85.0,
+"pris": 157.3,
+"plats": "Ancient Archives"
+},
+"Blackspot Tuskfish": {
+"kg_pris": 0.08,
+"kg": 1900.0,
+"pris": 152.0,
+"plats": "Crowned Ruins"
+},
+"Blind Swamp Eel": {
+"kg_pris": 37.0,
+"kg": 3.9,
+"pris": 144.3,
+"plats": "Cultist Lair"
+},
+"Blue Langanose": {
+"kg_pris": 1.22,
+"kg": 120.0,
+"pris": 146.0,
+"plats": "Blue Moon"
+},
+"Bluefish": {
+"kg_pris": 258.89,
+"kg": 0.65,
+"pris": 168.3,
+"plats": "Keepers Altar"
+},
+"Chillback Whitefish": {
+"kg_pris": 39.45,
+"kg": 4.0,
+"pris": 157.8,
+"plats": "Glacial Grotto"
+},
+"Chinook Salmon": {
+"kg_pris": 5.63,
+"kg": 25.0,
+"pris": 140.6,
+"plats": "Terrapin Island"
+},
+"Chronos Deep Swimmer": {
+"kg_pris": 23.1,
+"kg": 7.75,
+"pris": 179.0,
+"plats": "Ethereal Abyss"
+},
+"Clam": {
+"kg_pris": 215.0,
+"kg": 0.95,
+"pris": 204.3,
+"plats": "Roslit Bay"
+},
+"Cockatoo Squid": {
+"kg_pris": 116.5,
+"kg": 1.2,
+"pris": 139.8,
+"plats": "Desolate Deep"
+},
+"Coin Squid": {
+"kg_pris": 6.83,
+"kg": 20.0,
+"pris": 136.7,
+"plats": "Treasure Island"
+},
+"Colossal Flower": {
+"kg_pris": 9.17,
+"kg": 105.0,
+"pris": 962.5,
+"plats": "Living Garden"
+},
+"Coral Geode": {
+"kg_pris": 5.56,
+"kg": 18.0,
+"pris": 100.0,
+"plats": "Desolate Deep"
+},
+"Crystal Wrasse": {
+"kg_pris": 24.11,
+"kg": 6.5,
+"pris": 156.7,
+"plats": "Grand Reef"
+},
+"Cutlass Fish": {
+"kg_pris": 9.2,
+"kg": 16.5,
+"pris": 151.8,
+"plats": "Forsaken Shores"
+},
+"Deep Freeze Devilfish": {
+"kg_pris": 11.42,
+"kg": 14.0,
+"pris": 159.9,
+"plats": "Challenger's Deep"
+},
+"Deepwater Stingray": {
+"kg_pris": 29.0,
+"kg": 9.0,
+"pris": 261.0,
+"plats": "Sunken Reliquary"
+},
+"Depth Octopus": {
+"kg_pris": 28.13,
+"kg": 5.5,
+"pris": 154.7,
+"plats": "The Depths"
+},
+"Dinoflagellates": {
+"kg_pris": 1125.0,
+"kg": 0.15,
+"pris": 168.8,
+"plats": "Luminescent Cavern"
+},
+"Divine Aberrant": {
+"kg_pris": 7.71,
+"kg": 23.5,
+"pris": 181.3,
+"plats": "Olympian Fissure"
+},
+"Dwarf Pea Puffer": {
+"kg_pris": 800.0,
+"kg": 0.2,
+"pris": 160.0,
+"plats": "Skycrest"
+},
+"Eel": {
+"kg_pris": 48.22,
+"kg": 2.65,
+"pris": 127.8,
+"plats": "Moosewood"
+},
+"Eelpout": {
+"kg_pris": 11.0,
+"kg": 12.0,
+"pris": 132.0,
+"plats": "Boreal Pines"
+},
+"Ember Perch": {
+"kg_pris": 153.33,
+"kg": 0.95,
+"pris": 145.7,
+"plats": "Roslit Volcano"
+},
+"Ember Snapper": {
+"kg_pris": 19.17,
+"kg": 9.0,
+"pris": 172.5,
+"plats": "Roslit Volcano"
+},
+"Escolar": {
+"kg_pris": 0.07,
+"kg": 2600.0,
+"pris": 172.3,
+"plats": "Sunken Reliquary"
+},
+"Fangborn Gar": {
+"kg_pris": 6.18,
+"kg": 27.5,
+"pris": 170.1,
+"plats": "Vertigo"
+},
+"Flounder": {
+"kg_pris": 38.18,
+"kg": 3.5,
+"pris": 133.6,
+"plats": "Moosewood"
+},
+"Foamcrest Koi": {
+"kg_pris": 20.0,
+"kg": 9.5,
+"pris": 190.0,
+"plats": "Poseidon's Storm of Floods"
+},
+"Formosa Seabass": {
+"kg_pris": 100.0,
+"kg": 2.0,
+"pris": 200.0,
+"plats": "Outer Deep"
+},
+"Freshwater Pacu": {
+"kg_pris": 10.85,
+"kg": 12.5,
+"pris": 135.6,
+"plats": "Lost Jungle"
+},
+"Frigid Crab": {
+"kg_pris": 62.86,
+"kg": 2.5,
+"pris": 157.1,
+"plats": "Overgrowth Caves"
+},
+"Frilled Shark": {
+"kg_pris": 23.89,
+"kg": 6.5,
+"pris": 155.3,
+"plats": "The Depths"
+},
+"Giant Manta": {
+"kg_pris": 18.08,
+"kg": 9.0,
+"pris": 162.8,
+"plats": "Poseidon Temple"
+},
+"Gilded Pearl": {
+"kg_pris": 500.0,
+"kg": 0.25,
+"pris": 125.0,
+"plats": "Roslit Bay"
+},
+"Glacier Pike": {
+"kg_pris": 63.43,
+"kg": 2.35,
+"pris": 149.1,
+"plats": "Snowcap Island"
+},
+"Glassblue Herring": {
+"kg_pris": 141.25,
+"kg": 1.1,
+"pris": 155.4,
+"plats": "Enchanted Crevice"
+},
+"Globe Jellyfish": {
+"kg_pris": 9.92,
+"kg": 19.0,
+"pris": 188.4,
+"plats": "Brine Pool"
+},
+"Golden Dorado": {
+"kg_pris": 21.5,
+"kg": 6.5,
+"pris": 139.8,
+"plats": "Treasure Island"
+},
+"Gorgon Grouper": {
+"kg_pris": 1.41,
+"kg": 112.5,
+"pris": 158.9,
+"plats": "Veil of the Forsaken"
+},
+"Gulper Eel": {
+"kg_pris": 0.28,
+"kg": 600.0,
+"pris": 168.0,
+"plats": "Tidefall"
+},
+"Helios Ray": {
+"kg_pris": 37.0,
+"kg": 4.5,
+"pris": 166.5,
+"plats": "Sunken Depths"
+},
+"Hidden Filefish": {
+"kg_pris": 11.42,
+"kg": 12.5,
+"pris": 142.8,
+"plats": "Treasure Island"
+},
+"Hollow Pike": {
+"kg_pris": 12.05,
+"kg": 15.5,
+"pris": 186.7,
+"plats": "Hades' Underworld of Indefinite"
+},
+"Hyneria": {
+"kg_pris": 0.12,
+"kg": 1400.0,
+"pris": 164.9,
+"plats": "Ancient Isle"
+},
+"Ice Jellyfish": {
+"kg_pris": 48.89,
+"kg": 3.25,
+"pris": 158.9,
+"plats": "Frigid Cavern"
+},
+"Ice Octopus": {
+"kg_pris": 27.75,
+"kg": 5.5,
+"pris": 152.6,
+"plats": "Frigid Cavern"
+},
+"Icebloom Koi": {
+"kg_pris": 165.71,
+"kg": 3.0,
+"pris": 497.1,
+"plats": "Everturn Forest"
+},
+"Iced Perch": {
+"kg_pris": 48.89,
+"kg": 3.25,
+"pris": 158.9,
+"plats": "Cryogenic Canal"
+},
+"Icy Carp": {
+"kg_pris": 31.0,
+"kg": 5.0,
+"pris": 155.0,
+"plats": "Overgrowth Caves"
+},
+"Icy Walleye": {
+"kg_pris": 24.44,
+"kg": 6.5,
+"pris": 158.9,
+"plats": "Glacial Grotto"
+},
+"Ion Pike": {
+"kg_pris": 12.05,
+"kg": 15.5,
+"pris": 186.7,
+"plats": "Zeus's Thunder of Chaos"
+},
+"Lake Whitefish": {
+"kg_pris": 15.0,
+"kg": 9.0,
+"pris": 135.0,
+"plats": "Boreal Pines"
+},
+"Lapisjaw Jack": {
+"kg_pris": 7.89,
+"kg": 27.0,
+"pris": 213.0,
+"plats": "Enchanted Crevice"
+},
+"Lepidion": {
+"kg_pris": 80.0,
+"kg": 2.5,
+"pris": 200.0,
+"plats": "Lower Deep"
+},
+"Leviathan Bass": {
+"kg_pris": 13.75,
+"kg": 12.0,
+"pris": 165.0,
+"plats": "Poseidon Temple"
+},
+"Lingcod": {
+"kg_pris": 16.29,
+"kg": 9.0,
+"pris": 146.6,
+"plats": "Snowcap Island"
+},
+"Long-Barbel Snailfish": {
+"kg_pris": 725.0,
+"kg": 0.25,
+"pris": 181.3,
+"plats": "Gloomy Crevice"
+},
+"Longnose Chimaera": {
+"kg_pris": 0.14,
+"kg": 1250.0,
+"pris": 168.8,
+"plats": "Collapsed Ruins"
+},
+"Longnose Spiny Eel": {
+"kg_pris": 343.75,
+"kg": 0.55,
+"pris": 189.1,
+"plats": "Gloomy Crevice"
+},
+"Lumen Bass": {
+"kg_pris": 14.72,
+"kg": 12.5,
+"pris": 184.0,
+"plats": "Apollo's Song of Light"
+},
+"Luminescent Minnow": {
+"kg_pris": 262.5,
+"kg": 0.5,
+"pris": 131.3,
+"plats": "The Depths"
+},
+"Marrow Pike": {
+"kg_pris": 15.31,
+"kg": 10.0,
+"pris": 153.1,
+"plats": "Drylands"
+},
+"Mire Krakenling": {
+"kg_pris": 77.5,
+"kg": 7.0,
+"pris": 542.5,
+"plats": "Toxic Grove"
+},
+"Moonridge Catfish": {
+"kg_pris": 37.0,
+"kg": 4.0,
+"pris": 148.0,
+"plats": "Blue Moon"
+},
+"Moray Eel": {
+"kg_pris": 0.1,
+"kg": 1650.0,
+"pris": 158.4,
+"plats": "Tidefall"
+},
+"Myloplus Sauron": {
+"kg_pris": 77.5,
+"kg": 2.75,
+"pris": 213.1,
+"plats": "Skycrest"
+},
+"Nectar Koi": {
+"kg_pris": 173.33,
+"kg": 2.6,
+"pris": 450.7,
+"plats": "Living Garden"
+},
+"Nkosi Pygmy Pipehorse": {
+"kg_pris": 1200.0,
+"kg": 0.15,
+"pris": 180.0,
+"plats": "Outer Deep"
+},
+"Nurse Shark": {
+"kg_pris": 1.55,
+"kg": 125.0,
+"pris": 194.2,
+"plats": "Ocean"
+},
+"Obsidian Gaveltooth": {
+"kg_pris": 10.83,
+"kg": 33.0,
+"pris": 357.5,
+"plats": "Obsidian Trench"
+},
+"Oilfish": {
+"kg_pris": 0.07,
+"kg": 2250.0,
+"pris": 163.9,
+"plats": "Sunken Reliquary"
+},
+"Oracle's Eye": {
+"kg_pris": 25.56,
+"kg": 6.75,
+"pris": 172.5,
+"plats": "Ethereal Abyss"
+},
+"Oscar Cichlid": {
+"kg_pris": 17.92,
+"kg": 7.5,
+"pris": 134.4,
+"plats": "Lost Jungle"
+},
+"Palaeoniscum": {
+"kg_pris": 3.07,
+"kg": 36.25,
+"pris": 111.3,
+"plats": "Ancient Archives"
+},
+"Petaldrift Koi": {
+"kg_pris": 175.0,
+"kg": 2.4,
+"pris": 420.0,
+"plats": "Everturn Forest"
+},
+"Philosopher's Fish": {
+"kg_pris": 32.57,
+"kg": 5.25,
+"pris": 171.0,
+"plats": "Sunken Depths"
+},
+"Pike": {
+"kg_pris": 63.43,
+"kg": 2.35,
+"pris": 149.1,
+"plats": "Moosewood"
+},
+"Pink-Spotted Shrimpgoby": {
+"kg_pris": 270.0,
+"kg": 0.65,
+"pris": 175.5,
+"plats": "Skycrest"
+},
+"Planterech": {
+"kg_pris": 165.71,
+"kg": 3.0,
+"pris": 497.1,
+"plats": "Toxic Grove"
+},
+"Prismfin Trout": {
+"kg_pris": 16.47,
+"kg": 11.5,
+"pris": 189.4,
+"plats": "Apollo's Song of Light"
+},
+"Radiant Triplewart Seadevil": {
+"kg_pris": 10.57,
+"kg": 15.5,
+"pris": 163.9,
+"plats": "Abyssal Zenith"
+},
+"Redeye Bass": {
+"kg_pris": 150.0,
+"kg": 0.9,
+"pris": 135.0,
+"plats": "Terrapin Island"
+},
+"Ribbon Eel": {
+"kg_pris": 15.67,
+"kg": 7.75,
+"pris": 121.4,
+"plats": "Roslit Bay"
+},
+"Rockstar Hermit Crab": {
+"kg_pris": 166.67,
+"kg": 0.8,
+"pris": 133.3,
+"plats": "Desolate Deep"
+},
+"Rose Pearl": {
+"kg_pris": 500.0,
+"kg": 0.25,
+"pris": 125.0,
+"plats": "Roslit Bay"
+},
+"Sapphire Stargazer": {
+"kg_pris": 1.49,
+"kg": 95.0,
+"pris": 141.1,
+"plats": "Calm Zone"
+},
+"Scoria Swordfish": {
+"kg_pris": 9.67,
+"kg": 145.0,
+"pris": 1401.7,
+"plats": "Scoria Reach"
+},
+"Scurvy Sailfish": {
+"kg_pris": 3.36,
+"kg": 42.5,
+"pris": 142.7,
+"plats": "Forsaken Shores"
+},
+"Shard-Tooth Salmon": {
+"kg_pris": 19.17,
+"kg": 7.75,
+"pris": 148.5,
+"plats": "Drylands"
+},
+"Siren Singer": {
+"kg_pris": 24.53,
+"kg": 7.25,
+"pris": 177.8,
+"plats": "Ethereal Abyss"
+},
+"Skipjack Tuna": {
+"kg_pris": 14.25,
+"kg": 11.5,
+"pris": 163.9,
+"plats": "Snowcap Island"
+},
+"Smoldering Stingray": {
+"kg_pris": 12.47,
+"kg": 12.5,
+"pris": 155.9,
+"plats": "Volcanic Vents"
+},
+"Snipefish": {
+"kg_pris": 4.02,
+"kg": 32.0,
+"pris": 128.7,
+"plats": "Outer Deep"
+},
+"Snook": {
+"kg_pris": 29.71,
+"kg": 5.0,
+"pris": 148.6,
+"plats": "Moosewood"
+},
+"Snowback Char": {
+"kg_pris": 29.6,
+"kg": 5.5,
+"pris": 162.8,
+"plats": "Cryogenic Canal"
+},
+"Speartail Pike": {
+"kg_pris": 13.0,
+"kg": 14.0,
+"pris": 182.0,
+"plats": "Bellona's Frenzy of War"
+},
+"Spiny Snailfish": {
+"kg_pris": 1033.33,
+"kg": 0.2,
+"pris": 206.7,
+"plats": "Gloomy Crevice"
+},
+"Split Eye Snapper": {
+"kg_pris": 44.67,
+"kg": 4.25,
+"pris": 189.8,
+"plats": "Cursed Isle"
+},
+"Squid": {
+"kg_pris": 91.2,
+"kg": 1.5,
+"pris": 136.8,
+"plats": "Roslit Bay"
+},
+"Stinger Skipper": {
+"kg_pris": 145.0,
+"kg": 1.7,
+"pris": 246.5,
+"plats": "Nectar Den"
+},
+"Storm Eel": {
+"kg_pris": 2.88,
+"kg": 60.0,
+"pris": 172.5,
+"plats": "Zeus's Sanctuary"
+},
+"Stout Blacksmelt": {
+"kg_pris": 1300.0,
+"kg": 0.15,
+"pris": 195.0,
+"plats": "Lower Deep"
+},
+"Sulfur Pearl": {
+"kg_pris": 1600.0,
+"kg": 0.35,
+"pris": 560.0,
+"plats": "Scoria Reach"
+},
+"Surge Pickerel": {
+"kg_pris": 12.05,
+"kg": 15.5,
+"pris": 186.7,
+"plats": "Poseidon's Storm of Floods"
+},
+"Swamp Scallop": {
+"kg_pris": 146.43,
+"kg": 1.0,
+"pris": 146.4,
+"plats": "Mushgrove Swamp"
+},
+"Tentacle Eel": {
+"kg_pris": 10.85,
+"kg": 15.0,
+"pris": 162.8,
+"plats": "Kraken Lair"
+},
+"Three-eyed Fish": {
+"kg_pris": 35.83,
+"kg": 4.0,
+"pris": 143.3,
+"plats": "The Depths"
+},
+"Thunder Bass": {
+"kg_pris": 3.8,
+"kg": 45.0,
+"pris": 171.0,
+"plats": "Zeus's Sanctuary"
+},
+"Trevally": {
+"kg_pris": 28.13,
+"kg": 5.0,
+"pris": 140.6,
+"plats": "Castaway Cliffs"
+},
+"Trumpetfish": {
+"kg_pris": 110.0,
+"kg": 1.45,
+"pris": 159.5,
+"plats": "Sunstone Island"
+},
+"Tumor Pike": {
+"kg_pris": 41.06,
+"kg": 4.7,
+"pris": 193.0,
+"plats": "Cursed Isle"
+},
+"Veilfin Koi": {
+"kg_pris": 18.67,
+"kg": 10.0,
+"pris": 186.7,
+"plats": "Hades' Underworld of Indefinite"
+},
+"Vortex Barracuda": {
+"kg_pris": 14.06,
+"kg": 12.0,
+"pris": 168.8,
+"plats": "Atlantean Storm"
+},
+"Warstripe Bass": {
+"kg_pris": 11.0,
+"kg": 17.0,
+"pris": 187.0,
+"plats": "Bellona's Frenzy of War"
+},
+"Whirlpool Marlin": {
+"kg_pris": 24.67,
+"kg": 6.5,
+"pris": 160.3,
+"plats": "Atlantean Storm"
+},
+"Xiphactinus": {
+"kg_pris": 1.1,
+"kg": 170.0,
+"pris": 187.0,
+"plats": "Ancient Isle"
+},
+"Yellow Boxfish": {
+"kg_pris": 115.0,
+"kg": 1.25,
+"pris": 143.8,
+"plats": "Roslit Bay"
+},
+"Abyssacuda": {
+"kg_pris": 33.45,
+"kg": 8.25,
+"pris": 276.0,
+"plats": "Vertigo"
+},
+"Aegisbreaker Ray": {
+"kg_pris": 6.11,
+"kg": 60.0,
+"pris": 366.7,
+"plats": "Olympian Fissure"
+},
+"African Butterflyfish": {
+"kg_pris": 650.0,
+"kg": 0.5,
+"pris": 325.0,
+"plats": "Skycrest"
+},
+"Alligator Gar": {
+"kg_pris": 7.67,
+"kg": 32.5,
+"pris": 249.2,
+"plats": "Roslit Bay"
+},
+"Altarfin Grouper": {
+"kg_pris": 6.74,
+"kg": 50.0,
+"pris": 337.1,
+"plats": "Enchanted Crevice"
+},
+"Anglerfish": {
+"kg_pris": 174.5,
+"kg": 1.25,
+"pris": 218.1,
+"plats": "Ocean"
+},
+"Antarctic Icefish": {
+"kg_pris": 82.5,
+"kg": 2.5,
+"pris": 206.3,
+"plats": "Boreal Pines"
+},
+"Arapaima": {
+"kg_pris": 1.76,
+"kg": 150.0,
+"pris": 264.0,
+"plats": "Roslit Bay"
+},
+"Argosgeorgiae Snailfish": {
+"kg_pris": 1440.0,
+"kg": 0.35,
+"pris": 504.0,
+"plats": "Gloomy Crevice"
+},
+"Atlantean Alchemist": {
+"kg_pris": 8.9,
+"kg": 30.0,
+"pris": 267.0,
+"plats": "Sunken Depths"
+},
+"Auric Angelfish": {
+"kg_pris": 74.29,
+"kg": 4.5,
+"pris": 334.3,
+"plats": "Apollo's Song of Light"
+},
+"Banditfish": {
+"kg_pris": 17.6,
+"kg": 17.5,
+"pris": 308.0,
+"plats": "Desolate Deep"
+},
+"Bigfin Squid": {
+"kg_pris": 11.74,
+"kg": 162.5,
+"pris": 1907.6,
+"plats": "Lower Deep"
+},
+"Bigspine Spookfish": {
+"kg_pris": 350.0,
+"kg": 1.25,
+"pris": 437.5,
+"plats": "Lower Deep"
+},
+"Black Dragon Fish": {
+"kg_pris": 8.53,
+"kg": 27.5,
+"pris": 234.4,
+"plats": "The Depths"
+},
+"Black Ghost Knifefish": {
+"kg_pris": 22.73,
+"kg": 10.0,
+"pris": 227.3,
+"plats": "Lost Jungle"
+},
+"Blackcap Basslet": {
+"kg_pris": 406.67,
+"kg": 1.0,
+"pris": 406.7,
+"plats": "Skycrest"
+},
+"Bloomback Turtle": {
+"kg_pris": 21.32,
+"kg": 33.0,
+"pris": 703.4,
+"plats": "Living Garden"
+},
+"Blue Ribbon Eel": {
+"kg_pris": 66.0,
+"kg": 3.25,
+"pris": 214.5,
+"plats": "Luminescent Cavern"
+},
+"Bluefin Tuna": {
+"kg_pris": 1.6,
+"kg": 160.0,
+"pris": 256.0,
+"plats": "Ocean"
+},
+"Butterfly": {
+"kg_pris": 2166.67,
+"kg": 0.2,
+"pris": 433.3,
+"plats": "Living Garden"
+},
+"Carbon Crate": {
+"kg_pris": 21.13,
+"kg": 16.0,
+"pris": 338.0,
+"plats": "Regionless"
+},
+"Carrot Salmon": {
+"kg_pris": 40.0,
+"kg": 5.9,
+"pris": 236.0,
+"plats": "Carrot Garden"
+},
+"Catfish": {
+"kg_pris": 23.47,
+"kg": 10.0,
+"pris": 234.7,
+"plats": "Mushgrove Swamp"
+},
+"Charred Coelacanth": {
+"kg_pris": 7.65,
+"kg": 60.0,
+"pris": 458.8,
+"plats": "Volcanic Vents"
+},
+"Chillfin Herring": {
+"kg_pris": 48.71,
+"kg": 5.0,
+"pris": 243.6,
+"plats": "Cryogenic Canal"
+},
+"Cinder-Crust Gar": {
+"kg_pris": 12.6,
+"kg": 52.5,
+"pris": 661.5,
+"plats": "Obsidian Trench"
+},
+"Cobia": {
+"kg_pris": 4.77,
+"kg": 55.0,
+"pris": 262.4,
+"plats": "Ancient Isle"
+},
+"Coelacanth": {
+"kg_pris": 34.5,
+"kg": 8.5,
+"pris": 293.3,
+"plats": "Ocean"
+},
+"Coin Piranha": {
+"kg_pris": 10.27,
+"kg": 20.0,
+"pris": 205.3,
+"plats": "Treasure Island"
+},
+"Comb Cluster": {
+"kg_pris": 111.43,
+"kg": 6.25,
+"pris": 696.4,
+"plats": "Nectar Den"
+},
+"Conger Eel": {
+"kg_pris": 7.6,
+"kg": 30.0,
+"pris": 228.0,
+"plats": "Tidefall"
+},
+"Cookiecutter Shark": {
+"kg_pris": 234.67,
+"kg": 1.0,
+"pris": 234.7,
+"plats": "Ocean"
+},
+"Crawling Angler": {
+"kg_pris": 32.0,
+"kg": 8.75,
+"pris": 280.0,
+"plats": "Cursed Isle"
+},
+"Crescent Madtom": {
+"kg_pris": 37.56,
+"kg": 6.0,
+"pris": 225.3,
+"plats": "Blue Moon"
+},
+"Crevice Sturgeon": {
+"kg_pris": 8.42,
+"kg": 37.0,
+"pris": 311.7,
+"plats": "Enchanted Crevice"
+},
+"Cryo Coelacanth": {
+"kg_pris": 16.76,
+"kg": 14.0,
+"pris": 234.7,
+"plats": "Challenger's Deep"
+},
+"Cursed Eel": {
+"kg_pris": 16.12,
+"kg": 16.5,
+"pris": 266.0,
+"plats": "Forsaken Shores"
+},
+"Cusk Eel": {
+"kg_pris": 0.18,
+"kg": 1250.0,
+"pris": 225.0,
+"plats": "Sunken Reliquary"
+},
+"Cyclone Mako": {
+"kg_pris": 4.36,
+"kg": 60.0,
+"pris": 261.8,
+"plats": "Atlantean Storm"
+},
+"Cyclone Scorpionfish": {
+"kg_pris": 3.14,
+"kg": 83.0,
+"pris": 260.8,
+"plats": "Veil of the Forsaken"
+},
+"Deep One": {
+"kg_pris": 7.58,
+"kg": 32.5,
+"pris": 246.3,
+"plats": "Kraken Lair"
+},
+"Deep Tackle Box": {
+"kg_pris": 25.0,
+"kg": 18.0,
+"pris": 450.0,
+"plats": "Outer Deep"
+},
+"Deeplight Footballfish": {
+"kg_pris": 8.15,
+"kg": 28.75,
+"pris": 234.3,
+"plats": "Abyssal Zenith"
+},
+"Delangle's Eelpout": {
+"kg_pris": 966.67,
+"kg": 0.4,
+"pris": 386.7,
+"plats": "Gloomy Crevice"
+},
+"Duneseat Crustacean": {
+"kg_pris": 13.6,
+"kg": 15.5,
+"pris": 210.8,
+"plats": "Drylands"
+},
+"Duskbriar Gar": {
+"kg_pris": 10.32,
+"kg": 80.0,
+"pris": 825.3,
+"plats": "Everturn Forest"
+},
+"Dustveil Ray": {
+"kg_pris": 5.75,
+"kg": 36.0,
+"pris": 207.0,
+"plats": "Drylands"
+},
+"Dweller Catfish": {
+"kg_pris": 23.5,
+"kg": 13.0,
+"pris": 305.5,
+"plats": "Brine Pool"
+},
+"Eldritch Horror": {
+"kg_pris": 4.31,
+"kg": 60.0,
+"pris": 258.8,
+"plats": "Kraken Lair"
+},
+"Flying Pufferfish": {
+"kg_pris": 188.0,
+"kg": 1.25,
+"pris": 235.0,
+"plats": "Above The Clouds"
+},
+"Frigid Taco": {
+"kg_pris": 13.64,
+"kg": 17.5,
+"pris": 238.7,
+"plats": "Frigid Cavern"
+},
+"Frostbite Flounder": {
+"kg_pris": 11.37,
+"kg": 22.5,
+"pris": 255.8,
+"plats": "Glacial Grotto"
+},
+"Frozen Pike": {
+"kg_pris": 13.8,
+"kg": 17.5,
+"pris": 241.5,
+"plats": "Cryogenic Canal"
+},
+"Garra Andruzzii": {
+"kg_pris": 86.25,
+"kg": 2.5,
+"pris": 215.6,
+"plats": "Cultist Lair"
+},
+"Geode Grouper": {
+"kg_pris": 6.55,
+"kg": 67.5,
+"pris": 441.8,
+"plats": "Calm Zone"
+},
+"Giant Grouper": {
+"kg_pris": 0.01,
+"kg": 27500.0,
+"pris": 288.8,
+"plats": "Tidefall"
+},
+"Glacial Bark Gar": {
+"kg_pris": 113.64,
+"kg": 9.5,
+"pris": 1079.5,
+"plats": "Everturn Forest"
+},
+"Glacial Gulper": {
+"kg_pris": 165.71,
+"kg": 2.25,
+"pris": 372.9,
+"plats": "Challenger's Deep"
+},
+"Glacier Swordfish": {
+"kg_pris": 7.67,
+"kg": 32.5,
+"pris": 249.2,
+"plats": "Glacial Grotto"
+},
+"Goblin Shark": {
+"kg_pris": 7.51,
+"kg": 32.5,
+"pris": 244.1,
+"plats": "The Depths"
+},
+"Gold Piece": {
+"kg_pris": 845.0,
+"kg": 0.9,
+"pris": 760.5,
+"plats": "Mineshaft"
+},
+"Greater Silver Hatchetfish": {
+"kg_pris": 2900.0,
+"kg": 0.15,
+"pris": 435.0,
+"plats": "Outer Deep"
+},
+"Greenland Halibut": {
+"kg_pris": 4.03,
+"kg": 50.0,
+"pris": 201.3,
+"plats": "Boreal Pines"
+},
+"Hagfish": {
+"kg_pris": 600.0,
+"kg": 0.5,
+"pris": 300.0,
+"plats": "Astral Observatory"
+},
+"Halibut": {
+"kg_pris": 1.73,
+"kg": 150.0,
+"pris": 258.8,
+"plats": "Ocean"
+},
+"Hallucigenia": {
+"kg_pris": 31.9,
+"kg": 6.5,
+"pris": 207.4,
+"plats": "Ancient Isle"
+},
+"Heleobia": {
+"kg_pris": 1900.0,
+"kg": 0.15,
+"pris": 285.0,
+"plats": "Astral Observatory"
+},
+"Hollowfin": {
+"kg_pris": 45.67,
+"kg": 6.5,
+"pris": 296.8,
+"plats": "Cursed Isle"
+},
+"Iceberg Isopod": {
+"kg_pris": 14.08,
+"kg": 16.75,
+"pris": 235.9,
+"plats": "Challenger's Deep"
+},
+"Icebreaker Haddock": {
+"kg_pris": 8.73,
+"kg": 30.0,
+"pris": 261.8,
+"plats": "Cryogenic Canal"
+},
+"Icefang Barracuda": {
+"kg_pris": 7.67,
+"kg": 32.5,
+"pris": 249.2,
+"plats": "Glacial Grotto"
+},
+"Icy Goldfish": {
+"kg_pris": 8.63,
+"kg": 30.0,
+"pris": 258.8,
+"plats": "Overgrowth Caves"
+},
+"Icy Tuna": {
+"kg_pris": 13.64,
+"kg": 17.5,
+"pris": 238.7,
+"plats": "Overgrowth Caves"
+},
+"Jaco Eelpout": {
+"kg_pris": 1033.33,
+"kg": 0.4,
+"pris": 413.3,
+"plats": "Lower Deep"
+},
+"Keepers Guardian": {
+"kg_pris": 8.9,
+"kg": 30.0,
+"pris": 267.0,
+"plats": "Keepers Altar"
+},
+"King Oyster": {
+"kg_pris": 304.0,
+"kg": 0.7,
+"pris": 212.8,
+"plats": "Terrapin Island"
+},
+"Lapisjack": {
+"kg_pris": 9.0,
+"kg": 30.0,
+"pris": 270.0,
+"plats": "Keepers Altar"
+},
+"Lava Clam": {
+"kg_pris": 68.42,
+"kg": 9.25,
+"pris": 632.9,
+"plats": "Scoria Reach"
+},
+"Lightning Pike": {
+"kg_pris": 7.76,
+"kg": 32.5,
+"pris": 252.1,
+"plats": "Zeus's Sanctuary"
+},
+"Longnose Lancetfish": {
+"kg_pris": 50.0,
+"kg": 5.25,
+"pris": 262.5,
+"plats": "Outer Deep"
+},
+"Lumin-Lure Lanternfish": {
+"kg_pris": 2950.0,
+"kg": 0.15,
+"pris": 442.5,
+"plats": "Abyssal Zenith"
+},
+"Magmatic Hermit Crab": {
+"kg_pris": 114.58,
+"kg": 4.4,
+"pris": 504.2,
+"plats": "Scoria Reach"
+},
+"Mahi Mahi": {
+"kg_pris": 23.47,
+"kg": 11.0,
+"pris": 258.1,
+"plats": "Sunstone Island"
+},
+"Marsh Gar": {
+"kg_pris": 9.26,
+"kg": 27.5,
+"pris": 254.7,
+"plats": "Mushgrove Swamp"
+},
+"Massive Marlin": {
+"kg_pris": 7.58,
+"kg": 32.5,
+"pris": 246.3,
+"plats": "Poseidon Temple"
+},
+"Mauve Pearl": {
+"kg_pris": 750.0,
+"kg": 0.25,
+"pris": 187.5,
+"plats": "Roslit Bay"
+},
+"Metal Strongbox": {
+"kg_pris": 25.0,
+"kg": 30.0,
+"pris": 750.0,
+"plats": "Tidefall"
+},
+"Molten Moray": {
+"kg_pris": 15.17,
+"kg": 15.5,
+"pris": 235.2,
+"plats": "Volcanic Vents"
+},
+"Mushgrove Crab": {
+"kg_pris": 220.0,
+"kg": 1.0,
+"pris": 220.0,
+"plats": "Mushgrove Swamp"
+},
+"Mutated Crystal Shrimp": {
+"kg_pris": 6.13,
+"kg": 37.0,
+"pris": 226.9,
+"plats": "Crystal Cove"
+},
+"Napoleonfish": {
+"kg_pris": 9.86,
+"kg": 30.0,
+"pris": 295.7,
+"plats": "Sunstone Island"
+},
+"Nebulous Comb Jelly": {
+"kg_pris": 1250.0,
+"kg": 0.25,
+"pris": 312.5,
+"plats": "Astral Observatory"
+},
+"Net Wolffish": {
+"kg_pris": 2.25,
+"kg": 95.0,
+"pris": 214.1,
+"plats": "Treasure Island"
+},
+"Northern Pike": {
+"kg_pris": 46.67,
+"kg": 5.5,
+"pris": 256.7,
+"plats": "Astral Observatory"
+},
+"Northern Snakehead": {
+"kg_pris": 11.0,
+"kg": 19.5,
+"pris": 214.5,
+"plats": "Lost Jungle"
+},
+"Opah": {
+"kg_pris": 48.0,
+"kg": 6.5,
+"pris": 312.0,
+"plats": "Collapsed Ruins"
+},
+"Opalescent Catfish": {
+"kg_pris": 56.29,
+"kg": 3.9,
+"pris": 219.5,
+"plats": "Crystal Cove"
+},
+"Orchid Anglerfish": {
+"kg_pris": 151.67,
+"kg": 5.25,
+"pris": 796.3,
+"plats": "Living Garden"
+},
+"Pacific Blackdragon": {
+"kg_pris": 1300.0,
+"kg": 0.25,
+"pris": 325.0,
+"plats": "Outer Deep"
+},
+"Pacific Longnose Chimaera": {
+"kg_pris": 68.75,
+"kg": 5.0,
+"pris": 343.8,
+"plats": "Lower Deep"
+},
+"Payara": {
+"kg_pris": 0.29,
+"kg": 700.0,
+"pris": 201.2,
+"plats": "Lost Jungle"
+},
+"Phanerorhynchus": {
+"kg_pris": 2.46,
+"kg": 100.0,
+"pris": 246.4,
+"plats": "Ancient Archives"
+},
+"Populi Blind Catfish": {
+"kg_pris": 400.0,
+"kg": 0.8,
+"pris": 320.0,
+"plats": "Skycrest"
+},
+"Prismatic Parrotfish": {
+"kg_pris": 14.38,
+"kg": 16.0,
+"pris": 230.0,
+"plats": "Calm Zone"
+},
+"Pufferfish": {
+"kg_pris": 163.0,
+"kg": 1.25,
+"pris": 203.8,
+"plats": "Ocean"
+},
+"Pufferflute": {
+"kg_pris": 56.29,
+"kg": 3.9,
+"pris": 219.5,
+"plats": "Crystal Cove"
+},
+"Pyrite Pufferfish": {
+"kg_pris": 17.37,
+"kg": 13.25,
+"pris": 230.1,
+"plats": "Volcanic Vents"
+},
+"Pyrogrub": {
+"kg_pris": 6.2,
+"kg": 45.0,
+"pris": 279.0,
+"plats": "Roslit Volcano"
+},
+"Quality Bait Crate": {
+"kg_pris": 12.5,
+"kg": 12.0,
+"pris": 150.0,
+"plats": "Regionless"
+},
+"Queen Angelfish": {
+"kg_pris": 42.63,
+"kg": 5.2,
+"pris": 221.7,
+"plats": "Treasure Island"
+},
+"Red Fangtooth": {
+"kg_pris": 65.2,
+"kg": 3.25,
+"pris": 211.9,
+"plats": "Crimson Cavern"
+},
+"Redeye Piranha": {
+"kg_pris": 96.57,
+"kg": 2.25,
+"pris": 217.3,
+"plats": "Lost Jungle"
+},
+"Reef Parrotfish": {
+"kg_pris": 17.45,
+"kg": 13.5,
+"pris": 235.6,
+"plats": "Grand Reef"
+},
+"Reefrunner Snapper": {
+"kg_pris": 15.2,
+"kg": 16.5,
+"pris": 250.8,
+"plats": "Forsaken Shores"
+},
+"Renate's Eelpout": {
+"kg_pris": 1066.67,
+"kg": 0.4,
+"pris": 426.7,
+"plats": "Gloomy Crevice"
+},
+"Revenant Eel": {
+"kg_pris": 8.67,
+"kg": 40.0,
+"pris": 346.7,
+"plats": "Hades' Underworld of Indefinite"
+},
+"Rotcoil Eel": {
+"kg_pris": 59.38,
+"kg": 14.0,
+"pris": 831.3,
+"plats": "Toxic Grove"
+},
+"Ruby Rasbora": {
+"kg_pris": 3.22,
+"kg": 69.75,
+"pris": 224.6,
+"plats": "Calm Zone"
+},
+"Sailfish": {
+"kg_pris": 5.75,
+"kg": 50.0,
+"pris": 287.5,
+"plats": "Ocean"
+},
+"Sea Angel": {
+"kg_pris": 2250.0,
+"kg": 0.15,
+"pris": 337.5,
+"plats": "Astral Observatory"
+},
+"Sea Urchin": {
+"kg_pris": 333.33,
+"kg": 0.55,
+"pris": 183.3,
+"plats": "Ocean"
+},
+"Shadow Ray": {
+"kg_pris": 6.0,
+"kg": 60.0,
+"pris": 360.0,
+"plats": "Hades' Underworld of Indefinite"
+},
+"Shieldbearer Koi": {
+"kg_pris": 33.33,
+"kg": 10.0,
+"pris": 333.3,
+"plats": "Bellona's Frenzy of War"
+},
+"Shiverfin Haddock": {
+"kg_pris": 28.17,
+"kg": 8.5,
+"pris": 239.4,
+"plats": "Glacial Grotto"
+},
+"Silver Arowana": {
+"kg_pris": 0.28,
+"kg": 750.0,
+"pris": 208.8,
+"plats": "Lost Jungle"
+},
+"Siren Sculpin": {
+"kg_pris": 1.57,
+"kg": 170.0,
+"pris": 266.6,
+"plats": "Veil of the Forsaken"
+},
+"Sloane's Viperfish": {
+"kg_pris": 38.44,
+"kg": 6.0,
+"pris": 230.7,
+"plats": "Cultist Lair"
+},
+"Snowfish": {
+"kg_pris": 7.67,
+"kg": 32.5,
+"pris": 249.2,
+"plats": "Frigid Cavern"
+},
+"Spider Crab": {
+"kg_pris": 13.2,
+"kg": 16.5,
+"pris": 217.8,
+"plats": "The Depths"
+},
+"Spiny Hatchetfish": {
+"kg_pris": 46.53,
+"kg": 5.0,
+"pris": 232.7,
+"plats": "Cultist Lair"
+},
+"Starbellied Wolf Fish": {
+"kg_pris": 14.08,
+"kg": 15.5,
+"pris": 218.3,
+"plats": "Blue Moon"
+},
+"Starlit Weaver": {
+"kg_pris": 8.9,
+"kg": 30.0,
+"pris": 267.0,
+"plats": "Ethereal Abyss"
+},
+"Stingray": {
+"kg_pris": 11.27,
+"kg": 22.5,
+"pris": 253.5,
+"plats": "Ocean"
+},
+"Stormcloud Angelfish": {
+"kg_pris": 2.93,
+"kg": 90.0,
+"pris": 264.0,
+"plats": "Zeus's Sanctuary"
+},
+"Stormscale Eel": {
+"kg_pris": 8.67,
+"kg": 40.0,
+"pris": 346.7,
+"plats": "Zeus's Thunder of Chaos"
+},
+"Strata-Bound Bass": {
+"kg_pris": 8.11,
+"kg": 27.5,
+"pris": 223.1,
+"plats": "Drylands"
+},
+"Sturgeon": {
+"kg_pris": 4.36,
+"kg": 50.0,
+"pris": 218.1,
+"plats": "Snowcap Island"
+},
+"Suckermouth Catfish": {
+"kg_pris": 19.41,
+"kg": 13.25,
+"pris": 257.2,
+"plats": "Roslit Bay"
+},
+"Swordfish": {
+"kg_pris": 1.4,
+"kg": 175.0,
+"pris": 244.3,
+"plats": "Ocean"
+},
+"Tectonic Toadfish": {
+"kg_pris": 157.78,
+"kg": 2.85,
+"pris": 449.7,
+"plats": "Obsidian Trench"
+},
+"Thicket Leviabass": {
+"kg_pris": 660.71,
+"kg": 2.4,
+"pris": 1585.7,
+"plats": "Everturn Forest"
+},
+"Thunderclap Crab": {
+"kg_pris": 20.77,
+"kg": 17.0,
+"pris": 353.1,
+"plats": "Zeus's Thunder of Chaos"
+},
+"Titanfang Grouper": {
+"kg_pris": 5.82,
+"kg": 45.0,
+"pris": 261.8,
+"plats": "Poseidon Temple"
+},
+"Titanic Sturgeon": {
+"kg_pris": 6.9,
+"kg": 37.5,
+"pris": 258.8,
+"plats": "Poseidon Temple"
+},
+"Tompot Blenny": {
+"kg_pris": 9.0,
+"kg": 25.0,
+"pris": 225.0,
+"plats": "Crowned Ruins"
+},
+"Torrential Catfish": {
+"kg_pris": 9.57,
+"kg": 21.5,
+"pris": 205.8,
+"plats": "Drylands"
+},
+"Tridentfish": {
+"kg_pris": 16.25,
+"kg": 22.0,
+"pris": 357.5,
+"plats": "Poseidon's Storm of Floods"
+},
+"Tripod Fish": {
+"kg_pris": 11.82,
+"kg": 155.0,
+"pris": 1831.8,
+"plats": "Outer Deep"
+},
+"Triton's Herald": {
+"kg_pris": 17.45,
+"kg": 15.0,
+"pris": 261.8,
+"plats": "Sunken Depths"
+},
+"Tropical Bait Crate": {
+"kg_pris": 11.43,
+"kg": 7.0,
+"pris": 80.0,
+"plats": "Regionless"
+},
+"Twilight Glowfish": {
+"kg_pris": 11.73,
+"kg": 22.5,
+"pris": 264.0,
+"plats": "Sunken Depths"
+},
+"Typhoon Tuna": {
+"kg_pris": 7.58,
+"kg": 32.5,
+"pris": 246.3,
+"plats": "Atlantean Storm"
+},
+"Verdant Spiritfish": {
+"kg_pris": 141.54,
+"kg": 5.5,
+"pris": 778.5,
+"plats": "Everturn Forest"
+},
+"Viperfish": {
+"kg_pris": 80.5,
+"kg": 2.5,
+"pris": 201.3,
+"plats": "Crimson Cavern"
+},
+"Voidfin Mahi": {
+"kg_pris": 23.74,
+"kg": 11.5,
+"pris": 273.0,
+"plats": "Vertigo"
+},
+"Voidscale Guppy": {
+"kg_pris": 11.73,
+"kg": 22.5,
+"pris": 264.0,
+"plats": "Ethereal Abyss"
+},
+"Volcanic Geode": {
+"kg_pris": 15.0,
+"kg": 20.0,
+"pris": 300.0,
+"plats": "Roslit Volcano"
+},
+"Warty Frogfish": {
+"kg_pris": 88.0,
+"kg": 2.65,
+"pris": 233.2,
+"plats": "Castaway Cliffs"
+},
+"Widow Bloom": {
+"kg_pris": 188.89,
+"kg": 4.0,
+"pris": 755.6,
+"plats": "Toxic Grove"
+},
+"Abyssal King": {
+"kg_pris": 3.43,
+"kg": 450.0,
+"pris": 1542.8,
+"plats": "Kraken Lair"
+},
+"Adumbral Shark": {
+"kg_pris": 11.89,
+"kg": 150.0,
+"pris": 1783.3,
+"plats": "Enchanted Crevice"
+},
+"Alligator": {
+"kg_pris": 6.33,
+"kg": 225.0,
+"pris": 1423.5,
+"plats": "Mushgrove Swamp"
+},
+"Ancient Coelacanth": {
+"kg_pris": 30.0,
+"kg": 80.0,
+"pris": 2400.0,
+"plats": "Drylands"
+},
+"Ancient Eel": {
+"kg_pris": 9.78,
+"kg": 150.0,
+"pris": 1467.0,
+"plats": "The Depths"
+},
+"Ancient Wood": {
+"kg_pris": 7500.0,
+"kg": 0.15,
+"pris": 1125.0,
+"plats": "Sunstone Island"
+},
+"Arbiter Snailfish": {
+"kg_pris": 2875.0,
+"kg": 0.5,
+"pris": 1437.5,
+"plats": "Lower Deep"
+},
+"Atlantic Goliath Grouper": {
+"kg_pris": 0.04,
+"kg": 32500.0,
+"pris": 1336.1,
+"plats": "Coral Bastion"
+},
+"Axolotl": {
+"kg_pris": 1088.67,
+"kg": 1.0,
+"pris": 1088.7,
+"plats": "Roslit Bay"
+},
+"Barbed Shark": {
+"kg_pris": 2.18,
+"kg": 825.0,
+"pris": 1801.1,
+"plats": "Desolate Deep"
+},
+"Basalt Behemoth": {
+"kg_pris": 0.92,
+"kg": 2200.0,
+"pris": 2028.1,
+"plats": "Obsidian Trench"
+},
+"Bee": {
+"kg_pris": 750.0,
+"kg": 0.15,
+"pris": 112.5,
+"plats": "Nectar Den"
+},
+"Black Snoek": {
+"kg_pris": 52.75,
+"kg": 25.0,
+"pris": 1318.8,
+"plats": "Crowned Ruins"
+},
+"Blackfin Barracuda": {
+"kg_pris": 59.75,
+"kg": 25.0,
+"pris": 1493.8,
+"plats": "Collapsed Ruins"
+},
+"Bloodfang Barracuda": {
+"kg_pris": 22.22,
+"kg": 60.0,
+"pris": 1333.3,
+"plats": "Bellona's Frenzy of War"
+},
+"Bog Lantern Goby": {
+"kg_pris": 426.5,
+"kg": 2.75,
+"pris": 1172.9,
+"plats": "Blue Moon"
+},
+"Borealis Snapper": {
+"kg_pris": 11.99,
+"kg": 120.0,
+"pris": 1438.5,
+"plats": "Glacial Grotto"
+},
+"Brine Phantom": {
+"kg_pris": 2.98,
+"kg": 565.0,
+"pris": 1683.7,
+"plats": "Brine Pool"
+},
+"Bull Shark": {
+"kg_pris": 13.85,
+"kg": 110.0,
+"pris": 1523.1,
+"plats": "Ocean"
+},
+"Carrot Turtle": {
+"kg_pris": 78.42,
+"kg": 16.0,
+"pris": 1254.7,
+"plats": "Carrot Garden"
+},
+"Cindercoil Eel": {
+"kg_pris": 129.17,
+"kg": 21.0,
+"pris": 2712.5,
+"plats": "Scoria Reach"
+},
+"Claypan Guppy": {
+"kg_pris": 462.5,
+"kg": 5.0,
+"pris": 2312.5,
+"plats": "Drylands"
+},
+"Coral Emperor": {
+"kg_pris": 67.9,
+"kg": 22.5,
+"pris": 1527.8,
+"plats": "Grand Reef"
+},
+"Crown Bass": {
+"kg_pris": 313.17,
+"kg": 4.0,
+"pris": 1252.7,
+"plats": "Ocean"
+},
+"Crystal Corydoras": {
+"kg_pris": 4.55,
+"kg": 275.0,
+"pris": 1251.9,
+"plats": "Calm Zone"
+},
+"Crystal Frilled Shark": {
+"kg_pris": 0.25,
+"kg": 3700.0,
+"pris": 925.0,
+"plats": "Crystal Cove"
+},
+"Crystal Geode": {
+"kg_pris": 125.0,
+"kg": 10.0,
+"pris": 1250.0,
+"plats": "Mineshaft"
+},
+"Crystal Lobster": {
+"kg_pris": 30.63,
+"kg": 37.0,
+"pris": 1133.4,
+"plats": "Crystal Cove"
+},
+"Dawnflare Eel": {
+"kg_pris": 57.0,
+"kg": 34.0,
+"pris": 1938.0,
+"plats": "Apollo's Song of Light"
+},
+"Deep Behemoth": {
+"kg_pris": 3.43,
+"kg": 450.0,
+"pris": 1542.8,
+"plats": "Poseidon Temple"
+},
+"Deep Crownfish": {
+"kg_pris": 18.0,
+"kg": 75.0,
+"pris": 1350.0,
+"plats": "Sunken Depths"
+},
+"Deep Emperor": {
+"kg_pris": 4.04,
+"kg": 375.0,
+"pris": 1513.5,
+"plats": "Poseidon Temple"
+},
+"Deep Pearl": {
+"kg_pris": 3750.0,
+"kg": 0.25,
+"pris": 937.5,
+"plats": "Roslit Bay"
+},
+"Deep-sea Lizardfish": {
+"kg_pris": 466.67,
+"kg": 3.0,
+"pris": 1400.0,
+"plats": "Outer Deep"
+},
+"Diplurus": {
+"kg_pris": 11.01,
+"kg": 120.0,
+"pris": 1321.5,
+"plats": "Ancient Archives"
+},
+"Dolphin": {
+"kg_pris": 9.38,
+"kg": 175.0,
+"pris": 1641.5,
+"plats": "Ocean"
+},
+"Dumbo Octopus": {
+"kg_pris": 455.5,
+"kg": 2.75,
+"pris": 1252.6,
+"plats": "Roslit Bay"
+},
+"Dune-Stalker Eel": {
+"kg_pris": 40.53,
+"kg": 57.5,
+"pris": 2330.3,
+"plats": "Drylands"
+},
+"Dunkleosteus": {
+"kg_pris": 0.63,
+"kg": 2100.0,
+"pris": 1330.7,
+"plats": "Ancient Isle"
+},
+"Electric Eel": {
+"kg_pris": 94.05,
+"kg": 14.0,
+"pris": 1316.7,
+"plats": "Lost Jungle"
+},
+"Floppy": {
+"kg_pris": 182.1,
+"kg": 9.0,
+"pris": 1638.9,
+"plats": "Ancient Isle"
+},
+"Flying Fish": {
+"kg_pris": 380.0,
+"kg": 3.25,
+"pris": 1235.0,
+"plats": "Ocean"
+},
+"Flying Gurnard": {
+"kg_pris": 675.0,
+"kg": 3.0,
+"pris": 2025.0,
+"plats": "Sunken Reliquary"
+},
+"Frigid Antlers": {
+"kg_pris": 18.6,
+"kg": 75.0,
+"pris": 1395.0,
+"plats": "Overgrowth Caves"
+},
+"Frostjaw Cod": {
+"kg_pris": 18.6,
+"kg": 75.0,
+"pris": 1395.0,
+"plats": "Cryogenic Canal"
+},
+"Fulmina Serpent": {
+"kg_pris": 44.44,
+"kg": 60.0,
+"pris": 2666.7,
+"plats": "Zeus's Thunder of Chaos"
+},
+"Garden Crab": {
+"kg_pris": 1600.0,
+"kg": 1.8,
+"pris": 2880.0,
+"plats": "Living Garden"
+},
+"Garra Typhlops": {
+"kg_pris": 429.11,
+"kg": 2.85,
+"pris": 1223.0,
+"plats": "Cultist Lair"
+},
+"Gem Dolphin": {
+"kg_pris": 70.18,
+"kg": 18.0,
+"pris": 1263.2,
+"plats": "Treasure Island"
+},
+"Ginsu Shark": {
+"kg_pris": 1.88,
+"kg": 890.0,
+"pris": 1672.3,
+"plats": "Ancient Isle"
+},
+"Gladiator Eel": {
+"kg_pris": 30.0,
+"kg": 40.0,
+"pris": 1200.0,
+"plats": "Bellona's Frenzy of War"
+},
+"Golden Smallmouth Bass": {
+"kg_pris": 370.89,
+"kg": 3.0,
+"pris": 1112.7,
+"plats": "Terrapin Island"
+},
+"Grave Serpent": {
+"kg_pris": 22.22,
+"kg": 60.0,
+"pris": 1333.3,
+"plats": "Hades' Underworld of Indefinite"
+},
+"Hawaiian Ventralis Anthias": {
+"kg_pris": 1833.33,
+"kg": 0.8,
+"pris": 1466.7,
+"plats": "Skycrest"
+},
+"Hidden Pipefish": {
+"kg_pris": 504.0,
+"kg": 2.5,
+"pris": 1260.0,
+"plats": "Castaway Cliffs"
+},
+"Hoarfrost Halibut": {
+"kg_pris": 11.67,
+"kg": 110.0,
+"pris": 1283.3,
+"plats": "Challenger's Deep"
+},
+"Icelus Hypselopterus": {
+"kg_pris": 6500.0,
+"kg": 0.25,
+"pris": 1625.0,
+"plats": "Lower Deep"
+},
+"Icy Daggerfish": {
+"kg_pris": 72.6,
+"kg": 15.75,
+"pris": 1143.4,
+"plats": "Blue Moon"
+},
+"Infant Giant Seadevil": {
+"kg_pris": 1.2,
+"kg": 1150.0,
+"pris": 1384.7,
+"plats": "Abyssal Zenith"
+},
+"Infernal Isonade": {
+"kg_pris": 1.59,
+"kg": 2000.0,
+"pris": 3181.8,
+"plats": "Scoria Reach"
+},
+"Japanese Dragon Eel": {
+"kg_pris": 8.06,
+"kg": 165.0,
+"pris": 1330.6,
+"plats": "Crimson Cavern"
+},
+"King Crab": {
+"kg_pris": 35.75,
+"kg": 65.0,
+"pris": 2323.8,
+"plats": "Boreal Pines"
+},
+"King's Crest Eel": {
+"kg_pris": 33.89,
+"kg": 60.0,
+"pris": 2033.3,
+"plats": "Poseidon's Storm of Floods"
+},
+"Kitefin Shark": {
+"kg_pris": 6.72,
+"kg": 200.0,
+"pris": 1344.0,
+"plats": "Luminescent Cavern"
+},
+"Kraken's Herald": {
+"kg_pris": 4.04,
+"kg": 375.0,
+"pris": 1513.5,
+"plats": "Kraken Lair"
+},
+"Leafscale Lemon Shark": {
+"kg_pris": 2.0,
+"kg": 1800.0,
+"pris": 3600.0,
+"plats": "Living Garden"
+},
+"Leedsichthys": {
+"kg_pris": 1.69,
+"kg": 1000.0,
+"pris": 1691.8,
+"plats": "Ancient Isle"
+},
+"Leopard Shark": {
+"kg_pris": 72.86,
+"kg": 22.5,
+"pris": 1639.3,
+"plats": "Astral Observatory"
+},
+"Maelstorm Shark": {
+"kg_pris": 4.04,
+"kg": 375.0,
+"pris": 1513.5,
+"plats": "Atlantean Storm"
+},
+"Mage Marlin": {
+"kg_pris": 9.0,
+"kg": 150.0,
+"pris": 1350.0,
+"plats": "Ethereal Abyss"
+},
+"Magma-Glass Marlin": {
+"kg_pris": 7.87,
+"kg": 290.0,
+"pris": 2281.3,
+"plats": "Obsidian Trench"
+},
+"Midnight Axolotl": {
+"kg_pris": 654.67,
+"kg": 2.0,
+"pris": 1309.3,
+"plats": "Desolate Deep"
+},
+"Moon Jellyfish": {
+"kg_pris": 2937.5,
+"kg": 0.5,
+"pris": 1468.8,
+"plats": "Astral Observatory"
+},
+"Moon Wood": {
+"kg_pris": 7500.0,
+"kg": 0.15,
+"pris": 1125.0,
+"plats": "Snowcap Island"
+},
+"Moonfish": {
+"kg_pris": 3.92,
+"kg": 375.0,
+"pris": 1468.5,
+"plats": "Ocean"
+},
+"Mycotide Serpent": {
+"kg_pris": 26.67,
+"kg": 135.0,
+"pris": 3600.0,
+"plats": "Toxic Grove"
+},
+"Nautilus": {
+"kg_pris": 22.53,
+"kg": 60.0,
+"pris": 1351.5,
+"plats": "The Depths"
+},
+"Obsidian Salmon": {
+"kg_pris": 103.22,
+"kg": 11.0,
+"pris": 1135.4,
+"plats": "Roslit Volcano"
+},
+"Olm": {
+"kg_pris": 3987.5,
+"kg": 0.25,
+"pris": 996.9,
+"plats": "Terrapin Island"
+},
+"Ozark Cavefish": {
+"kg_pris": 583.14,
+"kg": 2.15,
+"pris": 1253.8,
+"plats": "Cultist Lair"
+},
+"Piraiba": {
+"kg_pris": 0.13,
+"kg": 9000.0,
+"pris": 1163.4,
+"plats": "Lost Jungle"
+},
+"Pirarucu": {
+"kg_pris": 0.1,
+"kg": 12500.0,
+"pris": 1223.8,
+"plats": "Lost Jungle"
+},
+"Polar Alligator": {
+"kg_pris": 12.66,
+"kg": 115.0,
+"pris": 1455.9,
+"plats": "Frigid Cavern"
+},
+"Polar Prowler": {
+"kg_pris": 0.83,
+"kg": 1600.0,
+"pris": 1328.0,
+"plats": "Challenger's Deep"
+},
+"Pond Emperor": {
+"kg_pris": 7.76,
+"kg": 175.0,
+"pris": 1357.3,
+"plats": "Snowcap Island"
+},
+"Prickly Gurnard": {
+"kg_pris": 33.18,
+"kg": 67.5,
+"pris": 2239.8,
+"plats": "Drylands"
+},
+"Rabbitfish": {
+"kg_pris": 303.83,
+"kg": 4.25,
+"pris": 1291.3,
+"plats": "Ocean"
+},
+"Riftia": {
+"kg_pris": 1200.0,
+"kg": 1.25,
+"pris": 1500.0,
+"plats": "Astral Observatory"
+},
+"Rubber Ducky": {
+"kg_pris": 2537.14,
+"kg": 0.4,
+"pris": 1014.9,
+"plats": "Vertigo"
+},
+"Ruby Lionfish": {
+"kg_pris": 115.24,
+"kg": 11.25,
+"pris": 1296.4,
+"plats": "Treasure Island"
+},
+"Sawfish": {
+"kg_pris": 3.06,
+"kg": 500.0,
+"pris": 1531.7,
+"plats": "Ocean"
+},
+"Scalding Swordfish": {
+"kg_pris": 0.82,
+"kg": 1750.0,
+"pris": 1439.2,
+"plats": "Volcanic Vents"
+},
+"Screaming Fluke": {
+"kg_pris": 111.72,
+"kg": 13.6,
+"pris": 1519.4,
+"plats": "Cursed Isle"
+},
+"Shatter-Tooth Shark": {
+"kg_pris": 7.66,
+"kg": 185.0,
+"pris": 1417.2,
+"plats": "Obsidian Trench"
+},
+"Shipwreck Barracuda": {
+"kg_pris": 61.27,
+"kg": 20.0,
+"pris": 1225.3,
+"plats": "Forsaken Shores"
+},
+"Sixgill Shark": {
+"kg_pris": 0.11,
+"kg": 14000.0,
+"pris": 1470.0,
+"plats": "Tidefall"
+},
+"Slender Snipe Eel": {
+"kg_pris": 7333.33,
+"kg": 0.2,
+"pris": 1466.7,
+"plats": "Gloomy Crevice"
+},
+"Small Spine Chimera": {
+"kg_pris": 12.51,
+"kg": 115.0,
+"pris": 1439.0,
+"plats": "The Depths"
+},
+"Solstice Ray": {
+"kg_pris": 25.42,
+"kg": 80.0,
+"pris": 2033.3,
+"plats": "Apollo's Song of Light"
+},
+"Starlit Seahorse": {
+"kg_pris": 13250.0,
+"kg": 0.15,
+"pris": 1987.5,
+"plats": "Astral Observatory"
+},
+"Stormgazer": {
+"kg_pris": 72.12,
+"kg": 31.0,
+"pris": 2235.6,
+"plats": "Brine Pool"
+},
+"Stringed Grouper": {
+"kg_pris": 25.0,
+"kg": 37.0,
+"pris": 925.0,
+"plats": "Crystal Cove"
+},
+"Sunfish": {
+"kg_pris": 1.85,
+"kg": 700.0,
+"pris": 1294.3,
+"plats": "Sunstone Island"
+},
+"Swampfish": {
+"kg_pris": 380.0,
+"kg": 3.25,
+"pris": 1235.0,
+"plats": "Cultist Lair"
+},
+"Thunder Serpent": {
+"kg_pris": 9.0,
+"kg": 150.0,
+"pris": 1350.0,
+"plats": "Zeus's Sanctuary"
+},
+"Titanspawn Serpent": {
+"kg_pris": 9.55,
+"kg": 150.0,
+"pris": 1431.8,
+"plats": "Olympian Fissure"
+},
+"Typhoon Tailfin": {
+"kg_pris": 0.63,
+"kg": 2300.0,
+"pris": 1456.4,
+"plats": "Veil of the Forsaken"
+},
+"Umbral Shark": {
+"kg_pris": 12.11,
+"kg": 130.0,
+"pris": 1574.3,
+"plats": "Keepers Altar"
+},
+"Veinspawn": {
+"kg_pris": 150.14,
+"kg": 10.0,
+"pris": 1501.4,
+"plats": "Cursed Isle"
+},
+"Venom Maw": {
+"kg_pris": 3.8,
+"kg": 900.0,
+"pris": 3420.0,
+"plats": "Toxic Grove"
+},
+"Vibranium Fairy Wrasse": {
+"kg_pris": 1388.89,
+"kg": 1.2,
+"pris": 1666.7,
+"plats": "Skycrest"
+},
+"Void Wood": {
+"kg_pris": 7500.0,
+"kg": 0.15,
+"pris": 1125.0,
+"plats": "Keepers Altar"
+},
+"Void-Drifter Jelly": {
+"kg_pris": 1822.22,
+"kg": 1.0,
+"pris": 1822.2,
+"plats": "Abyssal Zenith"
+},
+"Voidglow Ghostfish": {
+"kg_pris": 0.9,
+"kg": 1550.0,
+"pris": 1397.7,
+"plats": "Abyssal Zenith"
+},
+"Whalefish": {
+"kg_pris": 816.67,
+"kg": 2.0,
+"pris": 1633.3,
+"plats": "Outer Deep"
+},
+"Whiptail Catfish": {
+"kg_pris": 575.0,
+"kg": 2.0,
+"pris": 1150.0,
+"plats": "Moosewood"
+},
+"Whirlpool Snapper": {
+"kg_pris": 59.23,
+"kg": 43.5,
+"pris": 2576.5,
+"plats": "Poseidon's Storm of Floods"
+},
+"Wiifish": {
+"kg_pris": 45.1,
+"kg": 30.0,
+"pris": 1353.0,
+"plats": "Sunstone Island"
+},
+"Wraith-Whisper Ray": {
+"kg_pris": 41.82,
+"kg": 35.0,
+"pris": 1463.6,
+"plats": "Veil of the Forsaken"
+},
+"X-ray Tetra": {
+"kg_pris": 6.33,
+"kg": 525.0,
+"pris": 3325.0,
+"plats": "Lower Deep"
+},
+"Yeti Crab": {
+"kg_pris": 5000.0,
+"kg": 0.35,
+"pris": 1750.0,
+"plats": "Gloomy Crevice"
+},
+"Abyssal Devourer": {
+"kg_pris": 1.48,
+"kg": 1800.0,
+"pris": 2657.3,
+"plats": "Kraken Lair"
+},
+"Abyssal Goliath": {
+"kg_pris": 2.94,
+"kg": 950.0,
+"pris": 2790.6,
+"plats": "Poseidon Temple"
+},
+"Abyssal Grenadier": {
+"kg_pris": 13.5,
+"kg": 160.0,
+"pris": 2159.4,
+"plats": "Cultist Lair"
+},
+"Abyssal Skate": {
+"kg_pris": 260.0,
+"kg": 10.0,
+"pris": 2600.0,
+"plats": "Gloomy Crevice"
+},
+"Amblypterus": {
+"kg_pris": 16.84,
+"kg": 125.0,
+"pris": 2104.9,
+"plats": "Ancient Archives"
+},
+"Anchor": {
+"kg_pris": 0.41,
+"kg": 10000.0,
+"pris": 4133.3,
+"plats": "Tidefall"
+},
+"Aphrodite Anthias": {
+"kg_pris": 2800.0,
+"kg": 1.0,
+"pris": 2800.0,
+"plats": "Skycrest"
+},
+"Atolla Jellyfish": {
+"kg_pris": 70.46,
+"kg": 35.0,
+"pris": 2466.1,
+"plats": "Luminescent Cavern"
+},
+"Aurora Gar": {
+"kg_pris": 666.67,
+"kg": 3.75,
+"pris": 2500.0,
+"plats": "Astral Observatory"
+},
+"Aurora Pearl": {
+"kg_pris": 6250.0,
+"kg": 0.25,
+"pris": 1562.5,
+"plats": "Roslit Bay"
+},
+"Aurora Trout": {
+"kg_pris": 8.24,
+"kg": 300.0,
+"pris": 2470.5,
+"plats": "Cryogenic Canal"
+},
+"Banded Snailfish": {
+"kg_pris": 7600.0,
+"kg": 0.3,
+"pris": 2280.0,
+"plats": "Lower Deep"
+},
+"Barreleye Fish": {
+"kg_pris": 446.67,
+"kg": 10.0,
+"pris": 4466.7,
+"plats": "The Depths"
+},
+"Black Scabbardfish": {
+"kg_pris": 21.4,
+"kg": 125.0,
+"pris": 2675.0,
+"plats": "Collapsed Ruins"
+},
+"Blackmouth Catshark": {
+"kg_pris": 8.33,
+"kg": 375.0,
+"pris": 3125.0,
+"plats": "Crowned Ruins"
+},
+"Blisterback Blenny": {
+"kg_pris": 1.25,
+"kg": 1900.0,
+"pris": 2368.2,
+"plats": "Volcanic Vents"
+},
+"Blue Energy Crystal": {
+"kg_pris": 500.0,
+"kg": 3.75,
+"pris": 1875.0,
+"plats": "Regionless"
+},
+"Boreal Man o' War": {
+"kg_pris": 1150.0,
+"kg": 2.5,
+"pris": 2875.0,
+"plats": "Astral Observatory"
+},
+"Captain's Goldfish": {
+"kg_pris": 2124.0,
+"kg": 1.75,
+"pris": 3717.0,
+"plats": "Forsaken Shores"
+},
+"Carrot Snapper": {
+"kg_pris": 254.56,
+"kg": 9.0,
+"pris": 2291.0,
+"plats": "Carrot Garden"
+},
+"Celestial Koi": {
+"kg_pris": 3.06,
+"kg": 750.0,
+"pris": 2296.5,
+"plats": "Sunken Depths"
+},
+"Chasm Leech": {
+"kg_pris": 1290.71,
+"kg": 2.0,
+"pris": 2581.4,
+"plats": "Cursed Isle"
+},
+"Chillfin Chimaera": {
+"kg_pris": 1.31,
+"kg": 1750.0,
+"pris": 2291.2,
+"plats": "Mariana's Veil"
+},
+"Chlorophage": {
+"kg_pris": 168.0,
+"kg": 22.5,
+"pris": 3780.0,
+"plats": "Toxic Grove"
+},
+"Colossal Squid": {
+"kg_pris": 7.13,
+"kg": 950.0,
+"pris": 6771.9,
+"plats": "Ocean"
+},
+"Comb Jelly": {
+"kg_pris": 14000.0,
+"kg": 0.2,
+"pris": 2800.0,
+"plats": "Astral Observatory"
+},
+"Cuttlefish": {
+"kg_pris": 1075.0,
+"kg": 2.5,
+"pris": 2687.5,
+"plats": "Astral Observatory"
+},
+"Diamond Daisy": {
+"kg_pris": 15625.0,
+"kg": 0.3,
+"pris": 4687.5,
+"plats": "Living Garden"
+},
+"DJ Spinopus": {
+"kg_pris": 0.21,
+"kg": 7500.0,
+"pris": 1562.5,
+"plats": "Crystal Cove"
+},
+"Electric Blue Seahorse": {
+"kg_pris": 440.38,
+"kg": 5.0,
+"pris": 2201.9,
+"plats": "Luminescent Cavern"
+},
+"Emperor Jellyfish": {
+"kg_pris": 4.37,
+"kg": 650.0,
+"pris": 2838.1,
+"plats": "Desolate Deep"
+},
+"Empyrean Sunwhale": {
+"kg_pris": 16.43,
+"kg": 500.0,
+"pris": 8214.3,
+"plats": "Apollo's Song of Light"
+},
+"Faceless Cusk": {
+"kg_pris": 1500.0,
+"kg": 2.0,
+"pris": 3000.0,
+"plats": "Gloomy Crevice"
+},
+"Fairy Penguin": {
+"kg_pris": 2050.0,
+"kg": 1.5,
+"pris": 3075.0,
+"plats": "Astral Observatory"
+},
+"Floraseer Sturgeon": {
+"kg_pris": 29.71,
+"kg": 152.5,
+"pris": 4531.4,
+"plats": "Everturn Forest"
+},
+"Frigid Mammoth Tusk": {
+"kg_pris": 6.59,
+"kg": 375.0,
+"pris": 2470.5,
+"plats": "Frigid Cavern"
+},
+"Frozen Walnut": {
+"kg_pris": 32.94,
+"kg": 75.0,
+"pris": 2470.5,
+"plats": "Overgrowth Caves"
+},
+"Gem Marlin": {
+"kg_pris": 0.2,
+"kg": 11500.0,
+"pris": 2243.1,
+"plats": "Treasure Island"
+},
+"Gemstone Whale Shark": {
+"kg_pris": 8.65,
+"kg": 260.0,
+"pris": 2248.4,
+"plats": "Treasure Island"
+},
+"Giant Seadevil": {
+"kg_pris": 0.72,
+"kg": 3500.0,
+"pris": 2520.7,
+"plats": "Abyssal Zenith"
+},
+"Glacial Squid": {
+"kg_pris": 4.28,
+"kg": 1250.0,
+"pris": 5351.3,
+"plats": "Boreal Pines"
+},
+"Glacial Sturgeon": {
+"kg_pris": 6.59,
+"kg": 375.0,
+"pris": 2470.5,
+"plats": "Cryogenic Canal"
+},
+"Glaciaseer Sturgeon": {
+"kg_pris": 25.26,
+"kg": 165.0,
+"pris": 4168.4,
+"plats": "Everturn Forest"
+},
+"Glacierfish": {
+"kg_pris": 52.68,
+"kg": 50.0,
+"pris": 2634.2,
+"plats": "Snowcap Island"
+},
+"Glass Diamond": {
+"kg_pris": 500.0,
+"kg": 3.75,
+"pris": 1875.0,
+"plats": "Overgrowth Caves"
+},
+"Golden Seahorse": {
+"kg_pris": 3827.5,
+"kg": 0.55,
+"pris": 2105.1,
+"plats": "Forsaken Shores"
+},
+"Golden Trout": {
+"kg_pris": 1800.0,
+"kg": 1.5,
+"pris": 2700.0,
+"plats": "Astral Observatory"
+},
+"Goliath Tigerfish": {
+"kg_pris": 0.67,
+"kg": 3000.0,
+"pris": 2016.0,
+"plats": "Lost Jungle"
+},
+"Grand Reef Guardian": {
+"kg_pris": 43.28,
+"kg": 60.0,
+"pris": 2596.5,
+"plats": "Grand Reef"
+},
+"Great Hammerhead Shark": {
+"kg_pris": 26.46,
+"kg": 365.0,
+"pris": 9657.9,
+"plats": "Ocean"
+},
+"Great White Shark": {
+"kg_pris": 11.06,
+"kg": 950.0,
+"pris": 10507.0,
+"plats": "Ocean"
+},
+"Green Energy Crystal": {
+"kg_pris": 500.0,
+"kg": 3.75,
+"pris": 1875.0,
+"plats": "Regionless"
+},
+"Handfish": {
+"kg_pris": 523.5,
+"kg": 4.0,
+"pris": 2094.0,
+"plats": "Mushgrove Swamp"
+},
+"Harmonic Dove": {
+"kg_pris": 4500.0,
+"kg": 0.7,
+"pris": 3150.0,
+"plats": "Above The Clouds"
+},
+"Helicoprion": {
+"kg_pris": 8.24,
+"kg": 335.0,
+"pris": 2760.6,
+"plats": "Ancient Isle"
+},
+"Icebeard Shark": {
+"kg_pris": 5.65,
+"kg": 450.0,
+"pris": 2543.3,
+"plats": "Glacial Grotto"
+},
+"Inferno Wood": {
+"kg_pris": 12500.0,
+"kg": 0.15,
+"pris": 1875.0,
+"plats": "Roslit Volcano"
+},
+"Isonade": {
+"kg_pris": 2.62,
+"kg": 950.0,
+"pris": 2487.5,
+"plats": "Vertigo"
+},
+"Japanese Linebelly Swallower": {
+"kg_pris": 5125.0,
+"kg": 0.5,
+"pris": 2562.5,
+"plats": "Outer Deep"
+},
+"King Jellyfish": {
+"kg_pris": 6.1,
+"kg": 400.0,
+"pris": 2440.0,
+"plats": "Ethereal Abyss"
+},
+"Lepidotes": {
+"kg_pris": 15.0,
+"kg": 145.0,
+"pris": 2175.0,
+"plats": "Ancient Archives"
+},
+"Luminous Hake": {
+"kg_pris": 1257.14,
+"kg": 2.25,
+"pris": 2828.6,
+"plats": "Lower Deep"
+},
+"Lunar Monkfish": {
+"kg_pris": 11.9,
+"kg": 165.0,
+"pris": 1962.8,
+"plats": "Blue Moon"
+},
+"Manta Ray": {
+"kg_pris": 3.13,
+"kg": 887.5,
+"pris": 2776.1,
+"plats": "Roslit Bay"
+},
+"Meg's Fang": {
+"kg_pris": 1250.0,
+"kg": 1.5,
+"pris": 1875.0,
+"plats": "Ancient Isle"
+},
+"Meg's Spine": {
+"kg_pris": 500.0,
+"kg": 3.75,
+"pris": 1875.0,
+"plats": "Ancient Isle"
+},
+"Megamouth Shark": {
+"kg_pris": 10.0,
+"kg": 1000.0,
+"pris": 10000.0,
+"plats": "Ocean"
+},
+"Mirage Toadfish": {
+"kg_pris": 7.05,
+"kg": 325.0,
+"pris": 2290.0,
+"plats": "Castaway Cliffs"
+},
+"Molten Serpent": {
+"kg_pris": 0.3,
+"kg": 15500.0,
+"pris": 4650.0,
+"plats": "Scoria Reach"
+},
+"Mosasaurus": {
+"kg_pris": 0.25,
+"kg": 12000.0,
+"pris": 2967.4,
+"plats": "Ancient Isle"
+},
+"Motoro Stingray": {
+"kg_pris": 130.6,
+"kg": 16.5,
+"pris": 2154.9,
+"plats": "Lost Jungle"
+},
+"Musical Crab": {
+"kg_pris": 510.33,
+"kg": 3.7,
+"pris": 1888.2,
+"plats": "Crystal Cove"
+},
+"Mutated Shark": {
+"kg_pris": 10.75,
+"kg": 300.0,
+"pris": 3225.0,
+"plats": "The Depths"
+},
+"Mythic Fish": {
+"kg_pris": 2335.71,
+"kg": 1.0,
+"pris": 2335.7,
+"plats": "Ocean"
+},
+"Oarfish": {
+"kg_pris": 12.92,
+"kg": 200.0,
+"pris": 2583.2,
+"plats": "Ocean"
+},
+"Obsidian Pearl": {
+"kg_pris": 2200.0,
+"kg": 4.5,
+"pris": 9900.0,
+"plats": "Scoria Reach"
+},
+"Obsidian Ray": {
+"kg_pris": 22.78,
+"kg": 165.0,
+"pris": 3758.3,
+"plats": "Scoria Reach"
+},
+"Obsidian Swordfish": {
+"kg_pris": 12.53,
+"kg": 175.0,
+"pris": 2192.4,
+"plats": "Roslit Volcano"
+},
+"Pacific Hatchetfish": {
+"kg_pris": 18000.0,
+"kg": 0.15,
+"pris": 2700.0,
+"plats": "Outer Deep"
+},
+"Penguin": {
+"kg_pris": 1015.43,
+"kg": 2.25,
+"pris": 2284.7,
+"plats": "Snowburrow"
+},
+"Petal Ray": {
+"kg_pris": 35.88,
+"kg": 155.0,
+"pris": 5561.8,
+"plats": "Living Garden"
+},
+"Primordial Devourer": {
+"kg_pris": 6.25,
+"kg": 550.0,
+"pris": 3437.5,
+"plats": "Olympian Fissure"
+},
+"Red Energy Crystal": {
+"kg_pris": 1.0,
+"kg": 3.75,
+"pris": 3.8,
+"plats": "Regionless"
+},
+"Reef Triggerfish": {
+"kg_pris": 81.21,
+"kg": 18.5,
+"pris": 1502.3,
+"plats": "Roslit Bay"
+},
+"Reservoir Squalus": {
+"kg_pris": 733.33,
+"kg": 7.5,
+"pris": 5500.0,
+"plats": "Drylands"
+},
+"Ringle": {
+"kg_pris": 7385.0,
+"kg": 0.25,
+"pris": 1846.3,
+"plats": "Snowcap Island"
+},
+"Rose-Veiled Fairy Wrasse": {
+"kg_pris": 2090.91,
+"kg": 1.5,
+"pris": 3136.4,
+"plats": "Skycrest"
+},
+"Sand Tiger Shark": {
+"kg_pris": 0.38,
+"kg": 8500.0,
+"pris": 3187.5,
+"plats": "Coral Bastion"
+},
+"Scaly Dragonfish": {
+"kg_pris": 127.07,
+"kg": 19.0,
+"pris": 2414.4,
+"plats": "Cultist Lair"
+},
+"Sea Mine": {
+"kg_pris": 32.31,
+"kg": 262.5,
+"pris": 8480.8,
+"plats": "Desolate Deep"
+},
+"Sea Pickle": {
+"kg_pris": 2812.0,
+"kg": 0.7,
+"pris": 1968.4,
+"plats": "Ocean"
+},
+"Sea Snake": {
+"kg_pris": 61.25,
+"kg": 55.0,
+"pris": 3368.8,
+"plats": "The Depths"
+},
+"Sea Turtle": {
+"kg_pris": 20.85,
+"kg": 110.0,
+"pris": 2293.9,
+"plats": "Terrapin Island"
+},
+"Shatterjaw Shark": {
+"kg_pris": 1.0,
+"kg": 4350.0,
+"pris": 4350.0,
+"plats": "Obsidian Trench"
+},
+"Shimmering Silverside": {
+"kg_pris": 44.74,
+"kg": 47.5,
+"pris": 2125.3,
+"plats": "Calm Zone"
+},
+"Skybreaker Leviathan": {
+"kg_pris": 12.43,
+"kg": 500.0,
+"pris": 6214.3,
+"plats": "Zeus's Thunder of Chaos"
+},
+"Small-Spotted Catshark": {
+"kg_pris": 5.14,
+"kg": 500.0,
+"pris": 2568.8,
+"plats": "Sunken Reliquary"
+},
+"Solarseer Sturgeon": {
+"kg_pris": 24.29,
+"kg": 182.5,
+"pris": 4432.1,
+"plats": "Everturn Forest"
+},
+"Sovereign Oarfish": {
+"kg_pris": 55.26,
+"kg": 70.0,
+"pris": 3868.4,
+"plats": "Enchanted Crevice"
+},
+"Spectral Serpent": {
+"kg_pris": 0.28,
+"kg": 12000.0,
+"pris": 3312.9,
+"plats": "Brine Pool"
+},
+"Spectral Whale": {
+"kg_pris": 6.71,
+"kg": 500.0,
+"pris": 3357.1,
+"plats": "Hades' Underworld of Indefinite"
+},
+"Stoplight Loosejaw": {
+"kg_pris": 39.26,
+"kg": 55.0,
+"pris": 2159.2,
+"plats": "Cultist Lair"
+},
+"Sun-Blistered Perch": {
+"kg_pris": 168.0,
+"kg": 32.5,
+"pris": 5460.0,
+"plats": "Drylands"
+},
+"Sunder-Whelp Jaw": {
+"kg_pris": 9.75,
+"kg": 500.0,
+"pris": 4875.0,
+"plats": "Drylands"
+},
+"Tarnished Moongill": {
+"kg_pris": 830.29,
+"kg": 2.25,
+"pris": 1868.1,
+"plats": "Blue Moon"
+},
+"Terrosunder Skull": {
+"kg_pris": 6.13,
+"kg": 950.0,
+"pris": 5826.7,
+"plats": "Drylands"
+},
+"Toxified Crab": {
+"kg_pris": 2615.38,
+"kg": 2.3,
+"pris": 6015.4,
+"plats": "Toxic Grove"
+},
+"Tsunami Whale": {
+"kg_pris": 16.71,
+"kg": 500.0,
+"pris": 8357.1,
+"plats": "Poseidon's Storm of Floods"
+},
+"Twilight Tentaclefish": {
+"kg_pris": 4.87,
+"kg": 515.0,
+"pris": 2508.4,
+"plats": "Veil of the Forsaken"
+},
+"Umbraleaf Sturgeon": {
+"kg_pris": 26.49,
+"kg": 165.0,
+"pris": 4370.3,
+"plats": "Everturn Forest"
+},
+"Vampire Squid": {
+"kg_pris": 88.08,
+"kg": 27.5,
+"pris": 2422.1,
+"plats": "Crimson Cavern"
+},
+"Void Angler": {
+"kg_pris": 2.94,
+"kg": 950.0,
+"pris": 2790.6,
+"plats": "Atlantean Storm"
+},
+"Void Emperor": {
+"kg_pris": 2.91,
+"kg": 950.0,
+"pris": 2764.5,
+"plats": "Kraken Lair"
+},
+"Voltfish": {
+"kg_pris": 2082.5,
+"kg": 1.2,
+"pris": 2499.0,
+"plats": "Sunstone Island"
+},
+"Warlord Sturgeon": {
+"kg_pris": 15.0,
+"kg": 350.0,
+"pris": 5250.0,
+"plats": "Bellona's Frenzy of War"
+},
+"Whale Shark": {
+"kg_pris": 0.82,
+"kg": 12500.0,
+"pris": 10227.5,
+"plats": "Ocean"
+},
+"Whisker Bill": {
+"kg_pris": 31.0,
+"kg": 67.5,
+"pris": 2092.5,
+"plats": "Moosewood"
+},
+"Wobbegong Shark": {
+"kg_pris": 1.15,
+"kg": 2750.0,
+"pris": 3162.5,
+"plats": "Coral Bastion"
+},
+"Yellow Energy Crystal": {
+"kg_pris": 500.0,
+"kg": 3.75,
+"pris": 1875.0,
+"plats": "Regionless"
+},
+"Zeus' Herald": {
+"kg_pris": 10.1,
+"kg": 225.0,
+"pris": 2273.3,
+"plats": "Zeus's Sanctuary"
+},
+"Abaia": {
+"kg_pris": 0.27,
+"kg": 95000.0,
+"pris": 25333.3,
+"plats": "Skycrest"
+},
+"Ancient Depth Serpent": {
+"kg_pris": 31.57,
+"kg": 750.0,
+"pris": 23673.8,
+"plats": "The Depths"
+},
+"Ancient Megalodon": {
+"kg_pris": 0.54,
+"kg": 60000.0,
+"pris": 32142.9,
+"plats": "Ancient Isle"
+},
+"Anglers Lantern": {
+"kg_pris": 2462.5,
+"kg": 1.9,
+"pris": 4678.8,
+"plats": "Abyssal Zenith"
+},
+"Baby Bloop Fish": {
+"kg_pris": 35.92,
+"kg": 125.0,
+"pris": 4490.0,
+"plats": "Ocean"
+},
+"Baby Oakling": {
+"kg_pris": 250.0,
+"kg": 0.15,
+"pris": 37.5,
+"plats": "Everturn Forest"
+},
+"Baby Pond Emperor": {
+"kg_pris": 1677.5,
+"kg": 1.25,
+"pris": 2096.9,
+"plats": "Snowcap Island"
+},
+"Blobfish": {
+"kg_pris": 1250.0,
+"kg": 4.4,
+"pris": 5500.0,
+"plats": "Ocean"
+},
+"Blue Galapagos Octopus": {
+"kg_pris": 21775.0,
+"kg": 0.15,
+"pris": 3266.3,
+"plats": "Desolate Deep"
+},
+"Blue Whale": {
+"kg_pris": 0.05,
+"kg": 215000.0,
+"pris": 10386.7,
+"plats": "Ocean"
+},
+"Boots": {
+"kg_pris": 3481.54,
+"kg": 1.25,
+"pris": 4351.9,
+"plats": "Ocean"
+},
+"Brine Sovereign": {
+"kg_pris": 7.99,
+"kg": 1555.0,
+"pris": 12417.9,
+"plats": "Brine Pool"
+},
+"Carrot Shark": {
+"kg_pris": 115.0,
+"kg": 31.0,
+"pris": 3565.0,
+"plats": "Carrot Garden"
+},
+"Cathulid": {
+"kg_pris": 625.0,
+"kg": 6.75,
+"pris": 4218.8,
+"plats": "Cultist Lair"
+},
+"Cathulith": {
+"kg_pris": 16.82,
+"kg": 250.0,
+"pris": 4205.6,
+"plats": "Cultist Lair"
+},
+"Cave Angel Fish": {
+"kg_pris": 743.09,
+"kg": 7.5,
+"pris": 5573.2,
+"plats": "Cultist Lair"
+},
+"Colossal Ancient Dragon": {
+"kg_pris": 0.09,
+"kg": 250000.0,
+"pris": 21875.0,
+"plats": "Crimson Cavern"
+},
+"Colossal Blue Dragon": {
+"kg_pris": 0.08,
+"kg": 175000.0,
+"pris": 14583.3,
+"plats": "Luminescent Cavern"
+},
+"Crowned Anglerfish": {
+"kg_pris": 0.11,
+"kg": 95000.0,
+"pris": 10127.7,
+"plats": "Abyssal Zenith"
+},
+"Crystallized Seadragon": {
+"kg_pris": 0.09,
+"kg": 110000.0,
+"pris": 9689.7,
+"plats": "Calm Zone"
+},
+"Dreaming Aberration": {
+"kg_pris": 108.42,
+"kg": 30.5,
+"pris": 3306.8,
+"plats": "Cursed Isle"
+},
+"Fin Whale": {
+"kg_pris": 0.13,
+"kg": 140000.0,
+"pris": 17500.0,
+"plats": "Ocean"
+},
+"Flower Guardian": {
+"kg_pris": 1.6,
+"kg": 27500.0,
+"pris": 44000.0,
+"plats": "Living Garden"
+},
+"Frostwyrm": {
+"kg_pris": 0.28,
+"kg": 150000.0,
+"pris": 41250.0,
+"plats": "Boreal Pines"
+},
+"Frozen Glass": {
+"kg_pris": 966.67,
+"kg": 6.5,
+"pris": 6283.3,
+"plats": "Astral Observatory"
+},
+"Frozen Leviathan": {
+"kg_pris": 0.11,
+"kg": 95000.0,
+"pris": 10038.1,
+"plats": "Challenger's Deep"
+},
+"Golden Sea Pearl": {
+"kg_pris": 25000.0,
+"kg": 0.25,
+"pris": 6250.0,
+"plats": "Roslit Bay"
+},
+"Goldfin Octopus": {
+"kg_pris": 84.87,
+"kg": 65.0,
+"pris": 5516.6,
+"plats": "Treasure Island"
+},
+"Goldwraith": {
+"kg_pris": 0.08,
+"kg": 450000.0,
+"pris": 36000.0,
+"plats": "Crowned Ruins"
+},
+"Goliath Siphonophore": {
+"kg_pris": 155.0,
+"kg": 125.0,
+"pris": 19375.0,
+"plats": "Astral Observatory"
+},
+"Hardened Glass": {
+"kg_pris": 708.33,
+"kg": 8.5,
+"pris": 6020.8,
+"plats": "Astral Observatory"
+},
+"Helios Sunray": {
+"kg_pris": 45.71,
+"kg": 650.0,
+"pris": 29714.3,
+"plats": "Apollo's Song of Light"
+},
+"Humpback Whale": {
+"kg_pris": 1.38,
+"kg": 33500.0,
+"pris": 46155.6,
+"plats": "Ocean"
+},
+"Igneous Pearl": {
+"kg_pris": 2250.0,
+"kg": 3.9,
+"pris": 8775.0,
+"plats": "Scoria Reach"
+},
+"Kerauno Wyrm": {
+"kg_pris": 0.36,
+"kg": 77500.0,
+"pris": 28093.8,
+"plats": "Zeus's Thunder of Chaos"
+},
+"Key of Oaths": {
+"kg_pris": 800.0,
+"kg": 0.75,
+"pris": 600.0,
+"plats": "Cultist Lair"
+},
+"Key of Whispers": {
+"kg_pris": 800.0,
+"kg": 0.75,
+"pris": 600.0,
+"plats": "Cultist Lair"
+},
+"Legionnaire Lamprey": {
+"kg_pris": 0.55,
+"kg": 52500.0,
+"pris": 28636.4,
+"plats": "Bellona's Frenzy of War"
+},
+"Leviathan": {
+"kg_pris": 0.15,
+"kg": 290000.0,
+"pris": 42927.6,
+"plats": "Cultist Lair"
+},
+"Lithodes Megacantha": {
+"kg_pris": 498.33,
+"kg": 10.0,
+"pris": 4983.3,
+"plats": "Crimson Cavern"
+},
+"Livyatan": {
+"kg_pris": 1.09,
+"kg": 42000.0,
+"pris": 45750.0,
+"plats": "Ancient Isle"
+},
+"Magma Leviathan": {
+"kg_pris": 0.11,
+"kg": 95000.0,
+"pris": 10038.1,
+"plats": "Volcanic Vents"
+},
+"Megalodon": {
+"kg_pris": 0.47,
+"kg": 58500.0,
+"pris": 27285.4,
+"plats": "Ancient Isle"
+},
+"Molten Banshee": {
+"kg_pris": 22.58,
+"kg": 425.0,
+"pris": 9598.0,
+"plats": "Roslit Volcano"
+},
+"Monstrous Cusk": {
+"kg_pris": 3.46,
+"kg": 11500.0,
+"pris": 39807.7,
+"plats": "Gloomy Crevice"
+},
+"Mossjaw": {
+"kg_pris": 0.07,
+"kg": 500000.0,
+"pris": 34285.7,
+"plats": "Lost Jungle"
+},
+"Omnithal": {
+"kg_pris": 0.11,
+"kg": 275000.0,
+"pris": 28875.0,
+"plats": "Sunken Reliquary"
+},
+"Orca": {
+"kg_pris": 8.27,
+"kg": 1250.0,
+"pris": 10333.3,
+"plats": "Ocean"
+},
+"Plesiosaur": {
+"kg_pris": 0.25,
+"kg": 140000.0,
+"pris": 35000.0,
+"plats": "Tidefall"
+},
+"Pliosaur": {
+"kg_pris": 0.18,
+"kg": 175000.0,
+"pris": 31500.0,
+"plats": "Collapsed Ruins"
+},
+"Quartz Glass": {
+"kg_pris": 1533.33,
+"kg": 4.0,
+"pris": 6133.3,
+"plats": "Astral Observatory"
+},
+"Queen Bee Serpent": {
+"kg_pris": 13.55,
+"kg": 850.0,
+"pris": 11513.6,
+"plats": "Nectar Den"
+},
+"Reef Titan": {
+"kg_pris": 0.35,
+"kg": 75000.0,
+"pris": 26250.0,
+"plats": "Coral Bastion"
+},
+"RocketFuel": {
+"kg_pris": 3481.54,
+"kg": 1.25,
+"pris": 4351.9,
+"plats": "Mushgrove Swamp"
+},
+"Rotbloom": {
+"kg_pris": 0.71,
+"kg": 60000.0,
+"pris": 42857.1,
+"plats": "Toxic Grove"
+},
+"Scalloped Hammerhead": {
+"kg_pris": 0.52,
+"kg": 10250.0,
+"pris": 5291.1,
+"plats": "Castaway Cliffs"
+},
+"Seasonal Glass": {
+"kg_pris": 1100.0,
+"kg": 6.0,
+"pris": 6600.0,
+"plats": "Astral Observatory"
+},
+"Sei Whale": {
+"kg_pris": 0.58,
+"kg": 36000.0,
+"pris": 21000.0,
+"plats": "Ocean"
+},
+"Skeletal Leviathan": {
+"kg_pris": 0.3,
+"kg": 155000.0,
+"pris": 46984.4,
+"plats": "Scoria Reach"
+},
+"Skolopendra": {
+"kg_pris": 0.47,
+"kg": 95000.0,
+"pris": 44333.3,
+"plats": "Obsidian Trench"
+},
+"Speed Core": {
+"kg_pris": 4250.77,
+"kg": 1.25,
+"pris": 5313.5,
+"plats": "Sunstone Island"
+},
+"Starfall Glass": {
+"kg_pris": 1285.71,
+"kg": 5.0,
+"pris": 6428.6,
+"plats": "Astral Observatory"
+},
+"Styx Angler": {
+"kg_pris": 2.17,
+"kg": 22000.0,
+"pris": 47666.7,
+"plats": "Hades' Underworld of Indefinite"
+},
+"Tartaruga": {
+"kg_pris": 2.9,
+"kg": 2475.0,
+"pris": 7165.1,
+"plats": "Sunstone Island"
+},
+"Terrosunder": {
+"kg_pris": 0.82,
+"kg": 52500.0,
+"pris": 42954.5,
+"plats": "Drylands"
+},
+"The Depths Key": {
+"kg_pris": 48.88,
+"kg": 75.0,
+"pris": 3666.0,
+"plats": "Vertigo"
+},
+"The Kraken": {
+"kg_pris": 0.21,
+"kg": 115000.0,
+"pris": 23958.3,
+"plats": "Kraken Lair"
+},
+"Tidecrasher Archon": {
+"kg_pris": 0.6,
+"kg": 81000.0,
+"pris": 48402.4,
+"plats": "Poseidon's Storm of Floods"
+},
+"Treble Bass": {
+"kg_pris": 1181.33,
+"kg": 2.75,
+"pris": 3248.7,
+"plats": "Moosewood"
+},
+"Walrus": {
+"kg_pris": 2.14,
+"kg": 1450.0,
+"pris": 3105.9,
+"plats": "Snowcap Island"
+},
+"White Sturgeon": {
+"kg_pris": 12.11,
+"kg": 450.0,
+"pris": 5451.4,
+"plats": "Snowburrow"
+},
+"Wyvern": {
+"kg_pris": 30.5,
+"kg": 900.0,
+"pris": 27450.0,
+"plats": "Above The Clouds"
+},
+"Abyssborn Monstrosity": {
+"kg_pris": 1.29,
+"kg": 4080.0,
+"pris": 5257.3,
+"plats": "Cursed Isle"
+},
+"Ancestral Abaia": {
+"kg_pris": 0.29,
+"kg": 175000.0,
+"pris": 50480.8,
+"plats": "Skycrest"
+},
+"Ancestral Pliosaur": {
+"kg_pris": 0.26,
+"kg": 175000.0,
+"pris": 46200.0,
+"plats": "Collapsed Ruins"
+},
+"Ancient Goldwraith": {
+"kg_pris": 0.12,
+"kg": 550000.0,
+"pris": 63250.0,
+"plats": "Crowned Ruins"
+},
+"Ancient Kraken": {
+"kg_pris": 0.18,
+"kg": 175000.0,
+"pris": 30800.0,
+"plats": "Kraken Lair"
+},
+"Ancient Orca": {
+"kg_pris": 5.7,
+"kg": 2250.0,
+"pris": 12816.0,
+"plats": "Ocean"
+},
+"Awakened Omnithal": {
+"kg_pris": 0.15,
+"kg": 350000.0,
+"pris": 52111.1,
+"plats": "Sunken Reliquary"
+},
+"Banana": {
+"kg_pris": 5688.0,
+"kg": 0.7,
+"pris": 3981.6,
+"plats": "Ancient Isle"
+},
+"Blight Idol": {
+"kg_pris": 56000.0,
+"kg": 0.4,
+"pris": 22400.0,
+"plats": "Toxic Grove"
+},
+"Bloop Cosmetic Crate": {
+"kg_pris": 495.05,
+"kg": 10.05,
+"pris": 4975.2,
+"plats": "Regionless"
+},
+"Blue Sea Slug": {
+"kg_pris": 10531.43,
+"kg": 0.45,
+"pris": 4739.1,
+"plats": "Luminescent Cavern"
+},
+"Caustic Starwyrm": {
+"kg_pris": 1.98,
+"kg": 21500.0,
+"pris": 42598.3,
+"plats": "Brine Pool"
+},
+"Colossal Ethereal Dragon": {
+"kg_pris": 0.1,
+"kg": 250000.0,
+"pris": 25000.0,
+"plats": "Luminescent Cavern"
+},
+"Colossus Reef Titan": {
+"kg_pris": 0.49,
+"kg": 117500.0,
+"pris": 57071.4,
+"plats": "Coral Bastion"
+},
+"Crag-Crab": {
+"kg_pris": 312.5,
+"kg": 80.0,
+"pris": 25000.0,
+"plats": "Scoria Reach"
+},
+"Elder Mossjaw": {
+"kg_pris": 0.04,
+"kg": 1000000.0,
+"pris": 35714.3,
+"plats": "Lost Jungle"
+},
+"Gem Blobfish": {
+"kg_pris": 500.0,
+"kg": 5.5,
+"pris": 2750.0,
+"plats": "Treasure Island"
+},
+"Grandpa Horseshoe Crab": {
+"kg_pris": 3.16,
+"kg": 7.0,
+"pris": 22.1,
+"plats": "Desolate Deep"
+},
+"Great Goldcursed Shark": {
+"kg_pris": 0.3,
+"kg": 17500.0,
+"pris": 5241.6,
+"plats": "Castaway Cliffs"
+},
+"Long Pike": {
+"kg_pris": 1589.14,
+"kg": 2.35,
+"pris": 3734.5,
+"plats": "Ocean"
+},
+"Manatee": {
+"kg_pris": 3.13,
+"kg": 1250.0,
+"pris": 3906.3,
+"plats": "Terrapin Island"
+},
+"Moby": {
+"kg_pris": 0.04,
+"kg": 150000.0,
+"pris": 5616.0,
+"plats": "Ocean"
+},
+"Molten Ripple": {
+"kg_pris": 2.03,
+"kg": 2475.0,
+"pris": 5022.9,
+"plats": "Roslit Volcano"
+},
+"Moon Idol": {
+"kg_pris": 121.06,
+"kg": 50.0,
+"pris": 6053.0,
+"plats": "Blue Moon"
+},
+"Mustard": {
+"kg_pris": 1422.0,
+"kg": 2.5,
+"pris": 3555.0,
+"plats": "Ocean"
+},
+"Oakling": {
+"kg_pris": 83.33,
+"kg": 1.1,
+"pris": 91.7,
+"plats": "Everturn Forest"
+},
+"Olympian Devil": {
+"kg_pris": 0.05,
+"kg": 1550000.0,
+"pris": 77500.0,
+"plats": "Olympian Fissure"
+},
+"Photic Terrosunder": {
+"kg_pris": 0.83,
+"kg": 69000.0,
+"pris": 57500.0,
+"plats": "Drylands"
+},
+"Pirate Captain's Goldfish": {
+"kg_pris": 6520.33,
+"kg": 2.25,
+"pris": 14670.8,
+"plats": "Forsaken Shores"
+},
+"Profane Leviathan": {
+"kg_pris": 0.15,
+"kg": 320000.0,
+"pris": 47619.0,
+"plats": "Cultist Lair"
+},
+"Resin": {
+"kg_pris": 657.88,
+"kg": 5.5,
+"pris": 3618.3,
+"plats": "Mushgrove Swamp"
+},
+"Scylla": {
+"kg_pris": 0.09,
+"kg": 350000.0,
+"pris": 30966.6,
+"plats": "Veil of the Forsaken"
+},
+"Singularity Control Unit": {
+"kg_pris": 280.0,
+"kg": 20.0,
+"pris": 5600.0,
+"plats": "Astral Observatory"
+},
+"Stabilizer Core": {
+"kg_pris": 166.67,
+"kg": 25.0,
+"pris": 4166.7,
+"plats": "Astral Observatory"
+},
+"Stellar Wiring": {
+"kg_pris": 1100.0,
+"kg": 3.5,
+"pris": 3850.0,
+"plats": "Astral Observatory"
+},
+"Toxic Guardian": {
+"kg_pris": 1.57,
+"kg": 32500.0,
+"pris": 51071.4,
+"plats": "Living Garden"
+},
+"Umbral Matrix": {
+"kg_pris": 650.0,
+"kg": 7.5,
+"pris": 4875.0,
+"plats": "Astral Observatory"
+},
+"Unstable Crystal": {
+"kg_pris": 3000.0,
+"kg": 1.5,
+"pris": 4500.0,
+"plats": "Astral Observatory"
+},
+"Witherbloom": {
+"kg_pris": 0.71,
+"kg": 65000.0,
+"pris": 45933.3,
+"plats": "Toxic Grove"
+},
+"🐋": {
+"kg_pris": 0.5,
+"kg": 5000.05,
+"pris": 2500.0,
+"plats": "Regionless"
+},
+"🐟": {
+"kg_pris": 0.5,
+"kg": 5000.05,
+"pris": 2500.0,
+"plats": "Regionless"
+},
+"🐡": {
+"kg_pris": 0.5,
+"kg": 5000.05,
+"pris": 2500.0,
+"plats": "Regionless"
+},
+"🦈": {
+"kg_pris": 0.5,
+"kg": 5000.05,
+"pris": 2500.0,
+"plats": "Regionless"
+},
+"🦋": {
+"kg_pris": 14813.33,
+"kg": 0.2,
+"pris": 2962.7,
+"plats": "Living Garden"
+},
+"🦑": {
+"kg_pris": 0.5,
+"kg": 5000.05,
+"pris": 2500.0,
+"plats": "Regionless"
+},
+"Abyssal Maw": {
+"kg_pris": 1.71,
+"kg": 1150.0,
+"pris": 1961.8,
+"plats": "Cults Curse"
+},
+"Ancient Algae": {
+"kg_pris": 10.0,
+"kg": 3.75,
+"pris": 37.5,
+"plats": "Regionless"
+},
+"Ancient Serpent Skull": {
+"kg_pris": 120.0,
+"kg": 7.5,
+"pris": 900.0,
+"plats": "Archeological Site"
+},
+"Ancient Serpent Spine": {
+"kg_pris": 100.0,
+"kg": 5.5,
+"pris": 550.0,
+"plats": "Archeological Site"
+},
+"Ashcloud Archerfish": {
+"kg_pris": 15.0,
+"kg": 1300.0,
+"pris": 19500.0,
+"plats": "Ashfall"
+},
+"Azure Studfish": {
+"kg_pris": 24.0,
+"kg": 1.7,
+"pris": 40.8,
+"plats": "LEGO Event"
+},
+"Baby Chick": {
+"kg_pris": 750.0,
+"kg": 0.15,
+"pris": 112.5,
+"plats": "Easter 2"
+},
+"Baby Nessie": {
+"kg_pris": 287.5,
+"kg": 25.0,
+"pris": 7187.5,
+"plats": "FischFright 2"
+},
+"Baby's First Balloon": {
+"kg_pris": 41666.67,
+"kg": 0.2,
+"pris": 8333.3,
+"plats": "Anniversary"
+},
+"Banana Eel": {
+"kg_pris": 186.67,
+"kg": 1.0,
+"pris": 186.7,
+"plats": "Skycrest"
+},
+"Barracuda's Spine": {
+"kg_pris": 10.0,
+"kg": 3.75,
+"pris": 37.5,
+"plats": "Archeological Site"
+},
+"Basic Present": {
+"kg_pris": 13.33,
+"kg": 9.0,
+"pris": 120.0,
+"plats": "Fischmas 1"
+},
+"Basketback Tortoise": {
+"kg_pris": 3.48,
+"kg": 12750.0,
+"pris": 44388.9,
+"plats": "Easter 2"
+},
+"Battlescarred Serpent": {
+"kg_pris": 22.14,
+"kg": 5.0,
+"pris": 110.7,
+"plats": "Atlantean Storm"
+},
+"Bauble Bass": {
+"kg_pris": 136.4,
+"kg": 1.9,
+"pris": 259.2,
+"plats": "Fischmas 2"
+},
+"BBQ Bass": {
+"kg_pris": 68.24,
+"kg": 6.25,
+"pris": 426.5,
+"plats": "Fischfest 2"
+},
+"Beach Ball Pufferfish": {
+"kg_pris": 143.33,
+"kg": 1.75,
+"pris": 250.8,
+"plats": "Fischfest 1"
+},
+"Beach Bucket": {
+"kg_pris": 36.0,
+"kg": 1.75,
+"pris": 63.0,
+"plats": "Fischfest 2"
+},
+"Beach Crate": {
+"kg_pris": 62.5,
+"kg": 8.0,
+"pris": 500.0,
+"plats": "Fischfest 1"
+},
+"Beach Radio": {
+"kg_pris": 102.0,
+"kg": 5.0,
+"pris": 510.0,
+"plats": "Fischfest 2"
+},
+"Beach Towel": {
+"kg_pris": 40.0,
+"kg": 1.75,
+"pris": 70.0,
+"plats": "Fischfest 2"
+},
+"Beached Relic": {
+"kg_pris": 750.0,
+"kg": 20.0,
+"pris": 15000.0,
+"plats": "Fischfest 2"
+},
+"Bellfin": {
+"kg_pris": 125.56,
+"kg": 2.1,
+"pris": 263.7,
+"plats": "Fischmas 2"
+},
+"Birthday Cake": {
+"kg_pris": 5740.74,
+"kg": 2.25,
+"pris": 12916.7,
+"plats": "Anniversary"
+},
+"Birthday Dumbo Octopus": {
+"kg_pris": 1309.52,
+"kg": 2.95,
+"pris": 3863.1,
+"plats": "Anniversary"
+},
+"Birthday Gift": {
+"kg_pris": 110.0,
+"kg": 26.0,
+"pris": 2860.0,
+"plats": "Anniversary"
+},
+"Birthday Goldfish": {
+"kg_pris": 1100.0,
+"kg": 3.5,
+"pris": 3850.0,
+"plats": "Anniversary"
+},
+"Birthday Megalodon": {
+"kg_pris": 0.3,
+"kg": 58510.0,
+"pris": 17463.1,
+"plats": "Anniversary"
+},
+"Birthday Squid": {
+"kg_pris": 2037.04,
+"kg": 1.7,
+"pris": 3463.0,
+"plats": "Anniversary"
+},
+"Black Veil Ray": {
+"kg_pris": 22.0,
+"kg": 3.0,
+"pris": 66.0,
+"plats": "Crypt"
+},
+"Blarney McBreeze": {
+"kg_pris": 34.38,
+"kg": 112.5,
+"pris": 3867.2,
+"plats": "Lucky Event"
+},
+"Blistered Eel": {
+"kg_pris": 15.79,
+"kg": 15.25,
+"pris": 240.8,
+"plats": "Ashfall"
+},
+"Bloodscript Eel": {
+"kg_pris": 151.11,
+"kg": 31.5,
+"pris": 4760.0,
+"plats": "Cults Curse"
+},
+"Bone Lanternfish": {
+"kg_pris": 22.0,
+"kg": 3.0,
+"pris": 66.0,
+"plats": "Crypt"
+},
+"Bountiful Bait Crate": {
+"kg_pris": 62.5,
+"kg": 8.0,
+"pris": 500.0,
+"plats": "Fischgiving 2"
+},
+"Box of Chocolate": {
+"kg_pris": 333.33,
+"kg": 1.5,
+"pris": 500.0,
+"plats": "Valentides 2"
+},
+"Brainy Smurf": {
+"kg_pris": 242.86,
+"kg": 15.0,
+"pris": 3642.9,
+"plats": "Smurf Event"
+},
+"Brickhorse": {
+"kg_pris": 63.64,
+"kg": 3.75,
+"pris": 238.6,
+"plats": "LEGO Event"
+},
+"Buoy Bass": {
+"kg_pris": 55.71,
+"kg": 5.5,
+"pris": 306.4,
+"plats": "Fischfest 2"
+},
+"Burnt Betta": {
+"kg_pris": 3.75,
+"kg": 500.0,
+"pris": 1875.0,
+"plats": "Ashfall"
+},
+"Cabana Carp": {
+"kg_pris": 1285.71,
+"kg": 2.25,
+"pris": 2892.9,
+"plats": "Skycrest"
+},
+"Candle Carp": {
+"kg_pris": 57.14,
+"kg": 4.5,
+"pris": 257.1,
+"plats": "FischFright 2"
+},
+"Candy Cane": {
+"kg_pris": 166.67,
+"kg": 1.3,
+"pris": 216.7,
+"plats": "Fischmas 2"
+},
+"Candy Cane Carp": {
+"kg_pris": 15.0,
+"kg": 3.0,
+"pris": 45.0,
+"plats": "Fischmas 1"
+},
+"Candy Cane Cod": {
+"kg_pris": 103.33,
+"kg": 1.5,
+"pris": 155.0,
+"plats": "Fischmas 2"
+},
+"Candy Corn Cod": {
+"kg_pris": 40.0,
+"kg": 6.0,
+"pris": 240.0,
+"plats": "FischFright 2"
+},
+"Candy Fish": {
+"kg_pris": 200.0,
+"kg": 0.75,
+"pris": 150.0,
+"plats": "FischFright 1"
+},
+"Capybass": {
+"kg_pris": 20.0,
+"kg": 50.0,
+"pris": 1000.0,
+"plats": "Animals"
+},
+"Caramel Chub": {
+"kg_pris": 83.33,
+"kg": 2.0,
+"pris": 166.7,
+"plats": "FischFright 2"
+},
+"Cardinal Studfish": {
+"kg_pris": 74.07,
+"kg": 3.65,
+"pris": 270.4,
+"plats": "LEGO Event"
+},
+"Carol Carp": {
+"kg_pris": 96.09,
+"kg": 1.75,
+"pris": 168.2,
+"plats": "Fischmas 2"
+},
+"Chillin' Crab": {
+"kg_pris": 128.57,
+"kg": 2.5,
+"pris": 321.4,
+"plats": "Fischfest 2"
+},
+"Cinder Carp": {
+"kg_pris": 75.0,
+"kg": 6.5,
+"pris": 487.5,
+"plats": "Ashfall"
+},
+"Claw Gill": {
+"kg_pris": 20.0,
+"kg": 2.25,
+"pris": 45.0,
+"plats": "Archeological Site"
+},
+"Clout Carp": {
+"kg_pris": 628.57,
+"kg": 3.25,
+"pris": 2042.9,
+"plats": "Streamer Hideout"
+},
+"Clover Carp": {
+"kg_pris": 1533.33,
+"kg": 2.75,
+"pris": 4216.7,
+"plats": "Shamrock Seas"
+},
+"Clown Brickfish": {
+"kg_pris": 100.0,
+"kg": 0.55,
+"pris": 55.0,
+"plats": "LEGO Event"
+},
+"Cluckfin": {
+"kg_pris": 6.41,
+"kg": 24.25,
+"pris": 155.4,
+"plats": "Animals"
+},
+"Clumsy Smurf": {
+"kg_pris": 185.71,
+"kg": 15.0,
+"pris": 2785.7,
+"plats": "Smurf Event"
+},
+"Coastal Crate": {
+"kg_pris": 62.5,
+"kg": 8.0,
+"pris": 500.0,
+"plats": "Fischfest 2"
+},
+"Coconut": {
+"kg_pris": 1320.0,
+"kg": 1.0,
+"pris": 1320.0,
+"plats": "Fischfest 1"
+},
+"Coconut Crabstle": {
+"kg_pris": 108.33,
+"kg": 4.0,
+"pris": 433.3,
+"plats": "Skycrest"
+},
+"Coffin Crab": {
+"kg_pris": 33.33,
+"kg": 10.0,
+"pris": 333.3,
+"plats": "FischFright 2"
+},
+"Compact Disc": {
+"kg_pris": 200.0,
+"kg": 1.3,
+"pris": 260.0,
+"plats": "Regionless"
+},
+"Confetti Carp": {
+"kg_pris": 675.33,
+"kg": 2.5,
+"pris": 1688.3,
+"plats": "New Years Countdown"
+},
+"Confetti Shark": {
+"kg_pris": 10.0,
+"kg": 100.0,
+"pris": 1000.0,
+"plats": "Golden Tide"
+},
+"Cookie": {
+"kg_pris": 33.33,
+"kg": 0.35,
+"pris": 11.7,
+"plats": "Fischmas 1"
+},
+"Cooler Catfish": {
+"kg_pris": 65.33,
+"kg": 5.5,
+"pris": 359.3,
+"plats": "Fischfest 2"
+},
+"Coral Turkey": {
+"kg_pris": 675.0,
+"kg": 19.0,
+"pris": 12825.0,
+"plats": "Fischgiving 2"
+},
+"Countdown Perch": {
+"kg_pris": 4.0,
+"kg": 400.0,
+"pris": 1600.0,
+"plats": "Golden Tide"
+},
+"Crab Floatie": {
+"kg_pris": 760.0,
+"kg": 1.75,
+"pris": 1330.0,
+"plats": "Fischfest 2"
+},
+"Crab Stud": {
+"kg_pris": 56.25,
+"kg": 5.15,
+"pris": 289.7,
+"plats": "LEGO Event"
+},
+"Crabby Coconut": {
+"kg_pris": 120.0,
+"kg": 2.9,
+"pris": 348.0,
+"plats": "Fischfest 2"
+},
+"Crocokoi": {
+"kg_pris": 0.5,
+"kg": 950.0,
+"pris": 475.0,
+"plats": "Animals"
+},
+"Cryoshock Serpent": {
+"kg_pris": 7.94,
+"kg": 6500.0,
+"pris": 51593.8,
+"plats": "Fischmas 2"
+},
+"Crystal Carp": {
+"kg_pris": 208.33,
+"kg": 1.4,
+"pris": 291.7,
+"plats": "Winter's Edge"
+},
+"Cupid Crab": {
+"kg_pris": 128.57,
+"kg": 0.95,
+"pris": 122.1,
+"plats": "Valentides 2"
+},
+"Cupid Relic": {
+"kg_pris": 500.0,
+"kg": 15.0,
+"pris": 7500.0,
+"plats": "Valentides 2"
+},
+"Dasyatis": {
+"kg_pris": 26.67,
+"kg": 175.0,
+"pris": 4666.7,
+"plats": "Jurassic Island"
+},
+"Designer Shades": {
+"kg_pris": 1000.0,
+"kg": 0.2,
+"pris": 200.0,
+"plats": "Fischfest 2"
+},
+"Diplomystus": {
+"kg_pris": 50.0,
+"kg": 30.0,
+"pris": 1500.0,
+"plats": "Jurassic Island"
+},
+"Disposable Camera": {
+"kg_pris": 500.0,
+"kg": 0.3,
+"pris": 150.0,
+"plats": "Fischfest 2"
+},
+"Dove": {
+"kg_pris": 1250.0,
+"kg": 1.2,
+"pris": 1500.0,
+"plats": "Valentides 2"
+},
+"Duckfin Tuna": {
+"kg_pris": 1.67,
+"kg": 237.5,
+"pris": 395.8,
+"plats": "Animals"
+},
+"Dumbo Octopus Floatie": {
+"kg_pris": 760.0,
+"kg": 1.75,
+"pris": 1330.0,
+"plats": "Fischfest 2"
+},
+"Dusky Blobfish": {
+"kg_pris": 8.4,
+"kg": 35.0,
+"pris": 294.0,
+"plats": "Atlantean Storm"
+},
+"Easter Bunny": {
+"kg_pris": 576.92,
+"kg": 2.3,
+"pris": 1326.9,
+"plats": "Easter 2"
+},
+"Ectoplasm Eel": {
+"kg_pris": 22.22,
+"kg": 30.0,
+"pris": 666.7,
+"plats": "FischFright 2"
+},
+"Edestus": {
+"kg_pris": 8.0,
+"kg": 300.0,
+"pris": 2400.0,
+"plats": "Jurassic Island"
+},
+"Eerie Relic": {
+"kg_pris": 47.62,
+"kg": 21.0,
+"pris": 1000.0,
+"plats": "FischFright 2"
+},
+"Eldritch Spineback": {
+"kg_pris": 13.89,
+"kg": 125.0,
+"pris": 1736.1,
+"plats": "Cults Curse"
+},
+"Elf Eel": {
+"kg_pris": 134.23,
+"kg": 2.0,
+"pris": 268.5,
+"plats": "Fischmas 2"
+},
+"Ember Catfish": {
+"kg_pris": 13.75,
+"kg": 16.5,
+"pris": 226.9,
+"plats": "Ashfall"
+},
+"Eonshell": {
+"kg_pris": 0.68,
+"kg": 25000.0,
+"pris": 16883.3,
+"plats": "New Years Countdown"
+},
+"Eternal Frostwhale": {
+"kg_pris": 8.0,
+"kg": 1250.0,
+"pris": 10000.0,
+"plats": "Golden Tide"
+},
+"Experimental Salmon": {
+"kg_pris": 732.14,
+"kg": 4.5,
+"pris": 3294.6,
+"plats": "The Takeover"
+},
+"Festive Bait Crate": {
+"kg_pris": 62.5,
+"kg": 8.0,
+"pris": 500.0,
+"plats": "Fischmas 1"
+},
+"Festive Relic": {
+"kg_pris": 1190.48,
+"kg": 21.0,
+"pris": 25000.0,
+"plats": "Fischmas 2"
+},
+"Firecracker Crab": {
+"kg_pris": 200.0,
+"kg": 10.0,
+"pris": 2000.0,
+"plats": "Patriotic Seas"
+},
+"Fischversation Hearts Box": {
+"kg_pris": 10.0,
+"kg": 0.5,
+"pris": 5.0,
+"plats": "Valentides 2"
+},
+"Flamangler": {
+"kg_pris": 5.36,
+"kg": 176.0,
+"pris": 942.9,
+"plats": "Animals: Octophant"
+},
+"Flameslasher": {
+"kg_pris": 2.26,
+"kg": 29500.0,
+"pris": 66612.9,
+"plats": "Fischfest 2"
+},
+"Flipflopper": {
+"kg_pris": 175.0,
+"kg": 0.5,
+"pris": 87.5,
+"plats": "Fischfest 2"
+},
+"Floatie Fugu": {
+"kg_pris": 132.14,
+"kg": 2.0,
+"pris": 264.3,
+"plats": "Fischfest 2"
+},
+"Forsaken Algae": {
+"kg_pris": 10.0,
+"kg": 3.75,
+"pris": 37.5,
+"plats": "Regionless"
+},
+"Fortune Flounder": {
+"kg_pris": 2166.67,
+"kg": 2.75,
+"pris": 5958.3,
+"plats": "Shamrock Seas"
+},
+"Fossil Fan": {
+"kg_pris": 12.0,
+"kg": 3.75,
+"pris": 45.0,
+"plats": "Archeological Site"
+},
+"Frankenshrimp": {
+"kg_pris": 750.0,
+"kg": 0.15,
+"pris": 112.5,
+"plats": "FischFright 2"
+},
+"Frightful Crate": {
+"kg_pris": 100.0,
+"kg": 8.0,
+"pris": 800.0,
+"plats": "FischFright 2"
+},
+"Frightful Relic": {
+"kg_pris": 47.62,
+"kg": 21.0,
+"pris": 1000.0,
+"plats": "FischFright 2"
+},
+"Frosty Turkey": {
+"kg_pris": 675.0,
+"kg": 19.0,
+"pris": 12825.0,
+"plats": "Fischgiving 2"
+},
+"Frozen Fangfish": {
+"kg_pris": 81.25,
+"kg": 6.5,
+"pris": 528.1,
+"plats": "Winter's Edge"
+},
+"Fruitcake Flounder": {
+"kg_pris": 117.0,
+"kg": 2.35,
+"pris": 275.0,
+"plats": "Fischmas 2"
+},
+"Fruity Abaia": {
+"kg_pris": 0.27,
+"kg": 95000.0,
+"pris": 25333.3,
+"plats": "Skycrest"
+},
+"Ghost Minnow": {
+"kg_pris": 250.0,
+"kg": 0.35,
+"pris": 87.5,
+"plats": "FischFright 2"
+},
+"Ghost Turkey": {
+"kg_pris": 675.0,
+"kg": 19.0,
+"pris": 12825.0,
+"plats": "Fischgiving 2"
+},
+"Ghoulfish": {
+"kg_pris": 83.33,
+"kg": 8.25,
+"pris": 687.5,
+"plats": "FischFright 1"
+},
+"Giant Lamprey": {
+"kg_pris": 35.0,
+"kg": 60.0,
+"pris": 2100.0,
+"plats": "Jurassic Island"
+},
+"Gillicus": {
+"kg_pris": 7.5,
+"kg": 125.0,
+"pris": 937.5,
+"plats": "Jurassic Island"
+},
+"Gingerbread Fish": {
+"kg_pris": 38.57,
+"kg": 2.75,
+"pris": 106.1,
+"plats": "Fischmas 1"
+},
+"Gingerbread Man": {
+"kg_pris": 157.89,
+"kg": 1.35,
+"pris": 213.2,
+"plats": "Fischmas 2"
+},
+"Glacier Glowfish": {
+"kg_pris": 120.0,
+"kg": 11.5,
+"pris": 1380.0,
+"plats": "Winter's Edge"
+},
+"Glass of Eggnog": {
+"kg_pris": 170.5,
+"kg": 1.45,
+"pris": 247.2,
+"plats": "Fischmas 2"
+},
+"Glass of Milk": {
+"kg_pris": 33.33,
+"kg": 0.35,
+"pris": 11.7,
+"plats": "Fischmas 1"
+},
+"Glow Brick": {
+"kg_pris": 26.67,
+"kg": 19.5,
+"pris": 520.0,
+"plats": "LEGO Event"
+},
+"Goggled Goby": {
+"kg_pris": 169.57,
+"kg": 2.05,
+"pris": 347.6,
+"plats": "Fischfest 2"
+},
+"Goldbrick": {
+"kg_pris": 25.0,
+"kg": 2.75,
+"pris": 68.8,
+"plats": "LEGO Event"
+},
+"Golden Rainbow Leviathan": {
+"kg_pris": 4.74,
+"kg": 9250.0,
+"pris": 43815.8,
+"plats": "Shamrock Seas"
+},
+"Gravestone Stingray": {
+"kg_pris": 16.0,
+"kg": 350.0,
+"pris": 5600.0,
+"plats": "FischFright 2"
+},
+"Grouchy Smurf": {
+"kg_pris": 285.71,
+"kg": 15.0,
+"pris": 4285.7,
+"plats": "Smurf Event"
+},
+"Gummy Guppy": {
+"kg_pris": 133.33,
+"kg": 1.0,
+"pris": 133.3,
+"plats": "FischFright 2"
+},
+"Hammock Halibut": {
+"kg_pris": 110.0,
+"kg": 5.5,
+"pris": 605.0,
+"plats": "Skycrest"
+},
+"Harbinger Koi": {
+"kg_pris": 22.0,
+"kg": 3.0,
+"pris": 66.0,
+"plats": "Crypt"
+},
+"Hawaiian Shirt Shark": {
+"kg_pris": 46.67,
+"kg": 20.0,
+"pris": 933.3,
+"plats": "Skycrest"
+},
+"Heart Balloon": {
+"kg_pris": 5000.0,
+"kg": 0.2,
+"pris": 1000.0,
+"plats": "Valentides 2"
+},
+"Heart Cookie": {
+"kg_pris": 400.0,
+"kg": 0.4,
+"pris": 160.0,
+"plats": "Valentides 2"
+},
+"Heart Sand Dollar": {
+"kg_pris": 230.0,
+"kg": 0.8,
+"pris": 184.0,
+"plats": "Valentides 2"
+},
+"Heartbreak Herring": {
+"kg_pris": 833.33,
+"kg": 0.8,
+"pris": 666.7,
+"plats": "Valentides 2"
+},
+"Hefty": {
+"kg_pris": 271.43,
+"kg": 15.0,
+"pris": 4071.4,
+"plats": "Smurf Event"
+},
+"Hexeye Snapper": {
+"kg_pris": 22.0,
+"kg": 3.0,
+"pris": 66.0,
+"plats": "Crypt"
+},
+"Hollow Flake Catfish": {
+"kg_pris": 90.0,
+"kg": 3.5,
+"pris": 315.0,
+"plats": "Winter's Edge"
+},
+"Hollow Gazer": {
+"kg_pris": 28.21,
+"kg": 54.0,
+"pris": 1523.1,
+"plats": "Cults Curse"
+},
+"Holly Haddock": {
+"kg_pris": 29.44,
+"kg": 2.7,
+"pris": 79.5,
+"plats": "Fischmas 2"
+},
+"Hollyscale Trout": {
+"kg_pris": 150.0,
+"kg": 0.75,
+"pris": 112.5,
+"plats": "Winter's Edge"
+},
+"Hot Cocoa": {
+"kg_pris": 176.47,
+"kg": 1.2,
+"pris": 211.8,
+"plats": "Fischmas 2"
+},
+"Hourglass Bass": {
+"kg_pris": 2.5,
+"kg": 1000.0,
+"pris": 2500.0,
+"plats": "Golden Tide"
+},
+"Ice Cream Carp": {
+"kg_pris": 84.44,
+"kg": 3.25,
+"pris": 274.4,
+"plats": "Fischfest 2"
+},
+"Icicle": {
+"kg_pris": 108.33,
+"kg": 0.8,
+"pris": 86.7,
+"plats": "Fischmas 1"
+},
+"Jack-o-Lantern": {
+"kg_pris": 45.71,
+"kg": 28.0,
+"pris": 1280.0,
+"plats": "FischFright 2"
+},
+"Jellystud": {
+"kg_pris": 100.0,
+"kg": 2.75,
+"pris": 275.0,
+"plats": "LEGO Event"
+},
+"Jolly Bait Crate": {
+"kg_pris": 62.5,
+"kg": 8.0,
+"pris": 500.0,
+"plats": "Fischmas 2"
+},
+"Jurassic Helicoprion": {
+"kg_pris": 6.25,
+"kg": 500.0,
+"pris": 3125.0,
+"plats": "Jurassic Island"
+},
+"Jurassic Mosasaurus": {
+"kg_pris": 1.0,
+"kg": 9500.0,
+"pris": 9500.0,
+"plats": "Jurassic Island"
+},
+"Kelpie": {
+"kg_pris": 83.33,
+"kg": 100.0,
+"pris": 8333.3,
+"plats": "FischFright 2"
+},
+"Ken": {
+"kg_pris": 347.62,
+"kg": 15.0,
+"pris": 5214.3,
+"plats": "Smurf Event"
+},
+"King Crabstle": {
+"kg_pris": 0.38,
+"kg": 52500.0,
+"pris": 20045.5,
+"plats": "Fischfest 2"
+},
+"Kissing Gourami": {
+"kg_pris": 133.33,
+"kg": 1.05,
+"pris": 140.0,
+"plats": "Valentides 2"
+},
+"Kittyfish": {
+"kg_pris": 14.08,
+"kg": 12.9,
+"pris": 181.7,
+"plats": "Animals"
+},
+"Krabbit": {
+"kg_pris": 0.41,
+"kg": 1475.0,
+"pris": 603.4,
+"plats": "Animals"
+},
+"Lava Lamprey": {
+"kg_pris": 4.67,
+"kg": 60.0,
+"pris": 280.0,
+"plats": "Ashfall"
+},
+"Lemonade": {
+"kg_pris": 133.33,
+"kg": 0.85,
+"pris": 113.3,
+"plats": "Fischfest 2"
+},
+"Liberty Lobster": {
+"kg_pris": 175.0,
+"kg": 14.0,
+"pris": 2450.0,
+"plats": "Patriotic Seas"
+},
+"Licorice Leech": {
+"kg_pris": 312.5,
+"kg": 0.48,
+"pris": 150.0,
+"plats": "FischFright 2"
+},
+"Lifeguard Lobster": {
+"kg_pris": 94.55,
+"kg": 4.0,
+"pris": 378.2,
+"plats": "Fischfest 2"
+},
+"Lifeguard Whistle": {
+"kg_pris": 3566.67,
+"kg": 0.2,
+"pris": 713.3,
+"plats": "Fischfest 1"
+},
+"Lifeguppy": {
+"kg_pris": 195.0,
+"kg": 1.75,
+"pris": 341.3,
+"plats": "Fischfest 2"
+},
+"Lollipop Lamprey": {
+"kg_pris": 75.0,
+"kg": 2.5,
+"pris": 187.5,
+"plats": "FischFright 2"
+},
+"Lost Turkey": {
+"kg_pris": 675.0,
+"kg": 19.0,
+"pris": 12825.0,
+"plats": "Fischgiving 2"
+},
+"Love Letter Long Pike": {
+"kg_pris": 422.22,
+"kg": 3.25,
+"pris": 1372.2,
+"plats": "Valentides 2"
+},
+"Lovestorm Eel": {
+"kg_pris": 2.14,
+"kg": 5250.0,
+"pris": 11250.0,
+"plats": "Valentides 1"
+},
+"Lovestorm Eel Supercharged": {
+"kg_pris": 2.38,
+"kg": 8250.0,
+"pris": 19642.9,
+"plats": "Valentides 1"
+},
+"Lovestorm Turtle": {
+"kg_pris": 1.88,
+"kg": 7750.0,
+"pris": 14531.3,
+"plats": "Valentides 2"
+},
+"Lovestorm Turtle Supercharged": {
+"kg_pris": 2.08,
+"kg": 11500.0,
+"pris": 23958.3,
+"plats": "Valentides 2"
+},
+"Lurkerfish": {
+"kg_pris": 750.0,
+"kg": 1.25,
+"pris": 937.5,
+"plats": "FischFright 1"
+},
+"Magma Turkey": {
+"kg_pris": 675.0,
+"kg": 19.0,
+"pris": 12825.0,
+"plats": "Fischgiving 2"
+},
+"Mained Lionfish": {
+"kg_pris": 14.44,
+"kg": 300.0,
+"pris": 4333.3,
+"plats": "Animals"
+},
+"Mama Poot": {
+"kg_pris": 375.0,
+"kg": 5.5,
+"pris": 2062.5,
+"plats": "Smurf Event"
+},
+"Marshmallow Mackerel": {
+"kg_pris": 20.0,
+"kg": 12.5,
+"pris": 250.0,
+"plats": "FischFright 2"
+},
+"Merry Manta Ray": {
+"kg_pris": 473.25,
+"kg": 3.25,
+"pris": 1538.1,
+"plats": "Fischmas 2"
+},
+"Message in a Bottle": {
+"kg_pris": 2500.0,
+"kg": 0.65,
+"pris": 1625.0,
+"plats": "Fischfest 1"
+},
+"Minnowse": {
+"kg_pris": 147.06,
+"kg": 1.1,
+"pris": 161.8,
+"plats": "Animals"
+},
+"Mistletoe Minnow": {
+"kg_pris": 102.86,
+"kg": 1.6,
+"pris": 164.6,
+"plats": "Fischmas 2"
+},
+"Molten Minnow": {
+"kg_pris": 571.43,
+"kg": 0.55,
+"pris": 314.3,
+"plats": "Ashfall"
+},
+"Mossjaw Jaw": {
+"kg_pris": 45.0,
+"kg": 75.0,
+"pris": 3375.0,
+"plats": "Jungle's Echo"
+},
+"Mossjaw Scapula": {
+"kg_pris": 84.0,
+"kg": 37.5,
+"pris": 3150.0,
+"plats": "Jungle's Echo"
+},
+"Mossjaw Skull": {
+"kg_pris": 36.43,
+"kg": 105.0,
+"pris": 3825.0,
+"plats": "Jungle's Echo"
+},
+"Mossjaw Spine": {
+"kg_pris": 12.0,
+"kg": 375.0,
+"pris": 4500.0,
+"plats": "Jungle's Echo"
+},
+"Mossjaw Tail": {
+"kg_pris": 22.92,
+"kg": 180.0,
+"pris": 4125.0,
+"plats": "Jungle's Echo"
+},
+"Mossy Turkey": {
+"kg_pris": 675.0,
+"kg": 19.0,
+"pris": 12825.0,
+"plats": "Fischgiving 2"
+},
+"Mourning Manta Ray": {
+"kg_pris": 12.0,
+"kg": 887.5,
+"pris": 10650.0,
+"plats": "FischFright 2"
+},
+"Moxie": {
+"kg_pris": 333.33,
+"kg": 15.0,
+"pris": 5000.0,
+"plats": "Smurf Event"
+},
+"Murky Turkey": {
+"kg_pris": 675.0,
+"kg": 19.0,
+"pris": 12825.0,
+"plats": "Fischgiving 2"
+},
+"Mushgrove Algae": {
+"kg_pris": 10.0,
+"kg": 3.75,
+"pris": 37.5,
+"plats": "Regionless"
+},
+"Nessie": {
+"kg_pris": 1.63,
+"kg": 3000.0,
+"pris": 4875.0,
+"plats": "FischFright 1"
+},
+"Nessie's Spine": {
+"kg_pris": 31.25,
+"kg": 6.0,
+"pris": 187.5,
+"plats": "Archeological Site"
+},
+"No Name": {
+"kg_pris": 257.14,
+"kg": 15.0,
+"pris": 3857.1,
+"plats": "Smurf Event"
+},
+"Noodle Newt": {
+"kg_pris": 260.0,
+"kg": 1.3,
+"pris": 338.0,
+"plats": "Fischfest 2"
+},
+"Northstar Serpent": {
+"kg_pris": 1.0,
+"kg": 17000.0,
+"pris": 17000.0,
+"plats": "Fischmas 1"
+},
+"Northstar Whale": {
+"kg_pris": 1.75,
+"kg": 17500.0,
+"pris": 30625.0,
+"plats": "Fischmas 2"
+},
+"Nutcracker Catfish": {
+"kg_pris": 118.97,
+"kg": 2.25,
+"pris": 267.7,
+"plats": "Fischmas 2"
+},
+"O'Mango Goldgrin": {
+"kg_pris": 18.75,
+"kg": 160.0,
+"pris": 3000.0,
+"plats": "Lucky Event"
+},
+"Octophant": {
+"kg_pris": 0.18,
+"kg": 16500.0,
+"pris": 2970.0,
+"plats": "Animals: Octophant"
+},
+"Olmdeer": {
+"kg_pris": 1000.0,
+"kg": 0.25,
+"pris": 250.0,
+"plats": "Fischmas 1"
+},
+"Orcanda": {
+"kg_pris": 0.2,
+"kg": 6500.0,
+"pris": 1300.0,
+"plats": "Animals: Octophant"
+},
+"Oreochima": {
+"kg_pris": 13.33,
+"kg": 90.0,
+"pris": 1200.0,
+"plats": "Jurassic Island"
+},
+"Ornament Fish": {
+"kg_pris": 200.0,
+"kg": 0.5,
+"pris": 100.0,
+"plats": "Fischmas 1"
+},
+"Ornament Pufferfish": {
+"kg_pris": 154.09,
+"kg": 1.6,
+"pris": 246.5,
+"plats": "Fischmas 2"
+},
+"Papa Smurf": {
+"kg_pris": 476.19,
+"kg": 15.0,
+"pris": 7142.9,
+"plats": "Smurf Event"
+},
+"Paradise Relic": {
+"kg_pris": 750.0,
+"kg": 20.0,
+"pris": 15000.0,
+"plats": "Fischfest 2"
+},
+"Parrotfish": {
+"kg_pris": 23.33,
+"kg": 8.25,
+"pris": 192.5,
+"plats": "Animals"
+},
+"Party Cooler": {
+"kg_pris": 66.67,
+"kg": 20.0,
+"pris": 1333.3,
+"plats": "Patriotic Seas"
+},
+"Party Popperfish": {
+"kg_pris": 675.33,
+"kg": 2.5,
+"pris": 1688.3,
+"plats": "New Years Countdown"
+},
+"Party Pufferfish": {
+"kg_pris": 675.33,
+"kg": 2.5,
+"pris": 1688.3,
+"plats": "New Years Countdown"
+},
+"Patriot Great White Shark": {
+"kg_pris": 7.5,
+"kg": 600.0,
+"pris": 4500.0,
+"plats": "Patriotic Seas"
+},
+"Patriot Hammerhead Shark": {
+"kg_pris": 17.14,
+"kg": 250.0,
+"pris": 4285.7,
+"plats": "Patriotic Seas"
+},
+"Patriot Whale Shark": {
+"kg_pris": 4.0,
+"kg": 1150.0,
+"pris": 4600.0,
+"plats": "Patriotic Seas"
+},
+"Patriotic Flag": {
+"kg_pris": 312.5,
+"kg": 5.5,
+"pris": 1718.8,
+"plats": "Patriotic Seas"
+},
+"Pengwhal": {
+"kg_pris": 10.23,
+"kg": 29.5,
+"pris": 301.7,
+"plats": "Animals"
+},
+"Peppermint Pike": {
+"kg_pris": 23.64,
+"kg": 1.65,
+"pris": 39.0,
+"plats": "Fischmas 2"
+},
+"Phantom Jellyfish": {
+"kg_pris": 26.67,
+"kg": 20.0,
+"pris": 533.3,
+"plats": "FischFright 2"
+},
+"Phantom Megalodon": {
+"kg_pris": 0.67,
+"kg": 58500.0,
+"pris": 39291.0,
+"plats": "Ancient Isle"
+},
+"Picnic Pufferfish": {
+"kg_pris": 134.38,
+"kg": 2.35,
+"pris": 315.8,
+"plats": "Fischfest 2"
+},
+"Piglet Pike": {
+"kg_pris": 6.83,
+"kg": 26.25,
+"pris": 179.3,
+"plats": "Animals"
+},
+"Pilgrim Hat": {
+"kg_pris": 100.0,
+"kg": 1.0,
+"pris": 100.0,
+"plats": "Fischgiving 2"
+},
+"Pineapple Pufferfish": {
+"kg_pris": 200.0,
+"kg": 0.65,
+"pris": 130.0,
+"plats": "Skycrest"
+},
+"Pink Betta": {
+"kg_pris": 1216.67,
+"kg": 0.6,
+"pris": 730.0,
+"plats": "Valentides 2"
+},
+"Pioneer Turkey": {
+"kg_pris": 675.0,
+"kg": 19.0,
+"pris": 12825.0,
+"plats": "Fischgiving 2"
+},
+"Piranhamunk": {
+"kg_pris": 10.4,
+"kg": 162.5,
+"pris": 1690.0,
+"plats": "Animals"
+},
+"Pirate Turkey": {
+"kg_pris": 675.0,
+"kg": 19.0,
+"pris": 12825.0,
+"plats": "Fischgiving 2"
+},
+"Plastic Shovel": {
+"kg_pris": 120.0,
+"kg": 0.35,
+"pris": 42.0,
+"plats": "Fischfest 2"
+},
+"Plumrick O'Luck": {
+"kg_pris": 16.67,
+"kg": 210.0,
+"pris": 3500.0,
+"plats": "Lucky Event"
+},
+"Pool Noodle Eel": {
+"kg_pris": 47.14,
+"kg": 5.0,
+"pris": 235.7,
+"plats": "Fischfest 2"
+},
+"Popsicle": {
+"kg_pris": 5900.0,
+"kg": 0.25,
+"pris": 1475.0,
+"plats": "Fischfest 1"
+},
+"Popsicle Pike": {
+"kg_pris": 169.23,
+"kg": 1.0,
+"pris": 169.2,
+"plats": "Fischfest 2"
+},
+"Porcufish": {
+"kg_pris": 12.86,
+"kg": 95.0,
+"pris": 1221.4,
+"plats": "Animals"
+},
+"Portable Fan": {
+"kg_pris": 150.0,
+"kg": 0.7,
+"pris": 105.0,
+"plats": "Fischfest 2"
+},
+"Poseidon Turkey": {
+"kg_pris": 675.0,
+"kg": 19.0,
+"pris": 12825.0,
+"plats": "Fischgiving 2"
+},
+"Potion Perch": {
+"kg_pris": 23.33,
+"kg": 20.0,
+"pris": 466.7,
+"plats": "FischFright 2"
+},
+"Present": {
+"kg_pris": 31.71,
+"kg": 7.0,
+"pris": 222.0,
+"plats": "Fischmas 2"
+},
+"Profane Ray": {
+"kg_pris": 16.07,
+"kg": 200.0,
+"pris": 3214.3,
+"plats": "Cults Curse"
+},
+"Pufferfish Floatie": {
+"kg_pris": 760.0,
+"kg": 1.75,
+"pris": 1330.0,
+"plats": "Fischfest 2"
+},
+"Pumpkin Pufferfish": {
+"kg_pris": 100.0,
+"kg": 1.25,
+"pris": 125.0,
+"plats": "FischFright 2"
+},
+"Pyro Pike": {
+"kg_pris": 111.11,
+"kg": 3.5,
+"pris": 388.9,
+"plats": "Ashfall"
+},
+"Racuda": {
+"kg_pris": 26.0,
+"kg": 15.75,
+"pris": 409.5,
+"plats": "Animals"
+},
+"Rainbow Leviathan": {
+"kg_pris": 7.0,
+"kg": 4750.0,
+"pris": 33250.0,
+"plats": "Shamrock Seas"
+},
+"Rainbow Ribbonfish": {
+"kg_pris": 1500.0,
+"kg": 2.75,
+"pris": 4125.0,
+"plats": "Shamrock Seas"
+},
+"Redlip Batfish": {
+"kg_pris": 1233.5,
+"kg": 4.0,
+"pris": 4934.0,
+"plats": "MiguRod"
+},
+"Reindeer Ray": {
+"kg_pris": 51.03,
+"kg": 5.15,
+"pris": 262.8,
+"plats": "Fischmas 2"
+},
+"Rhizodus": {
+"kg_pris": 10.0,
+"kg": 650.0,
+"pris": 6500.0,
+"plats": "Jurassic Island"
+},
+"Rose Bouquet": {
+"kg_pris": 375.0,
+"kg": 0.5,
+"pris": 187.5,
+"plats": "Valentides 2"
+},
+"Rose Rockfish": {
+"kg_pris": 611.11,
+"kg": 1.3,
+"pris": 794.4,
+"plats": "Valentides 2"
+},
+"Roseveil Koi": {
+"kg_pris": 725.0,
+"kg": 2.0,
+"pris": 1450.0,
+"plats": "Valentides 2"
+},
+"Rotfin Eel": {
+"kg_pris": 22.0,
+"kg": 3.0,
+"pris": 66.0,
+"plats": "Crypt"
+},
+"Rowdy McCharm": {
+"kg_pris": 66.67,
+"kg": 105.0,
+"pris": 7000.0,
+"plats": "Lucky Event"
+},
+"Royal Tigerfish": {
+"kg_pris": 11.39,
+"kg": 57.0,
+"pris": 649.4,
+"plats": "Animals: Octophant"
+},
+"Sacred Lovestorm Turtle": {
+"kg_pris": 2.81,
+"kg": 15500.0,
+"pris": 43593.8,
+"plats": "Valentides 2"
+},
+"Salmoose": {
+"kg_pris": 11.67,
+"kg": 197.5,
+"pris": 2304.2,
+"plats": "Animals"
+},
+"Sand Castle": {
+"kg_pris": 640.0,
+"kg": 1.25,
+"pris": 800.0,
+"plats": "Fischfest 1"
+},
+"Sand Fort": {
+"kg_pris": 12.0,
+"kg": 11.5,
+"pris": 138.0,
+"plats": "Fischfest 2"
+},
+"Sand-Sculpted Shark": {
+"kg_pris": 0.54,
+"kg": 850.0,
+"pris": 460.4,
+"plats": "Fischfest 2"
+},
+"Sandslasher": {
+"kg_pris": 1.5,
+"kg": 17000.0,
+"pris": 25500.0,
+"plats": "Fischfest 1"
+},
+"Santa Pufferfish": {
+"kg_pris": 800.0,
+"kg": 1.65,
+"pris": 1320.0,
+"plats": "Fischmas 1"
+},
+"Santa Salmon": {
+"kg_pris": 6.0,
+"kg": 14.0,
+"pris": 84.0,
+"plats": "Fischmas 1"
+},
+"Santa Whale Shark": {
+"kg_pris": 699.0,
+"kg": 4.0,
+"pris": 2796.0,
+"plats": "Fischmas 2"
+},
+"Santa's Present": {
+"kg_pris": 1241.4,
+"kg": 10.0,
+"pris": 12414.0,
+"plats": "Fischmas 2"
+},
+"Santa's Relic": {
+"kg_pris": 1190.48,
+"kg": 21.0,
+"pris": 25000.0,
+"plats": "Fischmas 2"
+},
+"Santalmon": {
+"kg_pris": 35.71,
+"kg": 4.5,
+"pris": 160.7,
+"plats": "Fischmas 2"
+},
+"Scarecrow": {
+"kg_pris": 10.0,
+"kg": 40.0,
+"pris": 400.0,
+"plats": "FischFright 2"
+},
+"Scooty Salmon": {
+"kg_pris": 57.69,
+"kg": 10.0,
+"pris": 576.9,
+"plats": "Ashfall"
+},
+"Sea Sponge": {
+"kg_pris": 850.0,
+"kg": 0.6,
+"pris": 510.0,
+"plats": "Fischfest 1"
+},
+"Seacow": {
+"kg_pris": 4.0,
+"kg": 2125.0,
+"pris": 8500.0,
+"plats": "Animals"
+},
+"Seraphic Whale": {
+"kg_pris": 2.31,
+"kg": 550.0,
+"pris": 1271.9,
+"plats": "Atlantean Storm"
+},
+"Shamrock Bloop Fish": {
+"kg_pris": 0.13,
+"kg": 350075.0,
+"pris": 45500.6,
+"plats": "Shamrock Seas"
+},
+"Shamrock Kraken": {
+"kg_pris": 0.22,
+"kg": 115075.0,
+"pris": 24919.1,
+"plats": "Shamrock Seas"
+},
+"Shamrock Leviathan": {
+"kg_pris": 0.15,
+"kg": 290075.0,
+"pris": 43900.5,
+"plats": "Shamrock Seas"
+},
+"Shamrock Megalodon": {
+"kg_pris": 0.48,
+"kg": 58575.0,
+"pris": 27934.4,
+"plats": "Shamrock Seas"
+},
+"Shamrock Salmon": {
+"kg_pris": 1516.67,
+"kg": 2.75,
+"pris": 4170.8,
+"plats": "Shamrock Seas"
+},
+"Shamrock Scylla": {
+"kg_pris": 0.09,
+"kg": 350075.0,
+"pris": 31500.4,
+"plats": "Shamrock Seas"
+},
+"Shark Fang": {
+"kg_pris": 27.0,
+"kg": 4.0,
+"pris": 108.0,
+"plats": "Archeological Site"
+},
+"Shellphone": {
+"kg_pris": 2650.0,
+"kg": 0.5,
+"pris": 1325.0,
+"plats": "Fischfest 1"
+},
+"Shrimpanzee": {
+"kg_pris": 0.01,
+"kg": 16500.0,
+"pris": 165.0,
+"plats": "Animals: Octophant"
+},
+"Siren Sheep": {
+"kg_pris": 1.5,
+"kg": 550.0,
+"pris": 825.0,
+"plats": "Animals"
+},
+"Siren's Guppy": {
+"kg_pris": 22.0,
+"kg": 3.0,
+"pris": 66.0,
+"plats": "Crypt"
+},
+"Skelefish": {
+"kg_pris": 200.0,
+"kg": 0.75,
+"pris": 150.0,
+"plats": "FischFright 1"
+},
+"Skeletal Nessie": {
+"kg_pris": 10.0,
+"kg": 1000.0,
+"pris": 10000.0,
+"plats": "FischFright 2"
+},
+"Slain Maw": {
+"kg_pris": 22.0,
+"kg": 3.0,
+"pris": 66.0,
+"plats": "Crypt"
+},
+"Slate Turkey": {
+"kg_pris": 675.0,
+"kg": 19.0,
+"pris": 12825.0,
+"plats": "Fischgiving 2"
+},
+"Slurpfloth": {
+"kg_pris": 3.24,
+"kg": 232.5,
+"pris": 754.1,
+"plats": "Animals: Octophant"
+},
+"Slushy": {
+"kg_pris": 100.0,
+"kg": 1.3,
+"pris": 130.0,
+"plats": "Fischfest 2"
+},
+"Smoothie Stingray": {
+"kg_pris": 100.0,
+"kg": 3.0,
+"pris": 300.0,
+"plats": "Skycrest"
+},
+"Snorkel Snook": {
+"kg_pris": 86.67,
+"kg": 3.75,
+"pris": 325.0,
+"plats": "Fischfest 2"
+},
+"Snowball": {
+"kg_pris": 216.88,
+"kg": 1.1,
+"pris": 238.6,
+"plats": "Fischmas 2"
+},
+"Snowcap Algae": {
+"kg_pris": 10.0,
+"kg": 3.75,
+"pris": 37.5,
+"plats": "Regionless"
+},
+"Snowflake Flounder": {
+"kg_pris": 26.36,
+"kg": 3.5,
+"pris": 92.3,
+"plats": "Fischmas 1"
+},
+"Snowy Present": {
+"kg_pris": 44.13,
+"kg": 8.0,
+"pris": 353.0,
+"plats": "Fischmas 2"
+},
+"Soaked Sparkler": {
+"kg_pris": 750.0,
+"kg": 1.25,
+"pris": 937.5,
+"plats": "Patriotic Seas"
+},
+"Sparkfin Salmon": {
+"kg_pris": 314.29,
+"kg": 4.75,
+"pris": 1492.9,
+"plats": "Patriotic Seas"
+},
+"Sparkler Sardine": {
+"kg_pris": 675.33,
+"kg": 2.5,
+"pris": 1688.3,
+"plats": "New Years Countdown"
+},
+"Sparkling Corkfin": {
+"kg_pris": 675.33,
+"kg": 2.5,
+"pris": 1688.3,
+"plats": "New Years Countdown"
+},
+"Spider Salmon": {
+"kg_pris": 22.5,
+"kg": 55.0,
+"pris": 1237.5,
+"plats": "FischFright 2"
+},
+"Spine Blade": {
+"kg_pris": 16.67,
+"kg": 4.5,
+"pris": 75.0,
+"plats": "Archeological Site"
+},
+"Spine Bone": {
+"kg_pris": 13.33,
+"kg": 4.5,
+"pris": 60.0,
+"plats": "Archeological Site"
+},
+"Spined Fin": {
+"kg_pris": 60.0,
+"kg": 3.5,
+"pris": 210.0,
+"plats": "Archeological Site"
+},
+"Spooky Relic": {
+"kg_pris": 47.62,
+"kg": 21.0,
+"pris": 1000.0,
+"plats": "FischFright 2"
+},
+"Squirrelray": {
+"kg_pris": 15.52,
+"kg": 19.0,
+"pris": 294.8,
+"plats": "Animals"
+},
+"Starry Snapper": {
+"kg_pris": 333.33,
+"kg": 4.0,
+"pris": 1333.3,
+"plats": "Patriotic Seas"
+},
+"Stockingfish": {
+"kg_pris": 171.0,
+"kg": 1.5,
+"pris": 256.5,
+"plats": "Fischmas 2"
+},
+"Stormbound Leviathan": {
+"kg_pris": 0.48,
+"kg": 58575.0,
+"pris": 27934.4,
+"plats": "Atlantean Storm"
+},
+"Stud Koi": {
+"kg_pris": 2.89,
+"kg": 122.5,
+"pris": 354.6,
+"plats": "LEGO Event"
+},
+"Stud Shark": {
+"kg_pris": 46.43,
+"kg": 9.0,
+"pris": 417.9,
+"plats": "LEGO Event"
+},
+"Stud Turtle": {
+"kg_pris": 40.0,
+"kg": 6.5,
+"pris": 260.0,
+"plats": "LEGO Event"
+},
+"Studling Crab": {
+"kg_pris": 120.0,
+"kg": 3.25,
+"pris": 390.0,
+"plats": "LEGO Event"
+},
+"Studolodon": {
+"kg_pris": 10.0,
+"kg": 92.5,
+"pris": 925.0,
+"plats": "LEGO Event"
+},
+"Studphin": {
+"kg_pris": 77.78,
+"kg": 5.75,
+"pris": 447.2,
+"plats": "LEGO Event"
+},
+"Stuffed Bear": {
+"kg_pris": 233.33,
+"kg": 1.1,
+"pris": 256.7,
+"plats": "Valentides 2"
+},
+"Sunbed Stingray": {
+"kg_pris": 257.14,
+"kg": 4.75,
+"pris": 1221.4,
+"plats": "Skycrest"
+},
+"Sunglasses": {
+"kg_pris": 6400.0,
+"kg": 0.1,
+"pris": 640.0,
+"plats": "Fischfest 1"
+},
+"Sunny O'Coin": {
+"kg_pris": 30.95,
+"kg": 150.0,
+"pris": 4642.9,
+"plats": "Lucky Event"
+},
+"Sunny Turkey": {
+"kg_pris": 675.0,
+"kg": 19.0,
+"pris": 12825.0,
+"plats": "Fischgiving 2"
+},
+"Sunscale Tortoise": {
+"kg_pris": 15.33,
+"kg": 10.5,
+"pris": 161.0,
+"plats": "Atlantean Storm"
+},
+"Sunscreen Bottle": {
+"kg_pris": 3000.0,
+"kg": 0.35,
+"pris": 1050.0,
+"plats": "Fischfest 1"
+},
+"Sunscreen Spray": {
+"kg_pris": 150.0,
+"kg": 0.55,
+"pris": 82.5,
+"plats": "Fischfest 2"
+},
+"Sunslasher": {
+"kg_pris": 1.19,
+"kg": 19500.0,
+"pris": 23214.3,
+"plats": "Fischfest 2"
+},
+"Sunsquid": {
+"kg_pris": 40.0,
+"kg": 3.0,
+"pris": 120.0,
+"plats": "Fischfest 1"
+},
+"Supreme Present": {
+"kg_pris": 72.22,
+"kg": 9.0,
+"pris": 650.0,
+"plats": "Fischmas 1"
+},
+"Surfboard Ray": {
+"kg_pris": 21.0,
+"kg": 6.0,
+"pris": 126.0,
+"plats": "Fischfest 1"
+},
+"Sweetheart Seahorse": {
+"kg_pris": 4000.0,
+"kg": 1.75,
+"pris": 7000.0,
+"plats": "Valentides 2"
+},
+"Tanning Oil": {
+"kg_pris": 91.67,
+"kg": 0.85,
+"pris": 77.9,
+"plats": "Fischfest 2"
+},
+"Tanning Trout": {
+"kg_pris": 45.83,
+"kg": 3.5,
+"pris": 160.4,
+"plats": "Fischfest 2"
+},
+"Tempest Colossus": {
+"kg_pris": 0.48,
+"kg": 58575.0,
+"pris": 27934.4,
+"plats": "Atlantean Storm"
+},
+"Tentabrick": {
+"kg_pris": 9.0,
+"kg": 65.0,
+"pris": 585.0,
+"plats": "LEGO Event"
+},
+"The Whispering One": {
+"kg_pris": 10.71,
+"kg": 950.0,
+"pris": 10178.6,
+"plats": "Cults Curse"
+},
+"Thundering Seahorse": {
+"kg_pris": 10.29,
+"kg": 25.0,
+"pris": 257.1,
+"plats": "Atlantean Storm"
+},
+"Tidal Pike": {
+"kg_pris": 6.0,
+"kg": 200.0,
+"pris": 1200.0,
+"plats": "Golden Tide"
+},
+"Tidecaller Squid": {
+"kg_pris": 11.6,
+"kg": 17.5,
+"pris": 203.0,
+"plats": "Atlantean Storm"
+},
+"Tidepopper": {
+"kg_pris": 114.0,
+"kg": 10.0,
+"pris": 1140.0,
+"plats": "Fischfest 1"
+},
+"Tiki Mask": {
+"kg_pris": 1985.71,
+"kg": 1.4,
+"pris": 2780.0,
+"plats": "Fischfest 1"
+},
+"Tiki Trout": {
+"kg_pris": 125.0,
+"kg": 1.5,
+"pris": 187.5,
+"plats": "Fischfest 2"
+},
+"Tinsel Trout": {
+"kg_pris": 42.8,
+"kg": 1.95,
+"pris": 83.5,
+"plats": "Fischmas 2"
+},
+"Tropical Relic": {
+"kg_pris": 750.0,
+"kg": 20.0,
+"pris": 15000.0,
+"plats": "Fischfest 2"
+},
+"Turkey": {
+"kg_pris": 133.33,
+"kg": 19.0,
+"pris": 2533.3,
+"plats": "Fischgiving 1"
+},
+"Typhoon Devourer": {
+"kg_pris": 0.48,
+"kg": 58575.0,
+"pris": 27934.4,
+"plats": "Atlantean Storm"
+},
+"Umbrella Urchin": {
+"kg_pris": 140.0,
+"kg": 1.4,
+"pris": 196.0,
+"plats": "Fischfest 2"
+},
+"Unique Present": {
+"kg_pris": 20.0,
+"kg": 9.0,
+"pris": 180.0,
+"plats": "Fischmas 1"
+},
+"Valentine's Relic": {
+"kg_pris": 500.0,
+"kg": 35.0,
+"pris": 17500.0,
+"plats": "Valentides 2"
+},
+"Vampire Perch": {
+"kg_pris": 20.0,
+"kg": 40.0,
+"pris": 800.0,
+"plats": "FischFright 2"
+},
+"Vanity": {
+"kg_pris": 300.0,
+"kg": 15.0,
+"pris": 4500.0,
+"plats": "Smurf Event"
+},
+"Veilborn Parasite": {
+"kg_pris": 304.35,
+"kg": 15.75,
+"pris": 4793.5,
+"plats": "Cults Curse"
+},
+"Water Balloon": {
+"kg_pris": 70.0,
+"kg": 2.75,
+"pris": 192.5,
+"plats": "Fischfest 2"
+},
+"Watermelon Walrus": {
+"kg_pris": 53.33,
+"kg": 40.0,
+"pris": 2133.3,
+"plats": "Skycrest"
+},
+"Werewolf Walleye": {
+"kg_pris": 18.33,
+"kg": 80.0,
+"pris": 1466.7,
+"plats": "FischFright 2"
+},
+"Wraithfin": {
+"kg_pris": 22.0,
+"kg": 3.0,
+"pris": 66.0,
+"plats": "Crypt"
+},
+"Wreath Wrasse": {
+"kg_pris": 11.82,
+"kg": 3.3,
+"pris": 39.0,
+"plats": "Fischmas 2"
+},
+"Wretched Guppy": {
+"kg_pris": 72.22,
+"kg": 13.0,
+"pris": 938.9,
+"plats": "Cults Curse"
+},
+"Xtra Sour Gummy Pack": {
+"kg_pris": 125.0,
+"kg": 0.8,
+"pris": 100.0,
+"plats": "FischFright 2"
+},
+"Yellow Studfish": {
+"kg_pris": 38.46,
+"kg": 2.6,
+"pris": 100.0,
+"plats": "LEGO Event"
+},
+"Zebrafishlet": {
+"kg_pris": 8.57,
+"kg": 21.75,
+"pris": 186.4,
+"plats": "Animals"
+},
+"Zombiefish": {
+"kg_pris": 66.67,
+"kg": 2.25,
+"pris": 150.0,
+"plats": "FischFright 1"
+},
+"Cosmic Relic": {
+"kg_pris": 400.0,
+"kg": 50.0,
+"pris": 20000.0,
+"plats": "Regionless"
+},
+"Crested Relic": {
+"kg_pris": 240.0,
+"kg": 50.0,
+"pris": 12000.0,
+"plats": "Skycrest"
+},
+"Dune Relic": {
+"kg_pris": 238.1,
+"kg": 21.0,
+"pris": 5000.0,
+"plats": "Drylands"
+},
+"Empyrean Relic": {
+"kg_pris": 277.78,
+"kg": 90.0,
+"pris": 25000.0,
+"plats": "Skycrest"
+},
+"Enchant Relic": {
+"kg_pris": 166.67,
+"kg": 21.0,
+"pris": 3500.0,
+"plats": "Regionless"
+},
+"Exalted Relic": {
+"kg_pris": 571.43,
+"kg": 21.0,
+"pris": 12000.0,
+"plats": "Regionless"
+},
+"Imprinted Relic": {
+"kg_pris": 166.67,
+"kg": 21.0,
+"pris": 3500.0,
+"plats": "Regionless"
+},
+"Invincible Relic": {
+"kg_pris": 238.1,
+"kg": 21.0,
+"pris": 5000.0,
+"plats": "Ancient Isle"
+},
+"Song of the Deep": {
+"kg_pris": 714.29,
+"kg": 21.0,
+"pris": 15000.0,
+"plats": "Regionless"
+},
+"Sovereign Relic": {
+"kg_pris": 400.0,
+"kg": 75.0,
+"pris": 30000.0,
+"plats": "Regionless"
+},
+"Twisted Relic": {
+"kg_pris": 619.05,
+"kg": 21.0,
+"pris": 13000.0,
+"plats": "Regionless"
+},
+"Ancient Fragment": {
+"kg_pris": 5000.0,
+"kg": 0.1,
+"pris": 500.0,
+"plats": "Ancient Isle"
+},
+"Glacial Fragment": {
+"kg_pris": 3000.0,
+"kg": 1.0,
+"pris": 3000.0,
+"plats": "Snowburrow"
+},
+"Infernal Fragment": {
+"kg_pris": 857.14,
+"kg": 7.0,
+"pris": 6000.0,
+"plats": "Scoria Reach"
+},
+"Obsidian Fragment": {
+"kg_pris": 1750.0,
+"kg": 4.0,
+"pris": 7000.0,
+"plats": "Scoria Reach"
+},
+"Solar Fragment": {
+"kg_pris": 500.0,
+"kg": 0.1,
+"pris": 50.0,
+"plats": "Ancient Isle"
+},
+"Sulfur Fragment": {
+"kg_pris": 1500.0,
+"kg": 3.0,
+"pris": 4500.0,
+"plats": "Scoria Reach"
+},
+"Canary Seed": {
+"kg_pris": 1666.67,
+"kg": 0.2,
+"pris": 333.3,
+"plats": "Living Garden"
+},
+"Cyan Seed": {
+"kg_pris": 1666.67,
+"kg": 0.2,
+"pris": 333.3,
+"plats": "Living Garden"
+},
+"Living Seed": {
+"kg_pris": 9000.0,
+"kg": 0.45,
+"pris": 4050.0,
+"plats": "Living Garden"
+},
+"Rotted Seed": {
+"kg_pris": 50.0,
+"kg": 0.15,
+"pris": 7.5,
+"plats": "Toxic Grove"
+},
+"Violet Seed": {
+"kg_pris": 1666.67,
+"kg": 0.2,
+"pris": 333.3,
+"plats": "Living Garden"
+},
+"Amethyst": {
+"kg_pris": 93.75,
+"kg": 1.2,
+"pris": 112.5,
+"plats": "Ancient Isle"
+},
+"Ashen Gem": {
+"kg_pris": 14133.33,
+"kg": 1.5,
+"pris": 21200.0,
+"plats": "Scoria Reach"
+},
+"Cinder Crystal": {
+"kg_pris": 24500.0,
+"kg": 1.0,
+"pris": 24500.0,
+"plats": "Scoria Reach"
+},
+"Lapis Lazuli": {
+"kg_pris": 500.0,
+"kg": 0.9,
+"pris": 450.0,
+"plats": "Ancient Isle"
+},
+"Moonstone": {
+"kg_pris": 357.14,
+"kg": 1.65,
+"pris": 589.3,
+"plats": "Ancient Isle"
+},
+"Opal": {
+"kg_pris": 156.25,
+"kg": 2.05,
+"pris": 320.3,
+"plats": "Ancient Isle"
+},
+"Radiant Crystal": {
+"kg_pris": 2750.0,
+"kg": 2.0,
+"pris": 5500.0,
+"plats": "Mineshaft"
+},
+"Ruby": {
+"kg_pris": 100.0,
+"kg": 1.35,
+"pris": 135.0,
+"plats": "Ancient Isle"
+},
+"Akkorokamui": {
+"kg_pris": 0.01,
+"kg": 2500000.0,
+"pris": 15000.0,
+"plats": "Ocean"
+},
+"Ashclaw": {
+"kg_pris": 0.09,
+"kg": 350000.0,
+"pris": 30800.0,
+"plats": "Roslit Volcano"
+},
+"Beluga": {
+"kg_pris": 5.99,
+"kg": 1900.0,
+"pris": 11381.0,
+"plats": "Ocean"
+},
+"Bloop Fish": {
+"kg_pris": 0.13,
+"kg": 350000.0,
+"pris": 44450.0,
+"plats": "Ocean"
+},
+"Charybdis": {
+"kg_pris": 0.01,
+"kg": 2500000.0,
+"pris": 15937.5,
+"plats": "Ocean"
+},
+"Dreadfin": {
+"kg_pris": 0.33,
+"kg": 90000.0,
+"pris": 29700.0,
+"plats": "Ocean"
+},
+"Lusca": {
+"kg_pris": 0.01,
+"kg": 2500000.0,
+"pris": 15625.0,
+"plats": "Ocean"
+},
+"Magician Narwhal": {
+"kg_pris": 0.14,
+"kg": 175000.0,
+"pris": 24522.4,
+"plats": "Ocean"
+},
+"Mosslurker": {
+"kg_pris": 0.09,
+"kg": 250000.0,
+"pris": 21875.0,
+"plats": "Ocean"
+},
+"Narwhal": {
+"kg_pris": 8.85,
+"kg": 1270.0,
+"pris": 11234.4,
+"plats": "Ocean"
+},
+"Skeletal Serpent": {
+"kg_pris": 1.25,
+"kg": 25000.0,
+"pris": 31250.0,
+"plats": "Regionless"
+},
+"Veiled Charybdis": {
+"kg_pris": 0.01,
+"kg": 2500000.0,
+"pris": 23437.5,
+"plats": "Obsidian Trench"
+},
+"Abyss Dart": {
+"kg_pris": 2.22,
+"kg": 122.5,
+"pris": 272.2,
+"plats": "Second Sea"
+},
+"Abyss Flicker": {
+"kg_pris": 24.32,
+"kg": 78.0,
+"pris": 1896.6,
+"plats": "Second Sea"
+},
+"Algae Lurker": {
+"kg_pris": 2.83,
+"kg": 126.0,
+"pris": 357.0,
+"plats": "Second Sea"
+},
+"Ancient Lobster": {
+"kg_pris": 200.0,
+"kg": 42.5,
+"pris": 8500.0,
+"plats": "Regionless"
+},
+"Apex Leviathan": {
+"kg_pris": 0.02,
+"kg": 650000.0,
+"pris": 13000.0,
+"plats": "Second Sea"
+},
+"Ashscale Minnow": {
+"kg_pris": 1.67,
+"kg": 15.0,
+"pris": 25.0,
+"plats": "Second Sea"
+},
+"Azure Prowler": {
+"kg_pris": 7.29,
+"kg": 168.0,
+"pris": 1225.0,
+"plats": "Second Sea"
+},
+"Azureback Haddock School": {
+"kg_pris": 5.73,
+"kg": 46.5,
+"pris": 266.6,
+"plats": "Second Sea"
+},
+"Basalt Pike": {
+"kg_pris": 0.8,
+"kg": 156.0,
+"pris": 124.7,
+"plats": "Second Sea"
+},
+"Bearded Toadfish": {
+"kg_pris": 216.67,
+"kg": 11.0,
+"pris": 2383.3,
+"plats": "Second Sea"
+},
+"Black Grouper": {
+"kg_pris": 2.78,
+"kg": 11500.0,
+"pris": 31944.4,
+"plats": "Second Sea"
+},
+"Black Swallower": {
+"kg_pris": 3.44,
+"kg": 22.5,
+"pris": 77.3,
+"plats": "Second Sea"
+},
+"Blazebelly": {
+"kg_pris": 0.35,
+"kg": 870.0,
+"pris": 304.5,
+"plats": "Second Sea"
+},
+"Blobfish School": {
+"kg_pris": 204.55,
+"kg": 54.0,
+"pris": 11045.5,
+"plats": "Second Sea"
+},
+"Bloomtail": {
+"kg_pris": 13.17,
+"kg": 210.0,
+"pris": 2765.0,
+"plats": "Second Sea"
+},
+"Blue Foamtail": {
+"kg_pris": 10.83,
+"kg": 4.0,
+"pris": 43.3,
+"plats": "Second Sea"
+},
+"Bluefin Tuna School": {
+"kg_pris": 3.13,
+"kg": 26.25,
+"pris": 82.0,
+"plats": "Second Sea"
+},
+"Bluehead Wrasse": {
+"kg_pris": 350.0,
+"kg": 0.5,
+"pris": 175.0,
+"plats": "Second Sea"
+},
+"Boarfish": {
+"kg_pris": 3.33,
+"kg": 38.0,
+"pris": 126.7,
+"plats": "Second Sea"
+},
+"Bogscale": {
+"kg_pris": 5.0,
+"kg": 5.0,
+"pris": 25.0,
+"plats": "Second Sea"
+},
+"Brackscale": {
+"kg_pris": 1.75,
+"kg": 42.0,
+"pris": 73.5,
+"plats": "Second Sea"
+},
+"Breaker Moth": {
+"kg_pris": 13.75,
+"kg": 55.0,
+"pris": 756.3,
+"plats": "Second Sea"
+},
+"Brimstone Angler": {
+"kg_pris": 5.18,
+"kg": 334.5,
+"pris": 1731.4,
+"plats": "Second Sea"
+},
+"Canopy Tetra": {
+"kg_pris": 6.25,
+"kg": 11.0,
+"pris": 68.8,
+"plats": "Second Sea"
+},
+"Cinder Dart": {
+"kg_pris": 4.65,
+"kg": 190.5,
+"pris": 886.2,
+"plats": "Second Sea"
+},
+"Coney Grouper": {
+"kg_pris": 3.27,
+"kg": 34.5,
+"pris": 112.9,
+"plats": "Second Sea"
+},
+"Coralwing Guppy School": {
+"kg_pris": 43.1,
+"kg": 38.0,
+"pris": 1637.9,
+"plats": "Second Sea"
+},
+"Cragscale": {
+"kg_pris": 0.81,
+"kg": 394.5,
+"pris": 318.5,
+"plats": "Second Sea"
+},
+"Crestscale": {
+"kg_pris": 3.5,
+"kg": 21.0,
+"pris": 73.5,
+"plats": "Second Sea"
+},
+"Cursed Thread": {
+"kg_pris": 3.81,
+"kg": 10.5,
+"pris": 40.0,
+"plats": "Second Sea"
+},
+"Depth Drifter": {
+"kg_pris": 4.17,
+"kg": 1260.0,
+"pris": 5250.0,
+"plats": "Second Sea"
+},
+"Depth Lurker": {
+"kg_pris": 2.5,
+"kg": 42.5,
+"pris": 106.3,
+"plats": "Second Sea"
+},
+"Doctorfish Tang": {
+"kg_pris": 22.22,
+"kg": 6.0,
+"pris": 133.3,
+"plats": "Second Sea"
+},
+"Drift Claw": {
+"kg_pris": 0.33,
+"kg": 83.0,
+"pris": 27.7,
+"plats": "Second Sea"
+},
+"Driftfin": {
+"kg_pris": 7.35,
+"kg": 45.0,
+"pris": 330.7,
+"plats": "Second Sea"
+},
+"Drifting Gildfin": {
+"kg_pris": 7.78,
+"kg": 3.0,
+"pris": 23.3,
+"plats": "Second Sea"
+},
+"Duskwave Herring School": {
+"kg_pris": 153.23,
+"kg": 42.5,
+"pris": 6512.1,
+"plats": "Second Sea"
+},
+"Echo Koi": {
+"kg_pris": 13.33,
+"kg": 62.5,
+"pris": 833.3,
+"plats": "Second Sea"
+},
+"Emberwing": {
+"kg_pris": 2.81,
+"kg": 342.0,
+"pris": 960.6,
+"plats": "Second Sea"
+},
+"Fangtooth": {
+"kg_pris": 5.33,
+"kg": 63.0,
+"pris": 336.0,
+"plats": "Second Sea"
+},
+"Firecrest": {
+"kg_pris": 0.13,
+"kg": 252.0,
+"pris": 32.9,
+"plats": "Second Sea"
+},
+"Foamrunner": {
+"kg_pris": 0.59,
+"kg": 92.5,
+"pris": 54.8,
+"plats": "Second Sea"
+},
+"Fogstripe": {
+"kg_pris": 2.43,
+"kg": 50.0,
+"pris": 121.4,
+"plats": "Second Sea"
+},
+"Four Eyes Fish": {
+"kg_pris": 3.85,
+"kg": 15.5,
+"pris": 59.6,
+"plats": "Second Sea"
+},
+"French Grunt": {
+"kg_pris": 10.53,
+"kg": 6.35,
+"pris": 66.8,
+"plats": "Second Sea"
+},
+"Furnace Leaper": {
+"kg_pris": 0.28,
+"kg": 414.0,
+"pris": 117.1,
+"plats": "Second Sea"
+},
+"Gale Snapper": {
+"kg_pris": 5.45,
+"kg": 3.75,
+"pris": 20.5,
+"plats": "Second Sea"
+},
+"Giant Moray": {
+"kg_pris": 125.0,
+"kg": 25.5,
+"pris": 3187.5,
+"plats": "Second Sea"
+},
+"Glade Lurker": {
+"kg_pris": 8.13,
+"kg": 112.5,
+"pris": 914.1,
+"plats": "Second Sea"
+},
+"Glimmer Guppy": {
+"kg_pris": 2.03,
+"kg": 66.0,
+"pris": 134.1,
+"plats": "Second Sea"
+},
+"Glowfin Skipper": {
+"kg_pris": 0.11,
+"kg": 270.0,
+"pris": 29.8,
+"plats": "Second Sea"
+},
+"Great Barracuda": {
+"kg_pris": 14.0,
+"kg": 325.0,
+"pris": 4550.0,
+"plats": "Second Sea"
+},
+"Gulf Toadfish": {
+"kg_pris": 3.33,
+"kg": 19.5,
+"pris": 65.0,
+"plats": "Second Sea"
+},
+"Gust Tail": {
+"kg_pris": 1.83,
+"kg": 875.0,
+"pris": 1604.2,
+"plats": "Second Sea"
+},
+"Hellmaw Eel": {
+"kg_pris": 2.06,
+"kg": 36.0,
+"pris": 74.1,
+"plats": "Second Sea"
+},
+"Hollow Snapper": {
+"kg_pris": 0.8,
+"kg": 140.0,
+"pris": 112.0,
+"plats": "Second Sea"
+},
+"Horizon Tetra": {
+"kg_pris": 4.74,
+"kg": 27.0,
+"pris": 128.1,
+"plats": "Second Sea"
+},
+"Idolfish": {
+"kg_pris": 2.53,
+"kg": 1205.0,
+"pris": 3047.9,
+"plats": "Second Sea"
+},
+"Infernal Halibut School": {
+"kg_pris": 208.96,
+"kg": 46.0,
+"pris": 9611.9,
+"plats": "Second Sea"
+},
+"Inferno Chaser": {
+"kg_pris": 0.84,
+"kg": 382.5,
+"pris": 322.5,
+"plats": "Second Sea"
+},
+"Islandhopper Butterflyfish": {
+"kg_pris": 34.48,
+"kg": 5.8,
+"pris": 200.0,
+"plats": "Second Sea"
+},
+"Jungle Phantom": {
+"kg_pris": 15.0,
+"kg": 110.0,
+"pris": 1650.0,
+"plats": "Second Sea"
+},
+"Knifefish": {
+"kg_pris": 8.12,
+"kg": 120.0,
+"pris": 974.1,
+"plats": "Second Sea"
+},
+"Lagoon Dart": {
+"kg_pris": 1.53,
+"kg": 51.0,
+"pris": 77.9,
+"plats": "Second Sea"
+},
+"Lagoon Lobster": {
+"kg_pris": 86.0,
+"kg": 3.1,
+"pris": 266.6,
+"plats": "Second Sea"
+},
+"Langoustine": {
+"kg_pris": 9000.0,
+"kg": 0.65,
+"pris": 5850.0,
+"plats": "Regionless"
+},
+"Lantern Snapper": {
+"kg_pris": 15.4,
+"kg": 61.5,
+"pris": 947.1,
+"plats": "Second Sea"
+},
+"Lava Bream": {
+"kg_pris": 0.91,
+"kg": 69.0,
+"pris": 62.9,
+"plats": "Second Sea"
+},
+"Lobster King": {
+"kg_pris": 0.1,
+"kg": 245000.0,
+"pris": 24500.0,
+"plats": "Second Sea"
+},
+"Lumpclinger": {
+"kg_pris": 3.5,
+"kg": 35.0,
+"pris": 122.5,
+"plats": "Second Sea"
+},
+"Magma Pike": {
+"kg_pris": 0.9,
+"kg": 72.0,
+"pris": 65.1,
+"plats": "Second Sea"
+},
+"Moltenstripe": {
+"kg_pris": 2.4,
+"kg": 33.0,
+"pris": 79.1,
+"plats": "Second Sea"
+},
+"Moonveil Salmon School": {
+"kg_pris": 11.06,
+"kg": 42.5,
+"pris": 469.9,
+"plats": "Second Sea"
+},
+"Murkdrifter": {
+"kg_pris": 0.35,
+"kg": 90.0,
+"pris": 31.2,
+"plats": "Second Sea"
+},
+"Murkfin": {
+"kg_pris": 1.0,
+"kg": 31.5,
+"pris": 31.5,
+"plats": "Second Sea"
+},
+"Oak Stripetail": {
+"kg_pris": 23.0,
+"kg": 7.0,
+"pris": 161.0,
+"plats": "Second Sea"
+},
+"Obsidian Koi": {
+"kg_pris": 5.4,
+"kg": 321.0,
+"pris": 1731.9,
+"plats": "Second Sea"
+},
+"Ocean Triggerfish": {
+"kg_pris": 60.0,
+"kg": 16.5,
+"pris": 990.0,
+"plats": "Second Sea"
+},
+"Oyster Toadfish": {
+"kg_pris": 17.39,
+"kg": 7.6,
+"pris": 132.2,
+"plats": "Second Sea"
+},
+"Parktail Spinesnapper": {
+"kg_pris": 190.0,
+"kg": 10.5,
+"pris": 1995.0,
+"plats": "Second Sea"
+},
+"Pelican Eel": {
+"kg_pris": 0.44,
+"kg": 4250.0,
+"pris": 1877.1,
+"plats": "Second Sea"
+},
+"Phantom Brine": {
+"kg_pris": 8.59,
+"kg": 150.0,
+"pris": 1288.2,
+"plats": "Second Sea"
+},
+"Phantom Koi": {
+"kg_pris": 14.44,
+"kg": 660.0,
+"pris": 9528.8,
+"plats": "Second Sea"
+},
+"Pine Zephyrfish": {
+"kg_pris": 111.67,
+"kg": 8.5,
+"pris": 949.2,
+"plats": "Second Sea"
+},
+"Primordial Levi": {
+"kg_pris": 10.0,
+"kg": 825.0,
+"pris": 8250.0,
+"plats": "Second Sea"
+},
+"Psychedelic Frogfish": {
+"kg_pris": 0.66,
+"kg": 14000.0,
+"pris": 9240.0,
+"plats": "Second Sea"
+},
+"Pufferling School": {
+"kg_pris": 43.86,
+"kg": 38.0,
+"pris": 1666.7,
+"plats": "Second Sea"
+},
+"Pupfish": {
+"kg_pris": 3.75,
+"kg": 8.5,
+"pris": 31.9,
+"plats": "Second Sea"
+},
+"Pyre Fang": {
+"kg_pris": 1.54,
+"kg": 18.0,
+"pris": 27.8,
+"plats": "Second Sea"
+},
+"Rainbow Grouper": {
+"kg_pris": 100.0,
+"kg": 26.5,
+"pris": 2650.0,
+"plats": "Second Sea"
+},
+"Redwood Duskray": {
+"kg_pris": 15.63,
+"kg": 5.5,
+"pris": 85.9,
+"plats": "Second Sea"
+},
+"Reed Striker": {
+"kg_pris": 3.3,
+"kg": 108.0,
+"pris": 356.5,
+"plats": "Second Sea"
+},
+"Reefdart": {
+"kg_pris": 2.89,
+"kg": 13.5,
+"pris": 39.0,
+"plats": "Second Sea"
+},
+"Relic Dart": {
+"kg_pris": 2.37,
+"kg": 130.0,
+"pris": 307.9,
+"plats": "Second Sea"
+},
+"Ripple Spine": {
+"kg_pris": 0.74,
+"kg": 132.5,
+"pris": 97.6,
+"plats": "Second Sea"
+},
+"Rock Gunnel": {
+"kg_pris": 3.57,
+"kg": 9.5,
+"pris": 33.9,
+"plats": "Second Sea"
+},
+"Rock Hind": {
+"kg_pris": 0.49,
+"kg": 5000.0,
+"pris": 2437.5,
+"plats": "Second Sea"
+},
+"Rock Lobster": {
+"kg_pris": 92.65,
+"kg": 4.4,
+"pris": 407.6,
+"plats": "Second Sea"
+},
+"Roslit Ray Lobster": {
+"kg_pris": 157.5,
+"kg": 2.65,
+"pris": 417.4,
+"plats": "Regionless"
+},
+"Sarcastic Fringehead": {
+"kg_pris": 9.64,
+"kg": 97.5,
+"pris": 940.2,
+"plats": "Second Sea"
+},
+"Sardines School": {
+"kg_pris": 3.57,
+"kg": 20.0,
+"pris": 71.4,
+"plats": "Second Sea"
+},
+"Scalloped Spiny Lobster": {
+"kg_pris": 191.67,
+"kg": 8.25,
+"pris": 1581.3,
+"plats": "Regionless"
+},
+"Scorchray": {
+"kg_pris": 4.77,
+"kg": 183.0,
+"pris": 873.4,
+"plats": "Second Sea"
+},
+"Scrawled Filefish": {
+"kg_pris": 18.0,
+"kg": 32.5,
+"pris": 585.0,
+"plats": "Second Sea"
+},
+"Sea Leviathan": {
+"kg_pris": 3.5,
+"kg": 4100.0,
+"pris": 14350.0,
+"plats": "Second Sea"
+},
+"Searfin": {
+"kg_pris": 0.27,
+"kg": 441.0,
+"pris": 117.6,
+"plats": "Second Sea"
+},
+"Seaspawn Shrimp School": {
+"kg_pris": 333.33,
+"kg": 92.5,
+"pris": 30833.3,
+"plats": "Second Sea"
+},
+"Sergeant Major": {
+"kg_pris": 11.2,
+"kg": 8.0,
+"pris": 89.6,
+"plats": "Second Sea"
+},
+"Shiver Swarmfish School": {
+"kg_pris": 11.33,
+"kg": 40.0,
+"pris": 453.3,
+"plats": "Second Sea"
+},
+"Slipper Lobster": {
+"kg_pris": 285.71,
+"kg": 18.5,
+"pris": 5285.7,
+"plats": "Second Sea"
+},
+"Smogfish": {
+"kg_pris": 0.79,
+"kg": 156.0,
+"pris": 122.8,
+"plats": "Second Sea"
+},
+"Smolderfang": {
+"kg_pris": 0.8,
+"kg": 162.0,
+"pris": 128.9,
+"plats": "Second Sea"
+},
+"Smooth Toadfish": {
+"kg_pris": 36.36,
+"kg": 7.15,
+"pris": 260.0,
+"plats": "Second Sea"
+},
+"Snakehead": {
+"kg_pris": 8.75,
+"kg": 112.5,
+"pris": 984.4,
+"plats": "Second Sea"
+},
+"Snowcap Lobster": {
+"kg_pris": 243.33,
+"kg": 2.0,
+"pris": 486.7,
+"plats": "Regionless"
+},
+"Spadefish": {
+"kg_pris": 57.14,
+"kg": 16.0,
+"pris": 914.3,
+"plats": "Second Sea"
+},
+"Spiny Sunstone Lobster": {
+"kg_pris": 25.29,
+"kg": 10.75,
+"pris": 271.9,
+"plats": "Regionless"
+},
+"Splendid Toadfish": {
+"kg_pris": 75.0,
+"kg": 7.75,
+"pris": 581.3,
+"plats": "Second Sea"
+},
+"Spotted Moray Eel": {
+"kg_pris": 46.43,
+"kg": 85.0,
+"pris": 3946.4,
+"plats": "Second Sea"
+},
+"Sprayfin": {
+"kg_pris": 6.43,
+"kg": 9.5,
+"pris": 61.1,
+"plats": "Second Sea"
+},
+"Squirrelfish": {
+"kg_pris": 16.0,
+"kg": 3.4,
+"pris": 54.4,
+"plats": "Second Sea"
+},
+"Stoplight Parrotfish": {
+"kg_pris": 88.89,
+"kg": 6.0,
+"pris": 533.3,
+"plats": "Second Sea"
+},
+"Storm Skipper": {
+"kg_pris": 66.67,
+"kg": 100.0,
+"pris": 6666.7,
+"plats": "Second Sea"
+},
+"Studster": {
+"kg_pris": 200.0,
+"kg": 42.5,
+"pris": 8500.0,
+"plats": "Second Sea"
+},
+"Sulfur Snapper": {
+"kg_pris": 0.28,
+"kg": 420.0,
+"pris": 115.5,
+"plats": "Second Sea"
+},
+"Sunflare Tetra": {
+"kg_pris": 0.88,
+"kg": 145.5,
+"pris": 127.7,
+"plats": "Second Sea"
+},
+"Sunray Sunscale": {
+"kg_pris": 422.5,
+"kg": 14.0,
+"pris": 5915.0,
+"plats": "Second Sea"
+},
+"Surge Pike": {
+"kg_pris": 0.95,
+"kg": 275.0,
+"pris": 261.3,
+"plats": "Second Sea"
+},
+"Swampjaw": {
+"kg_pris": 1.67,
+"kg": 84.0,
+"pris": 140.0,
+"plats": "Second Sea"
+},
+"Telescopefish": {
+"kg_pris": 4.6,
+"kg": 70.0,
+"pris": 322.0,
+"plats": "Second Sea"
+},
+"Temple Perch": {
+"kg_pris": 1.0,
+"kg": 290.0,
+"pris": 290.0,
+"plats": "Second Sea"
+},
+"Terrapin Lobster": {
+"kg_pris": 396.55,
+"kg": 3.8,
+"pris": 1506.9,
+"plats": "Regionless"
+},
+"Thornfish": {
+"kg_pris": 416.67,
+"kg": 20.0,
+"pris": 8333.3,
+"plats": "Second Sea"
+},
+"Tidallow": {
+"kg_pris": 2.73,
+"kg": 10.5,
+"pris": 28.7,
+"plats": "Second Sea"
+},
+"Tide Fang": {
+"kg_pris": 8.0,
+"kg": 105.0,
+"pris": 840.0,
+"plats": "Second Sea"
+},
+"Tilefish": {
+"kg_pris": 1.15,
+"kg": 8250.0,
+"pris": 9519.2,
+"plats": "Second Sea"
+},
+"Tropicspike": {
+"kg_pris": 0.89,
+"kg": 3615.0,
+"pris": 3200.3,
+"plats": "Second Sea"
+},
+"Veinfin Tetra School": {
+"kg_pris": 6.52,
+"kg": 44.0,
+"pris": 286.7,
+"plats": "Second Sea"
+},
+"Velvet Belly Lanternshark": {
+"kg_pris": 8.8,
+"kg": 105.0,
+"pris": 924.0,
+"plats": "Second Sea"
+},
+"Verdant Mirage": {
+"kg_pris": 20.83,
+"kg": 840.0,
+"pris": 17500.0,
+"plats": "Second Sea"
+},
+"Vinefish": {
+"kg_pris": 2.65,
+"kg": 23.0,
+"pris": 60.9,
+"plats": "Second Sea"
+},
+"Volcanic Prowler": {
+"kg_pris": 0.36,
+"kg": 847.5,
+"pris": 303.9,
+"plats": "Second Sea"
+},
+"Vortex Ray": {
+"kg_pris": 6.82,
+"kg": 750.0,
+"pris": 5113.6,
+"plats": "Second Sea"
+},
+"Warty Angler": {
+"kg_pris": 3.75,
+"kg": 16.5,
+"pris": 61.9,
+"plats": "Second Sea"
+},
+"Watching Glowfin": {
+"kg_pris": 7.5,
+"kg": 2.5,
+"pris": 18.8,
+"plats": "Second Sea"
+},
+"Wave Piercer": {
+"kg_pris": 15.0,
+"kg": 95.0,
+"pris": 1425.0,
+"plats": "Second Sea"
+},
+"Waveborne Lobster": {
+"kg_pris": 62.5,
+"kg": 30.5,
+"pris": 1906.3,
+"plats": "Second Sea"
+},
+"Western Rock Lobster": {
+"kg_pris": 24.0,
+"kg": 3.45,
+"pris": 82.8,
+"plats": "Second Sea"
+},
+"Whisper Eel": {
+"kg_pris": 3.31,
+"kg": 1050.0,
+"pris": 3476.9,
+"plats": "Second Sea"
+},
+"8-Bit Mr. Tentacles": {
+"kg_pris": 7553.57,
+"kg": 1.4,
+"pris": 10575.0,
+"plats": "Admin-Exclusive"
+},
+"Admin Bait Crate": {
+"kg_pris": 1250.0,
+"kg": 8.0,
+"pris": 10000.0,
+"plats": "Admin-Exclusive"
+},
+"Admin Crate": {
+"kg_pris": 1250.0,
+"kg": 8.0,
+"pris": 10000.0,
+"plats": "Admin-Exclusive"
+},
+"Admin Fish Barrel": {
+"kg_pris": 666.67,
+"kg": 15.0,
+"pris": 10000.0,
+"plats": "Admin-Exclusive"
+},
+"Admin Relic": {
+"kg_pris": 166.67,
+"kg": 21.0,
+"pris": 3500.0,
+"plats": "Admin-Exclusive"
+},
+"Alien Buddy": {
+"kg_pris": 22500.0,
+"kg": 0.25,
+"pris": 5625.0,
+"plats": "Admin-Exclusive"
+},
+"Alien Hat": {
+"kg_pris": 90000.0,
+"kg": 0.1,
+"pris": 9000.0,
+"plats": "Admin-Exclusive"
+},
+"Baby Lovestorm Eel": {
+"kg_pris": 7894.74,
+"kg": 1.7,
+"pris": 13421.1,
+"plats": "Admin-Exclusive"
+},
+"Baby Lovestorm Turtle": {
+"kg_pris": 6000.0,
+"kg": 2.3,
+"pris": 13800.0,
+"plats": "Admin-Exclusive"
+},
+"Beach Umbrella": {
+"kg_pris": 357.14,
+"kg": 6.0,
+"pris": 2142.9,
+"plats": "Admin-Exclusive"
+},
+"Black Iron Bucket": {
+"kg_pris": 2836.25,
+"kg": 2.5,
+"pris": 7090.6,
+"plats": "Admin-Exclusive"
+},
+"Blinking Egg": {
+"kg_pris": 2390.5,
+"kg": 2.5,
+"pris": 5976.3,
+"plats": "Admin-Exclusive"
+},
+"Bloxy Cola": {
+"kg_pris": 1057.5,
+"kg": 5.7,
+"pris": 6027.8,
+"plats": "Admin-Exclusive"
+},
+"Bluesteel Egg": {
+"kg_pris": 3170.75,
+"kg": 2.5,
+"pris": 7926.9,
+"plats": "Admin-Exclusive"
+},
+"Bombastic Egg": {
+"kg_pris": 3084.75,
+"kg": 2.5,
+"pris": 7711.9,
+"plats": "Admin-Exclusive"
+},
+"Bouncing Egg": {
+"kg_pris": 2672.0,
+"kg": 2.5,
+"pris": 6680.0,
+"plats": "Admin-Exclusive"
+},
+"Brainfreeze Egg": {
+"kg_pris": 2836.25,
+"kg": 2.5,
+"pris": 7090.6,
+"plats": "Admin-Exclusive"
+},
+"Brighteyes Egg": {
+"kg_pris": 2531.25,
+"kg": 2.5,
+"pris": 6328.1,
+"plats": "Admin-Exclusive"
+},
+"Broken Floppy": {
+"kg_pris": 1500.0,
+"kg": 9.0,
+"pris": 13500.0,
+"plats": "Admin-Exclusive"
+},
+"Cheezburger": {
+"kg_pris": 1057.5,
+"kg": 5.7,
+"pris": 6027.8,
+"plats": "Admin-Exclusive"
+},
+"Christmas Ancient Kraken": {
+"kg_pris": 0.18,
+"kg": 175000.0,
+"pris": 30800.0,
+"plats": "Admin-Exclusive"
+},
+"Christmas Ancient Megalodon": {
+"kg_pris": 0.54,
+"kg": 60000.0,
+"pris": 32142.9,
+"plats": "Admin-Exclusive"
+},
+"Christmas Bloop Fish": {
+"kg_pris": 0.13,
+"kg": 350000.0,
+"pris": 44450.0,
+"plats": "Admin-Exclusive"
+},
+"Christmas Kraken": {
+"kg_pris": 0.21,
+"kg": 115000.0,
+"pris": 23958.3,
+"plats": "Admin-Exclusive"
+},
+"Christmas Leviathan": {
+"kg_pris": 0.15,
+"kg": 290000.0,
+"pris": 42927.6,
+"plats": "Admin-Exclusive"
+},
+"Christmas Megalodon": {
+"kg_pris": 0.47,
+"kg": 58500.0,
+"pris": 27285.4,
+"plats": "Admin-Exclusive"
+},
+"Christmas Mossjaw": {
+"kg_pris": 0.07,
+"kg": 500000.0,
+"pris": 34285.7,
+"plats": "Admin-Exclusive"
+},
+"Christmas Phantom Megalodon": {
+"kg_pris": 0.67,
+"kg": 58500.0,
+"pris": 39291.0,
+"plats": "Admin-Exclusive"
+},
+"Christmas Scylla": {
+"kg_pris": 0.09,
+"kg": 350000.0,
+"pris": 30966.6,
+"plats": "Admin-Exclusive"
+},
+"Cloud": {
+"kg_pris": 525.0,
+"kg": 18.0,
+"pris": 9450.0,
+"plats": "Admin-Exclusive"
+},
+"Colossal Nico": {
+"kg_pris": 1.0,
+"kg": 90.0,
+"pris": 90.0,
+"plats": "Admin-Exclusive"
+},
+"Comically Ginormous Nico": {
+"kg_pris": 0.4,
+"kg": 90000.0,
+"pris": 36000.0,
+"plats": "Admin-Exclusive"
+},
+"Corrupted Floppy": {
+"kg_pris": 160.71,
+"kg": 50.0,
+"pris": 8035.7,
+"plats": "Admin-Exclusive"
+},
+"Corrupted Kraken": {
+"kg_pris": 0.16,
+"kg": 50000.0,
+"pris": 8069.3,
+"plats": "Admin-Exclusive"
+},
+"Corrupted Megalodon": {
+"kg_pris": 0.16,
+"kg": 50000.0,
+"pris": 8086.4,
+"plats": "Admin-Exclusive"
+},
+"Corrupted Mosslurker": {
+"kg_pris": 0.02,
+"kg": 500000.0,
+"pris": 8069.3,
+"plats": "Admin-Exclusive"
+},
+"Corrupted Scylla": {
+"kg_pris": 0.04,
+"kg": 500000.0,
+"pris": 21428.6,
+"plats": "Admin-Exclusive"
+},
+"Cousin Tentacles": {
+"kg_pris": 7553.57,
+"kg": 1.4,
+"pris": 10575.0,
+"plats": "Admin-Exclusive"
+},
+"Cracked Egg": {
+"kg_pris": 2643.75,
+"kg": 2.5,
+"pris": 6609.4,
+"plats": "Admin-Exclusive"
+},
+"Dance Floor": {
+"kg_pris": 100.0,
+"kg": 25.5,
+"pris": 2550.0,
+"plats": "Admin-Exclusive"
+},
+"Dave": {
+"kg_pris": 1.23,
+"kg": 80.5,
+"pris": 99.4,
+"plats": "Admin-Exclusive"
+},
+"Disco Ball": {
+"kg_pris": 100.0,
+"kg": 25.5,
+"pris": 2550.0,
+"plats": "Admin-Exclusive"
+},
+"Disguised Floppy": {
+"kg_pris": 1500.0,
+"kg": 9.0,
+"pris": 13500.0,
+"plats": "Admin-Exclusive"
+},
+"Dogefin": {
+"kg_pris": 140.6,
+"kg": 30.25,
+"pris": 4253.2,
+"plats": "Admin-Exclusive"
+},
+"Dr. Ishmael": {
+"kg_pris": 7553.57,
+"kg": 1.4,
+"pris": 10575.0,
+"plats": "Admin-Exclusive"
+},
+"Evil Gurt": {
+"kg_pris": 500.0,
+"kg": 25.0,
+"pris": 12500.0,
+"plats": "Admin-Exclusive"
+},
+"Extra Colossal Nico": {
+"kg_pris": 10.0,
+"kg": 90.0,
+"pris": 900.0,
+"plats": "Admin-Exclusive"
+},
+"Fern": {
+"kg_pris": 22.26,
+"kg": 375.0,
+"pris": 8349.0,
+"plats": "Admin-Exclusive"
+},
+"Fischipedia Accurate Pickle": {
+"kg_pris": 9000.0,
+"kg": 0.7,
+"pris": 6300.0,
+"plats": "Admin-Exclusive"
+},
+"Flashlight": {
+"kg_pris": 6316.0,
+"kg": 1.0,
+"pris": 6316.0,
+"plats": "Admin-Exclusive"
+},
+"Frank": {
+"kg_pris": 22500.0,
+"kg": 0.25,
+"pris": 5625.0,
+"plats": "Admin-Exclusive"
+},
+"Fridge": {
+"kg_pris": 11.35,
+"kg": 650.0,
+"pris": 7374.3,
+"plats": "Admin-Exclusive"
+},
+"Gargantuan Taco": {
+"kg_pris": 30.0,
+"kg": 200.0,
+"pris": 6000.0,
+"plats": "Admin-Exclusive"
+},
+"Ghost": {
+"kg_pris": 11132.0,
+"kg": 0.55,
+"pris": 6122.6,
+"plats": "Admin-Exclusive"
+},
+"Ghoul": {
+"kg_pris": 5625.0,
+"kg": 1.1,
+"pris": 6187.5,
+"plats": "Admin-Exclusive"
+},
+"Glass Sand Castle": {
+"kg_pris": 620.71,
+"kg": 6.0,
+"pris": 3724.3,
+"plats": "Admin-Exclusive"
+},
+"Glitch Cap": {
+"kg_pris": 110250.0,
+"kg": 0.1,
+"pris": 11025.0,
+"plats": "Admin-Exclusive"
+},
+"Glitched Shades": {
+"kg_pris": 110250.0,
+"kg": 0.1,
+"pris": 11025.0,
+"plats": "Admin-Exclusive"
+},
+"Golden Coin": {
+"kg_pris": 6750.0,
+"kg": 0.9,
+"pris": 6075.0,
+"plats": "Admin-Exclusive"
+},
+"Golden Egg": {
+"kg_pris": 2836.25,
+"kg": 2.5,
+"pris": 7090.6,
+"plats": "Admin-Exclusive"
+},
+"Golden Nessie": {
+"kg_pris": 0.33,
+"kg": 30000.0,
+"pris": 9774.0,
+"plats": "Admin-Exclusive"
+},
+"Gygax Egg": {
+"kg_pris": 2836.25,
+"kg": 2.5,
+"pris": 7090.6,
+"plats": "Admin-Exclusive"
+},
+"Holy Floppy": {
+"kg_pris": 1500.0,
+"kg": 9.0,
+"pris": 13500.0,
+"plats": "Admin-Exclusive"
+},
+"Incredibly Large Disco Ball": {
+"kg_pris": 3.0,
+"kg": 2550.0,
+"pris": 7650.0,
+"plats": "Admin-Exclusive"
+},
+"JellyBop": {
+"kg_pris": 133220.0,
+"kg": 0.1,
+"pris": 13322.0,
+"plats": "Admin-Exclusive"
+},
+"Ketchup": {
+"kg_pris": 12562.5,
+"kg": 2.5,
+"pris": 31406.3,
+"plats": "Admin-Exclusive"
+},
+"Kind Egg": {
+"kg_pris": 2531.25,
+"kg": 2.5,
+"pris": 6328.1,
+"plats": "Admin-Exclusive"
+},
+"Lava Bucket": {
+"kg_pris": 525.0,
+"kg": 18.0,
+"pris": 9450.0,
+"plats": "Admin-Exclusive"
+},
+"Lightning Bolt": {
+"kg_pris": 42.86,
+"kg": 155.0,
+"pris": 6642.9,
+"plats": "Admin-Exclusive"
+},
+"Little Gurt": {
+"kg_pris": 25000.0,
+"kg": 0.25,
+"pris": 6250.0,
+"plats": "Admin-Exclusive"
+},
+"Mango": {
+"kg_pris": 2250.0,
+"kg": 2.5,
+"pris": 5625.0,
+"plats": "Admin-Exclusive"
+},
+"Mango Smoothie": {
+"kg_pris": 2368.42,
+"kg": 2.3,
+"pris": 5447.4,
+"plats": "Admin-Exclusive"
+},
+"Mango Whale": {
+"kg_pris": 275.63,
+"kg": 25.0,
+"pris": 6890.6,
+"plats": "Admin-Exclusive"
+},
+"Microphone": {
+"kg_pris": 100.0,
+"kg": 25.5,
+"pris": 2550.0,
+"plats": "Admin-Exclusive"
+},
+"Mr. Tentacles": {
+"kg_pris": 7553.57,
+"kg": 1.4,
+"pris": 10575.0,
+"plats": "Admin-Exclusive"
+},
+"Mrs. Tentacles": {
+"kg_pris": 7553.57,
+"kg": 1.4,
+"pris": 10575.0,
+"plats": "Admin-Exclusive"
+},
+"Mustard Hat": {
+"kg_pris": 7562.14,
+"kg": 1.4,
+"pris": 10587.0,
+"plats": "Admin-Exclusive"
+},
+"Nico": {
+"kg_pris": 10.0,
+"kg": 0.9,
+"pris": 9.0,
+"plats": "Admin-Exclusive"
+},
+"Obsidian": {
+"kg_pris": 482.14,
+"kg": 18.0,
+"pris": 8678.6,
+"plats": "Admin-Exclusive"
+},
+"Overjoyed Floppy": {
+"kg_pris": 1500.0,
+"kg": 9.0,
+"pris": 13500.0,
+"plats": "Admin-Exclusive"
+},
+"Palm Tree": {
+"kg_pris": 2.0,
+"kg": 400.0,
+"pris": 800.0,
+"plats": "Admin-Exclusive"
+},
+"Parasite": {
+"kg_pris": 2546.0,
+"kg": 2.5,
+"pris": 6365.0,
+"plats": "Admin-Exclusive"
+},
+"Pine Tree": {
+"kg_pris": 0.16,
+"kg": 46250.0,
+"pris": 7627.5,
+"plats": "Admin-Exclusive"
+},
+"Poltergeist": {
+"kg_pris": 377.37,
+"kg": 16.5,
+"pris": 6226.6,
+"plats": "Admin-Exclusive"
+},
+"Puzzle Egg": {
+"kg_pris": 2836.25,
+"kg": 2.5,
+"pris": 7090.6,
+"plats": "Admin-Exclusive"
+},
+"Raindrop": {
+"kg_pris": 2033.65,
+"kg": 3.3,
+"pris": 6711.1,
+"plats": "Admin-Exclusive"
+},
+"Rocket Ship": {
+"kg_pris": 0.04,
+"kg": 200000.0,
+"pris": 7500.0,
+"plats": "Admin-Exclusive"
+},
+"Royal Egg": {
+"kg_pris": 2827.25,
+"kg": 2.5,
+"pris": 7068.1,
+"plats": "Admin-Exclusive"
+},
+"Sad Floppy": {
+"kg_pris": 1500.0,
+"kg": 9.0,
+"pris": 13500.0,
+"plats": "Admin-Exclusive"
+},
+"Sand Worm": {
+"kg_pris": 0.03,
+"kg": 1700000.0,
+"pris": 42500.0,
+"plats": "Admin-Exclusive"
+},
+"Sandiest Dollar": {
+"kg_pris": 750.0,
+"kg": 15.0,
+"pris": 11250.0,
+"plats": "Admin-Exclusive"
+},
+"Scorching Umbrella": {
+"kg_pris": 763.57,
+"kg": 6.0,
+"pris": 4581.4,
+"plats": "Admin-Exclusive"
+},
+"Shadow Egg": {
+"kg_pris": 2390.5,
+"kg": 2.5,
+"pris": 5976.3,
+"plats": "Admin-Exclusive"
+},
+"Shady Crate": {
+"kg_pris": 100.0,
+"kg": 5.0,
+"pris": 500.0,
+"plats": "Admin-Exclusive"
+},
+"Silly Floppy": {
+"kg_pris": 1500.0,
+"kg": 9.0,
+"pris": 13500.0,
+"plats": "Admin-Exclusive"
+},
+"Sleepy Floppy": {
+"kg_pris": 1500.0,
+"kg": 9.0,
+"pris": 13500.0,
+"plats": "Admin-Exclusive"
+},
+"Snowflake": {
+"kg_pris": 101250.0,
+"kg": 0.1,
+"pris": 10125.0,
+"plats": "Admin-Exclusive"
+},
+"Snowman": {
+"kg_pris": 1113.2,
+"kg": 6.0,
+"pris": 6679.2,
+"plats": "Admin-Exclusive"
+},
+"Squished Floppy": {
+"kg_pris": 1500.0,
+"kg": 9.0,
+"pris": 13500.0,
+"plats": "Admin-Exclusive"
+},
+"Star": {
+"kg_pris": 352.5,
+"kg": 20.0,
+"pris": 7050.0,
+"plats": "Admin-Exclusive"
+},
+"Stationary Egg": {
+"kg_pris": 2250.0,
+"kg": 2.5,
+"pris": 5625.0,
+"plats": "Admin-Exclusive"
+},
+"Summer Bloop Fish": {
+"kg_pris": 0.13,
+"kg": 350000.0,
+"pris": 44275.0,
+"plats": "Admin-Exclusive"
+},
+"Summer Leviathan": {
+"kg_pris": 0.14,
+"kg": 290000.0,
+"pris": 40638.2,
+"plats": "Admin-Exclusive"
+},
+"Summer Megalodon": {
+"kg_pris": 0.5,
+"kg": 58500.0,
+"pris": 29031.7,
+"plats": "Admin-Exclusive"
+},
+"Summer Reef Titan": {
+"kg_pris": 0.38,
+"kg": 75000.0,
+"pris": 28687.5,
+"plats": "Admin-Exclusive"
+},
+"Summer Scylla": {
+"kg_pris": 0.13,
+"kg": 350000.0,
+"pris": 44275.0,
+"plats": "Admin-Exclusive"
+},
+"Sunhat": {
+"kg_pris": 250.0,
+"kg": 1.5,
+"pris": 375.0,
+"plats": "Admin-Exclusive"
+},
+"Supersized Driftwood": {
+"kg_pris": 75.54,
+"kg": 140.0,
+"pris": 10575.0,
+"plats": "Admin-Exclusive"
+},
+"Supersized Floppy": {
+"kg_pris": 0.15,
+"kg": 50000.0,
+"pris": 7443.6,
+"plats": "Admin-Exclusive"
+},
+"Supersized Sea Pickle": {
+"kg_pris": 1.29,
+"kg": 5000.0,
+"pris": 6428.6,
+"plats": "Admin-Exclusive"
+},
+"Taco": {
+"kg_pris": 33750.0,
+"kg": 0.2,
+"pris": 6750.0,
+"plats": "Admin-Exclusive"
+},
+"Tentacles Junior": {
+"kg_pris": 7553.57,
+"kg": 1.4,
+"pris": 10575.0,
+"plats": "Admin-Exclusive"
+},
+"Toilet Fish": {
+"kg_pris": 140.6,
+"kg": 30.25,
+"pris": 4253.2,
+"plats": "Admin-Exclusive"
+},
+"Turkey Leg": {
+"kg_pris": 1057.5,
+"kg": 5.7,
+"pris": 6027.8,
+"plats": "Admin-Exclusive"
+},
+"UFO": {
+"kg_pris": 2.84,
+"kg": 2500.0,
+"pris": 7090.6,
+"plats": "Admin-Exclusive"
+},
+"Venoblossom": {
+"kg_pris": 0.13,
+"kg": 67500.0,
+"pris": 9009.3,
+"plats": "Admin-Exclusive"
+},
+"Wanwood Egg": {
+"kg_pris": 2531.25,
+"kg": 2.5,
+"pris": 6328.1,
+"plats": "Admin-Exclusive"
+},
+"Aetherfin": {
+"kg_pris": 6.0,
+"kg": 5000.5,
+"pris": 30003.0,
+"plats": "Roslit Bay"
+},
+"Boulder": {
+"kg_pris": 0.01,
+"kg": 1000.0,
+"pris": 10.0,
+"plats": "Keepers Altar"
+},
+"Cataclysm Carp": {
+"kg_pris": 6.0,
+"kg": 5000.5,
+"pris": 30003.0,
+"plats": "Moosewood"
+},
+"Crustal Colossus": {
+"kg_pris": 6.0,
+"kg": 5000.5,
+"pris": 30003.0,
+"plats": "Sunstone Island"
+},
+"Forbidden Plesiosaur": {
+"kg_pris": 0.23,
+"kg": 200000.0,
+"pris": 45666.7,
+"plats": "Tidefall"
+},
+"Him": {
+"kg_pris": 0.5,
+"kg": 5000.05,
+"pris": 2500.0,
+"plats": "Regionless"
+},
+"Lumilotl": {
+"kg_pris": 6.0,
+"kg": 5000.5,
+"pris": 30003.0,
+"plats": "Desolate Deep"
+},
+"Paradox Piranha": {
+"kg_pris": 6.0,
+"kg": 5000.5,
+"pris": 30003.0,
+"plats": "Lost Jungle"
+},
+"Razorfin": {
+"kg_pris": 6.0,
+"kg": 5000.5,
+"pris": 30003.0,
+"plats": "Castaway Cliffs"
+},
+"Seraphfin": {
+"kg_pris": 6.0,
+"kg": 5000.5,
+"pris": 30003.0,
+"plats": "Regionless"
+},
+"Tuskmaw": {
+"kg_pris": 6.0,
+"kg": 5000.5,
+"pris": 30003.0,
+"plats": "Ocean"
+}
+},
+"mutationer": {
+"Aether": 15.0,
+"Ascended": 12.0,
+"Darkheart": 11.8,
+"Fury": 11.7,
+"Hades' Curse": 11.1,
+"Golden Part": 11.0,
+"Rhythmic": 11.0,
+"Hadal": 11.0,
+"Energy": 10.85,
+"Singularity": 10.618,
+"Abaia's Spite": 10.5,
+"Departed": 10.5,
+"Ocean's Ruin": 10.2,
+"Olympian": 10.0,
+"Infernal": 10.0,
+"Myriapodic": 10.0,
+"Photical": 10.0,
+"Plagued": 10.0,
+"Super-Tanned": 10.0,
+"Tryhard": 10.0,
+"Gravitas": 9.81,
+"Requies": 9.8,
+"Astraeus": 9.6,
+"Fabulous": 9.6,
+"Poseidon's Blessing": 9.55,
+"Permafrost": 9.5,
+"Verdant": 9.5,
+"Withered": 9.5,
+"Darkness": 9.4,
+"Royal": 9.4,
+"Zeus's Storm": 9.3,
+"Nebula": 9.2,
+"Embraced": 9.1,
+"Contraband": 9.088,
+"Empyrean": 9.0,
+"Frostbitten": 9.0,
+"Luminous": 9.0,
+"Monstrous": 9.0,
+"Scalded": 9.0,
+"Thalassic": 9.0,
+"Titanium": 9.0,
+"Umbra": 9.0,
+"Nightmare": 8.8,
+"Synth": 8.8,
+"Mossy": 8.7,
+"Puritas": 8.7,
+"Igneous": 8.65,
+"Breezed": 8.6,
+"Ignited": 8.6,
+"Stormy": 8.6,
+"Terra": 8.6,
+"Cosmos": 8.55,
+"Noctic": 8.5,
+"Oblivion": 8.5,
+"Soultorn": 8.5,
+"Blessed": 8.5,
+"Distraught": 8.5,
+"Evil": 8.5,
+"Jack's Curse": 8.5,
+"Santa": 8.5,
+"Serene": 8.5,
+"Sovereign": 8.5,
+"Tidal Surge": 8.5,
+"Floral": 8.4,
+"Obsidian": 8.3,
+"Melody": 8.18,
+"Popsicle": 8.16,
+"Bouka": 8.01,
+"Idol": 8.01,
+"Supersonic": 8.01,
+"Counterfeit": 8.0,
+"Birthday": 8.0,
+"Sour": 8.0,
+"Alien": 8.0,
+"Atomic": 8.0,
+"Chlorowoken": 8.0,
+"Crimsonwrath": 8.0,
+"Fragmented": 8.0,
+"Frostnova": 8.0,
+"Galaxy": 8.0,
+"Glacial": 8.0,
+"Gleebous": 8.0,
+"Glowy": 8.0,
+"Heartburst": 8.0,
+"Jingle Bell": 8.0,
+"Lovely": 8.0,
+"Madness": 8.0,
+"Mastered": 8.0,
+"Mayhem": 8.0,
+"Nocturnal": 8.0,
+"Paradise": 8.0,
+"Petrified": 8.0,
+"Prism": 8.0,
+"Radiant": 8.0,
+"Spectral": 8.0,
+"Spicy": 8.0,
+"Vitalic": 8.0,
+"Tentacle Surge": 7.8,
+"Jackpot": 7.77,
+"Wicked": 7.7,
+"Forest Spirit": 7.5,
+"Gusty": 7.5,
+"Mourned": 7.5,
+"Sanctified": 7.5,
+"Soultouched": 7.5,
+"Liberty": 7.42026,
+"Necrotic": 7.4,
+"Patriotic": 7.4,
+"Acidic": 7.3,
+"Light": 7.2,
+"Magical": 7.2,
+"Crystalline": 7.1,
+"Bathyal": 7.0,
+"Bellona's Fury": 7.0,
+"Bliss": 7.0,
+"Cragged": 7.0,
+"Diurnal": 7.0,
+"Flora": 7.0,
+"Fluttering": 7.0,
+"Lustrous": 7.0,
+"Mango": 7.0,
+"Refracted": 7.0,
+"Sacratus": 7.0,
+"Shrouded": 7.0,
+"Starshell": 7.0,
+"Sweet": 7.0,
+"Tidal": 7.0,
+"Tropical": 7.0,
+"Sunlit": 6.8,
+"Fruit-Crowned": 6.7,
+"Siren's Spite": 6.66,
+"Tormented": 6.66,
+"Banana": 6.5,
+"Blueberry": 6.5,
+"Lavender": 6.5,
+"Lemon": 6.5,
+"Lime": 6.5,
+"Strawberry": 6.5,
+"Aurora": 6.5,
+"Cursed Touch": 6.5,
+"Flowed": 6.5,
+"Luminescent": 6.5,
+"Prismatic": 6.5,
+"Prismize": 6.5,
+"Refined": 6.5,
+"Relic": 6.5,
+"Tainted": 6.5,
+"Venomous": 6.5,
+"Oscar": 6.4,
+"Subspace": 6.4,
+"Sunken": 6.3,
+"Chaotic": 6.2,
+"Summer": 6.2,
+"Lucky Gold": 6.14,
+"Beached": 6.0,
+"Bioluminescent": 6.0,
+"Chilled": 6.0,
+"Dune": 6.0,
+"Eerie": 6.0,
+"Fallen": 6.0,
+"Fortune": 6.0,
+"Frightful": 6.0,
+"Frostbite": 6.0,
+"Gravy": 6.0,
+"Haunted": 6.0,
+"Heavenly": 6.0,
+"Nova": 6.0,
+"Nuclear": 6.0,
+"Rainbow": 6.0,
+"Sand Castled": 6.0,
+"Snowy": 6.0,
+"Spooky": 6.0,
+"Squalled": 6.0,
+"Toxic": 6.0,
+"Anomalous": 5.55,
+"King's Blessing": 5.5,
+"Abyssal": 5.5,
+"Mythical": 5.5,
+"Wisp": 5.5,
+"Solar": 5.3,
+"Clockwork": 5.25,
+"Glyphed": 5.2,
+"Spirit": 5.2,
+"Colossal Ink": 5.0,
+"Corvid": 5.0,
+"Galactic": 5.0,
+"Nullified": 5.0,
+"Lobster": 5.0,
+"Ashen Fortune": 5.0,
+"Barnacle": 5.0,
+"Carrot": 5.0,
+"Creamsicle": 5.0,
+"Electric Shock": 5.0,
+"Emberflame": 5.0,
+"Gemstone": 5.0,
+"Gingerbread": 5.0,
+"Greedy": 5.0,
+"Idol's Spirit": 5.0,
+"Levitas": 5.0,
+"Merry": 5.0,
+"Nico's Nyantics": 5.0,
+"Olympian Infliction": 5.0,
+"Paranormal": 5.0,
+"Peppermint": 5.0,
+"Rainbow Cluster": 5.0,
+"Sandstormy": 5.0,
+"Sanguine": 5.0,
+"Skeletal": 5.0,
+"Terro": 5.0,
+"Veilfallen": 5.0,
+"Electrified": 4.9,
+"Blossomed": 4.6,
+"Blarney": 4.5,
+"Clover": 4.5,
+"Lost": 4.5,
+"Rose": 4.5,
+"Blackwater": 4.5,
+"Bunny": 4.5,
+"Phantom": 4.5,
+"Wrath": 4.5,
+"Harmonized": 4.2,
+"Doomsday": 4.0,
+"Easter": 4.0,
+"Firework": 4.0,
+"Amped": 4.0,
+"Atlantean": 4.0,
+"Bloom": 4.0,
+"Blue Moon": 4.0,
+"Boreal": 4.0,
+"Celestial": 4.0,
+"Cracked": 4.0,
+"Crimson": 4.0,
+"Cursed": 4.0,
+"Entrenched": 4.0,
+"Fungal": 4.0,
+"Hades' Infliction": 4.0,
+"Lovestruck": 4.0,
+"Marrow": 4.0,
+"Moon-Kissed": 4.0,
+"Revitalized": 4.0,
+"Stardust": 4.0,
+"Tiki": 4.0,
+"Zeus's Infliction": 3.8,
+"Aureolin": 3.5,
+"Beach Ball": 3.5,
+"Brined": 3.5,
+"Crystalized": 3.5,
+"Dreaming": 3.5,
+"Lucid": 3.5,
+"Poseidon's Infliction": 3.5,
+"Solarblaze": 3.5,
+"Vined": 3.5,
+"Fossilized": 3.3,
+"Mesmerized": 3.2,
+"Minty": 3.2,
+"Apollo's Infliction": 3.2,
+"Awesome": 3.0,
+"Brother": 3.0,
+"Ghastly": 3.0,
+"Astral": 3.0,
+"Aurulent": 3.0,
+"Bellona's Infliction": 3.0,
+"Blighted": 3.0,
+"Brown Wood": 3.0,
+"Ember": 3.0,
+"Floatie": 3.0,
+"Green Leaf": 3.0,
+"Hexed": 3.0,
+"Mother Nature": 3.0,
+"Quiet": 3.0,
+"Scavenged": 3.0,
+"Scorched": 3.0,
+"Sinister": 2.9,
+"Kaito's Blessing": 2.8,
+"New Years": 2.6,
+"Honey": 2.6,
+"Batty": 2.5,
+"Chocolate": 2.5,
+"Aureate": 2.5,
+"Botanic": 2.5,
+"Lunar": 2.5,
+"Marshmallow": 2.5,
+"Midas": 2.5,
+"Purified": 2.5,
+"Skrunkly": 2.5,
+"Splashed": 2.5,
+"Sludged": 2.5,
+"Festive": 2.4,
+"Sleet": 2.4,
+"Oak": 2.3,
+"Jolly": 2.2,
+"Electric": 2.1,
+"Beachy": 2.0,
+"Honked": 2.0,
+"Smurf": 2.0,
+"Aurelian": 2.0,
+"Bubblegum": 2.0,
+"Candy": 2.0,
+"Forgotten": 2.0,
+"Golden": 2.0,
+"Lightning": 2.0,
+"Lumpy": 2.0,
+"Mace": 2.0,
+"Rockstar": 2.0,
+"Shady": 2.0,
+"Coral": 1.8,
+"Silver": 1.8,
+"Studded": 1.8,
+"Glossy": 1.6,
+"Cement": 1.5,
+"Albino": 1.5,
+"Aurous": 1.5,
+"Darkened": 1.5,
+"Frozen": 1.5,
+"Mosaic": 1.5,
+"Tanned": 1.5,
+"Negative": 1.3,
+"Translucent": 1.3,
+"Fixer": 1.25,
+"Mission Specialist": 1.25,
+"Paleontologist": 1.25,
+"Amber": 1.2,
+"Sandy": 1.2,
+"Stone": 1.1,
+"Lightened": 1.01,
+"Fabricated": 1.0,
+"Neon": 1.0,
+"Blue": 1.0,
+"Female": 1.0,
+"Green": 1.0,
+"Pink": 1.0,
+"Red": 1.0,
+"Upside-Down": 1.0,
+"Yellow": 1.0,
+"Seasonal": 1.0,
+"Poisoned": 0.9,
+"Rotting": 0.88,
+"Rusty": 0.7,
+"67": 0.67,
+"Rooted": 0.66,
+"Soulless": 0.66,
+"Charred": 0.5,
+"Unlucky": 0.5,
+"Decayed": 0.45,
+"Noxious": 0.3,
+"Dirty": 0.3,
+"Husk": 0.14,
+"Exploded": 0.1,
+"Part": 0.01,
+"Unsellable": 0.0,
+"Surreal": 8.0,
+"Putrid": 0.5,
+"Shiny": 1.85,
+"Sparkling": 1.85
+},
+"källa": "fischipedia.org"
+}

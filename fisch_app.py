@@ -21,7 +21,7 @@ import threading
 import time
 import zlib
 
-VERSION = "3.4"   # höj vid varje ny version så att man ser vilken man kör
+VERSION = "3.5"   # höj vid varje ny version så att man ser vilken man kör
 UPPDATERA_URL = "https://raw.githubusercontent.com/quranzy2011-byte/cluade/main/fisch_app.py"
 GITHUB_API = "https://api.github.com"
 DIAG_REPO = "quranzy2011-byte/cluade-2"   # privat repo dit diagnostiken laddas upp
@@ -40,7 +40,9 @@ MUTATIONER = ["Shiny", "Sparkling", "Albino", "Darkened", "Negative", "Transluce
               "Fossilized", "Midas", "Ghastly", "Amber", "Scorched", "Aurora", "Atlantean",
               "Sinister", "Nuclear", "Studded", "Crystalized", "Revitalized", "Greedy",
               "Anomalous", "Sandy", "Blighted", "Heavenly", "Unsure", "Subspace", "Quantum",
-              "Glitched", "Wrath", "Seasonal", "Oscar", "Mythical", "Celestial"]
+              "Glitched", "Wrath", "Seasonal", "Oscar", "Mythical", "Celestial",
+              "Tentacle Surge", "Nova",
+              "Tiny", "Small", "Big", "Giant"]      # storlek: påverkar bara vikten
 
 STANDARD = {
     "cast_tid": 1.0,        # sekunder att hålla inne för kast (om kastmätaren inte syns)
@@ -544,6 +546,11 @@ def läs_fyllning(bild, ram):
 
 
 def hitta_kastmätare(bild):
+    """Kastmätaren i vanlig storlek, annars den lilla (kameran långt bort)."""
+    return _hitta_stor_kastmätare(bild) or hitta_liten_kastmätare(bild)
+
+
+def _hitta_stor_kastmätare(bild):
     """Hittar kastmätaren: ett smalt lodrätt rör bredvid gubben (två tunna mörka
     kantlinjer, grön topp) som fylls med vitt nerifrån.
     Returnerar (andel 0-1, x) eller None."""
@@ -608,6 +615,66 @@ def hitta_kastmätare(bild):
     if bäst is None or not bäst[3]:
         return None
     return (bäst[1], bäst[2], bäst[4], bäst[5])
+
+
+def hitta_liten_kastmätare(bild):
+    """Kastmätaren när kameran är långt bort (t.ex. i en bil): mätaren krymper
+    till ~70 px hög och fyllningen blir ett vitt streck 1-3 px brett, utan de
+    mörka kantlinjerna. Letar efter ett smalt vitt lodrätt streck med mätarens
+    gröna topp rakt ovanför. Returnerar (andel, x, topp, botten) eller None."""
+    import numpy as np
+    H, W = bild.shape[:2]
+    x0, x1, y0, y1 = int(0.30 * W), int(0.80 * W), int(0.20 * H), int(0.88 * H)
+    del_ = bild[y0:y1, x0:x1, :3]
+    lo8, hi8 = _lo_hi(del_)
+    lo, hi = lo8.astype(np.int16), hi8.astype(np.int16)
+    vit = (lo8 >= 150) & (hi8 - lo8 <= 45)
+    # Smalt: 4 px åt sidorna är det tydligt mörkare.
+    smal = np.zeros_like(vit)
+    smal[:, 4:-4] = vit[:, 4:-4] & (hi[:, :-8] < lo[:, 4:-4] - 60) & (hi[:, 8:] < lo[:, 4:-4] - 60)
+    minst = max(6, int(0.006 * H))
+    kol = np.flatnonzero(smal.sum(axis=0) >= minst)
+    bäst = None
+    for x in kol:
+        rader = np.flatnonzero(smal[:, x])
+        run = max(_körningar(rader, 10), key=len)   # ljusa saker bredvid bryter ibland
+        if len(run) < minst:
+            continue
+        yt, yb = int(run[0]), int(run[-1])
+        # Grön topp rakt ovanför (högst ~0,15 H upp).
+        övre = max(0, yt - int(0.15 * H))
+        remsa = del_[övre:yt, max(0, x - 1):x + 2].astype(np.int16)
+        if remsa.size == 0:
+            continue
+        r, g, b = remsa[..., 2], remsa[..., 1], remsa[..., 0]   # BGR
+        grön = ((g >= 80) & (g >= r + 20) & (g >= b + 40)).any(axis=1)
+        gy = np.flatnonzero(grön)
+        if len(gy) == 0:
+            continue
+        # Den gröna toppen är en liten klick (några px): inte ett långt grönt
+        # streck och inte en stor grön yta (t.ex. en lampa).
+        gy_n = övre + int(gy[-1])
+        höjd = 1
+        while höjd < len(gy) and gy[-1 - höjd] == gy[-1] - höjd:
+            höjd += 1
+        if höjd > max(6, int(0.008 * H)):
+            continue
+        rad = del_[gy_n, :, :].astype(np.int16)
+        def _grön(px):
+            return px[1] >= 80 and px[1] >= px[2] + 20 and px[1] >= px[0] + 40
+        if any(0 <= x + d < rad.shape[0] and _grön(rad[x + d]) for d in (-5, -6, 5, 6)):
+            continue
+        topp = gy_n + 2                      # strax under den gröna toppen
+        längd = yb - topp
+        if not (0.03 * H <= längd <= 0.30 * H) or yt < topp:
+            continue
+        # Den ofyllda delen av röret är inte vit.
+        if vit[topp:yt - 1, x].mean() > 0.3 if yt - 1 > topp else False:
+            continue
+        andel = min(1.0, (yb - yt + 1) / längd)
+        if bäst is None or yb - yt > bäst[4]:
+            bäst = (andel, x0 + int(x), y0 + topp, y0 + yb, yb - yt)
+    return None if bäst is None else bäst[:4]
 
 
 def _fyllgräns(kol):
@@ -1381,16 +1448,73 @@ def tolka_fångst(text):
     return {"namn": namn, "kg": round(kg, 2), "chans": chans}
 
 
-def dela_mutationer(namn, mutationer=MUTATIONER):
-    """"Shiny Sparkling Mullet" -> (["Shiny", "Sparkling"], "Mullet")."""
+def dela_mutationer(namn, mutationer=MUTATIONER, fiskar=()):
+    """"Shiny Sparkling Mullet" -> (["Shiny", "Sparkling"], "Mullet").
+    Stannar när resten är en känd fisk ("Big Giant Seadevil" -> Big + Giant Seadevil)."""
     ord_ = namn.split()
     muts = []
-    while len(ord_) > 1 and ord_[0] in mutationer:
-        muts.append(ord_.pop(0))
+    hittat = True
+    while hittat and len(ord_) > 1 and " ".join(ord_) not in fiskar:
+        hittat = False
+        for n in (3, 2, 1):             # även mutationer i flera ord ("Tentacle Surge")
+            if len(ord_) > n and " ".join(ord_[:n]) in mutationer:
+                muts.append(" ".join(ord_[:n]))
+                del ord_[:n]
+                hittat = True
+                break
     return muts, " ".join(ord_)
 
 
-def läs_fångst(utsnitt_lista, skärmhöjd, kända=()):
+def _tolka_prefix(ord_, mutationer):
+    """Orden före fisknamnet ska vara mutationer/storlek (läsfel tillåts) eller
+    korta skräpbitar. Returnerar (rättade mutationer, poäng) eller (None, None);
+    poängen = likhet × antal tecken, för att jämföra olika tolkningar."""
+    import difflib
+    muts, i, poäng = [], 0, 0.0
+    while i < len(ord_):
+        for n in (3, 2, 1):
+            if i + n > len(ord_):
+                continue
+            bit = " ".join(ord_[i:i + n])
+            t = difflib.get_close_matches(bit, mutationer, 1, 0.6 if len(bit) <= 3 else 0.75)
+            if t and len(t[0].split()) == n:
+                muts.append(t[0])
+                poäng += difflib.SequenceMatcher(None, bit, t[0]).ratio() * len(bit)
+                i += n
+                break
+        else:
+            if len(ord_[i]) > 2:
+                return None, None       # ett riktigt ord som inte är en mutation
+            i += 1                      # skräp som "a" eller "s" före namnet
+    return muts, poäng
+
+
+def rätta_namn(namn, fisknamn, mutationer=MUTATIONER):
+    """Rättar läsfel mot prislistans fisknamn och mutationerna:
+    "Albitio Sawiish" -> "Albino Sawfish", "Cankiecubier Shark" -> "Cookiecutter Shark".
+    Oförändrat om inget fisknamn liknar tillräckligt."""
+    import difflib
+    ord_ = namn.split()
+    if not ord_ or not fisknamn:
+        return namn
+    bäst = None     # (total likhet, -k, fisk, mutationer)
+    for k in range(len(ord_)):
+        muts, poäng = _tolka_prefix(ord_[:k], mutationer)
+        if muts is None:
+            continue
+        rest = " ".join(ord_[k:])
+        träff = difflib.get_close_matches(rest, fisknamn, 1, 0.75)
+        if träff:
+            r = difflib.SequenceMatcher(None, rest.lower(), träff[0].lower()).ratio()
+            total = (poäng + r * len(rest)) / len(namn)
+            if bäst is None or (total, -k) > bäst[:2]:
+                bäst = (total, -k, träff[0], muts)
+    if bäst is None:
+        return namn
+    return " ".join(bäst[3] + [bäst[2]])
+
+
+def läs_fångst(utsnitt_lista, skärmhöjd, kända=(), fisknamn=(), mutationer=MUTATIONER):
     """Läser fångsttexten i flera bilder och väger ihop svaren.
 
     Alla tolkade rader samlas; liknande namn slås ihop (läsfel som "Crak"/"Crab")
@@ -1440,6 +1564,7 @@ def läs_fångst(utsnitt_lista, skärmhöjd, kända=()):
             if difflib.SequenceMatcher(None, namn2.lower(), ut[0]["namn"].lower()).ratio() >= 0.5:
                 continue    # samma fisk, läst fel (t.ex. "Bnentom Key" = "Phantom Ray")
         namn = collections.Counter(r["namn"] for r in rs).most_common(1)[0][0]
+        namn = rätta_namn(namn, fisknamn, mutationer)
         if kända:
             nära = difflib.get_close_matches(namn, list(kända), 1, 0.8)
             if nära:
@@ -1763,6 +1888,12 @@ class Diagnostik:
         if self.på() and bild is not None and getattr(self, "n_kastbilder", 0) < 3:
             self.n_kastbilder = getattr(self, "n_kastbilder", 0) + 1
             self.bild(f"kast_{time.strftime('%H%M%S')}", bild, halv=True)
+
+    def shakebild(self, bild):
+        """En bild när ingen shake-knapp har synts på 3 s (högst 5 per pass)."""
+        if self.på() and bild is not None and getattr(self, "n_shakebilder", 0) < 5:
+            self.n_shakebilder = getattr(self, "n_shakebilder", 0) + 1
+            self.bild(f"shake_{time.strftime('%H%M%S')}", bild, halv=True)
 
     def inget_napp(self, bild):
         if self.på() and bild is not None:
@@ -2168,6 +2299,7 @@ class Makro:
         först_sett = None
         högst = 0.0
         känd = None
+        förslag = None       # möjlig mätare som ännu inte har setts växa
         while True:
             nu = time.time()
             if nu - start > 3.0 or (not sett and nu - start > max(1.2, self.inst["cast_tid"])):
@@ -2181,6 +2313,17 @@ class Makro:
             bild = self.skärm.hämta()
             self.vakt(bild)
             m = hitta_kastmätare(bild) if bild is not None else None
+            if m is not None and not sett:
+                # Mätaren börjar tom och växer. Något stillastående med grön topp
+                # (text, kanten på en sak) är inte mätaren: kräv att den har vuxit.
+                samma = förslag is not None and abs(m[1] - förslag[1]) <= 4 and \
+                    abs(m[2] - förslag[2]) <= 6
+                if not (samma and m[0] >= förslag[0] + 0.03):
+                    if not samma or m[0] < förslag[0]:
+                        förslag = m
+                    m = None
+            if m is not None and sett and abs(m[1] - känd[0]) > 20:
+                m = None            # något annat än mätaren vi följer
             if m is not None:
                 känd = (m[1], m[2], m[3])
             elif sett and bild is not None:
@@ -2277,7 +2420,7 @@ class Makro:
         self.diag.kast(float(orsak.rstrip("%")) / 100 if orsak.endswith("%") else orsak)
         return True
 
-    def vänta_på_napp(self):
+    def vänta_på_napp(self, nav_redan_på=False):
         """Väntar tills minispelet dyker upp och sköter shake. False = inget napp.
 
         UI Navigation: Enter trycks BARA när shake-knappen syns och är markerad
@@ -2286,7 +2429,7 @@ class Makro:
         markerad) klickas den med musen i stället."""
         läge = self.inst["shake"]
         self.status("Väntar på napp")
-        if läge == "navigation":
+        if läge == "navigation" and not nav_redan_på:
             self.nav()
         start = kast_slut = time.time()
         senast_klick = 0.0
@@ -2296,6 +2439,9 @@ class Makro:
         tryckt_på = None     # (x, y) för ringen som Enter senast trycktes på
         varv = 0
         senast_blå = senast_full = 0.0
+        senast_ring = time.time()
+        senast_navfix = 0.0
+        bild_sparad = False
         try:
             while True:
                 bild = self.skärm.hämta()
@@ -2318,6 +2464,11 @@ class Makro:
                     blå = ring is not None
                     if ring is not None:
                         senast_blå = nu
+                        if senast_navfix:
+                            self.navfix_hjälper = True
+                    elif senast_navfix and nu - senast_navfix > 2.0 and \
+                            getattr(self, "navfix_hjälper", None) is None:
+                        self.navfix_hjälper = False    # blev aldrig blå: försök inte igen
                     # Den långsamma sökningen (vita ringar) bara i klickläge, eller när
                     # ingen blå ring har synts på en stund - och högst en gång per sekund.
                     full_sökning = ring is None and (
@@ -2329,6 +2480,20 @@ class Makro:
                         if ring and ring[2] < 0.035 * H:
                             ring = None     # för liten för en shake-knapp (t.ex. en ikon)
                         blå = ring is not None and läge == "navigation" and ring_är_blå(bild, *ring)
+                        if ring and not blå and läge == "navigation" and not senast_navfix \
+                                and getattr(self, "navfix_hjälper", True):
+                            # Vit ring fast UI Navigation borde vara på: den var nog redan
+                            # på (och slogs av av oss). Slå på den igen, så blir ringen blå.
+                            senast_navfix = nu
+                            stat["navfix"] = stat.get("navfix", 0) + 1
+                            self.nav()
+                            self.vänta(0.1)
+                            continue
+                    if ring:
+                        senast_ring = nu
+                    elif not bild_sparad and nu - senast_ring > 3.0:
+                        bild_sparad = True      # ingen ring på 3 s: spara en bild
+                        self.diag.shakebild(bild)
                     if ring:
                         stat["ringar"] += 1
                         stat["blå"] += blå
@@ -2380,9 +2545,17 @@ class Makro:
         """En hel fiskerunda. Returnerar 'fångad', 'tappad' eller 'inget napp'."""
         self.shakes = 0
         self.kamptid = 0.0
-        self.kasta()
-        self.vänta(self.slump(0.6))
-        if not self.vänta_på_napp():
+        redan = getattr(self, "redan_kastat", False)
+        if redan:
+            # Shake-knappen syntes redan (blå = UI Navigation är redan på) efter
+            # förra fångsten: spelet har redan kastat. Ett nytt tryck skulle bara
+            # klicka bort tid.
+            self.redan_kastat = False
+            self.diag.kast("redan kastat")
+        else:
+            self.kasta()
+            self.vänta(self.slump(0.6))
+        if not self.vänta_på_napp(nav_redan_på=redan):
             self.diag.inget_napp(self.skärm.hämta())
             return "inget napp"
         self.status("Drar in")
@@ -2399,12 +2572,18 @@ class Makro:
         # Fångsttexten ("You just caught a ... (1/N)") syns ett par sekunder efter
         # en fångst: ta tre bilder och läs dem i bakgrunden. Det görs efter varje
         # kamp - syns texten efter en "tappad" var den i själva verket fångad.
-        utsnitt, bild = [], None
+        utsnitt, bild, ringar = [], None, []
         for paus in (0.4, 0.5, 0.5):
             self.vänta(paus)
             bild = self.skärm.hämta()
             if bild is not None:
                 utsnitt.append(fångsttext_utsnitt(bild))
+                ringar.append(snabb_blå_ring(bild))
+        # Syns shake-knappen redan (på samma ställe i de två sista bilderna) har
+        # spelet redan kastat: hoppa över nästa kast.
+        if len(ringar) >= 2 and ringar[-1] and ringar[-2] and \
+                abs(ringar[-1][0] - ringar[-2][0]) < 20 and abs(ringar[-1][1] - ringar[-2][1]) < 20:
+            self.redan_kastat = True
         if resultat == "fångad":
             self.diag.fångstbild(bild)
         if utsnitt and shutil.which("tesseract"):
@@ -2415,7 +2594,9 @@ class Makro:
 
     def _läs_fångst(self, utsnitt, H, resultat="fångad"):
         try:
-            r, rå = läs_fångst(utsnitt, H, getattr(self, "kända_namn", ()))
+            r, rå = läs_fångst(utsnitt, H, getattr(self, "kända_namn", ()),
+                               getattr(self, "fisknamn", ()),
+                               getattr(self, "mutationsnamn", MUTATIONER))
         except Exception as fel:
             r, rå = None, [f"fel: {fel!r}"]
         self.diag.fångsttext(utsnitt[0], rå, r)
@@ -2796,6 +2977,7 @@ class App:
         self.q = queue.Queue()
         self.makro = Makro(self.inst, self.q)
         self.makro.kända_namn = {x["namn"] for x in self.fisklogg}
+        self.namnlistor()
         self.stat = {"fångad": 0, "tappad": 0, "inget napp": 0}
         self.fångster = []   # tidpunkter för fångster (för grafen)
         self.start_tid = None
@@ -3009,12 +3191,30 @@ class App:
         self.fångst_info.pack(fill="x", pady=(6, 0))
         self.rita_fångster()
 
+    def namnlistor(self):
+        """Ger textläsningen prislistans fisk- och mutationsnamn (för att rätta
+        läsfel) och rättar redan loggade namn som lästes fel."""
+        fiskar = list(self.priser.get("fiskar", {}))
+        if not fiskar:
+            return
+        self.makro.fisknamn = fiskar
+        self.makro.mutationsnamn = self.mutationslista()
+        ändrat = False
+        for x in self.fisklogg:
+            nytt = rätta_namn(x["namn"], fiskar, self.makro.mutationsnamn)
+            if nytt != x["namn"]:
+                x["namn"], ändrat = nytt, True
+        if ändrat:
+            self.spara_fisklogg()
+        self.makro.kända_namn = {x["namn"] for x in self.fisklogg}
+
     def mutationslista(self):
         return MUTATIONER + [m for m in self.priser.get("mutationer", {}) if m not in MUTATIONER]
 
     def värde(self, x):
         """Grundpris per kg × vikt × mutationernas multiplikatorer (None om priset saknas)."""
-        muts, fisk = dela_mutationer(x["namn"], self.mutationslista())
+        muts, fisk = dela_mutationer(x["namn"], self.mutationslista(),
+                                     self.priser.get("fiskar", {}))
         info = self.priser.get("fiskar", {}).get(fisk)
         if not info or not info.get("kg_pris"):
             return None
@@ -3683,6 +3883,7 @@ class App:
                         self.rita_fångster()
                 elif typ == "priser":
                     self.priser = data
+                    self.namnlistor()
                     self.rita_fångster()
                 elif typ == "larm_slut":
                     self.skriv("✓ Spelet syns igen – fiskar vidare")
