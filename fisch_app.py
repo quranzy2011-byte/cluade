@@ -21,7 +21,7 @@ import threading
 import time
 import zlib
 
-VERSION = "3.6"   # höj vid varje ny version så att man ser vilken man kör
+VERSION = "3.7"   # höj vid varje ny version så att man ser vilken man kör
 UPPDATERA_URL = "https://raw.githubusercontent.com/quranzy2011-byte/cluade/main/fisch_app.py"
 GITHUB_API = "https://api.github.com"
 DIAG_REPO = "quranzy2011-byte/cluade-2"   # privat repo dit diagnostiken laddas upp
@@ -3145,6 +3145,18 @@ class App:
             pass
         if self.inst["shake"] in (True, False, "enter"):
             self.inst["shake"] = "navigation"
+        if "--bara-fiske" in sys.argv:
+            # Startad från Windows-startfilen till en kompis: bara fiske, inga
+            # diagnostikbilder.
+            if self.inst.get("diagnostik"):
+                self.inst["diagnostik"] = False
+                try:
+                    os.makedirs(os.path.dirname(KONFIG), exist_ok=True)
+                    with open(KONFIG, "w", encoding="utf-8") as f:
+                        json.dump({"inställningar": self.inst, "profiler": self.profiler}, f,
+                                  indent=1)
+                except OSError:
+                    pass
 
         self.hist = {"totalt": {}, "rekord": {}, "sessioner": []}
         try:
